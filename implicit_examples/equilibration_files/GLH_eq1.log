@@ -1,0 +1,816 @@
+
+     ######################################################################
+   ##########################################################################
+  ###                                                                      ###
+ ###            TINKER  ---  Software Tools for Molecular Design            ###
+ ##                                                                          ##
+ ##                        Version 6.3  February 2014                        ##
+ ##                                                                          ##
+ ##               Copyright (c)  Jay William Ponder  1990-2014               ##
+ ###                           All Rights Reserved                          ###
+  ###                                                                      ###
+   ##########################################################################
+     ######################################################################
+
+
+ Molecular Dynamics Trajectory via Velocity Verlet Algorithm
+
+ Average Values for the Last  1000 Out of     1000 Dynamics Steps
+
+ Simulation Time              1.0000 Picosecond
+ Total Energy               -14.5808 Kcal/mole   (+/-  41.3169)
+ Potential Energy           -33.9285 Kcal/mole   (+/-  40.7856)
+ Kinetic Energy              19.3477 Kcal/mole   (+/-   4.9538)
+ Temperature                  249.64 Kelvin      (+/-    63.92)
+
+ Instantaneous Values for Frame Saved at      1000 Dynamics Steps
+
+ Current Time                 1.0000 Picosecond
+ Current Potential           17.9676 Kcal/mole
+ Current Kinetic             26.9624 Kcal/mole
+ Frame Number                      1
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     2000 Dynamics Steps
+
+ Simulation Time              2.0000 Picosecond
+ Total Energy                -9.4292 Kcal/mole   (+/-  43.5807)
+ Potential Energy           -30.5100 Kcal/mole   (+/-  43.4161)
+ Kinetic Energy              21.0808 Kcal/mole   (+/-   3.0921)
+ Temperature                  272.01 Kelvin      (+/-    39.90)
+
+ Instantaneous Values for Frame Saved at      2000 Dynamics Steps
+
+ Current Time                 2.0000 Picosecond
+ Current Potential         -111.8750 Kcal/mole
+ Current Kinetic             21.4890 Kcal/mole
+ Frame Number                      2
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     3000 Dynamics Steps
+
+ Simulation Time              3.0000 Picosecond
+ Total Energy                -4.5429 Kcal/mole   (+/-  42.4990)
+ Potential Energy           -27.4481 Kcal/mole   (+/-  42.5326)
+ Kinetic Energy              22.9053 Kcal/mole   (+/-   3.4728)
+ Temperature                  295.55 Kelvin      (+/-    44.81)
+
+ Instantaneous Values for Frame Saved at      3000 Dynamics Steps
+
+ Current Time                 3.0000 Picosecond
+ Current Potential          -27.6885 Kcal/mole
+ Current Kinetic             32.3978 Kcal/mole
+ Frame Number                      3
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     4000 Dynamics Steps
+
+ Simulation Time              4.0000 Picosecond
+ Total Energy                 0.8759 Kcal/mole   (+/-  44.2150)
+ Potential Energy           -23.5330 Kcal/mole   (+/-  44.1167)
+ Kinetic Energy              24.4089 Kcal/mole   (+/-   3.2077)
+ Temperature                  314.95 Kelvin      (+/-    41.39)
+
+ Instantaneous Values for Frame Saved at      4000 Dynamics Steps
+
+ Current Time                 4.0000 Picosecond
+ Current Potential          -16.8284 Kcal/mole
+ Current Kinetic             25.1954 Kcal/mole
+ Frame Number                      4
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     5000 Dynamics Steps
+
+ Simulation Time              5.0000 Picosecond
+ Total Energy                -5.2394 Kcal/mole   (+/-  54.0179)
+ Potential Energy           -29.1056 Kcal/mole   (+/-  54.0916)
+ Kinetic Energy              23.8663 Kcal/mole   (+/-   3.5991)
+ Temperature                  307.95 Kelvin      (+/-    46.44)
+
+ Instantaneous Values for Frame Saved at      5000 Dynamics Steps
+
+ Current Time                 5.0000 Picosecond
+ Current Potential           37.8393 Kcal/mole
+ Current Kinetic             23.4635 Kcal/mole
+ Frame Number                      5
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     6000 Dynamics Steps
+
+ Simulation Time              6.0000 Picosecond
+ Total Energy                -1.0495 Kcal/mole   (+/-  46.4296)
+ Potential Energy           -25.5420 Kcal/mole   (+/-  46.2564)
+ Kinetic Energy              24.4925 Kcal/mole   (+/-   3.3203)
+ Temperature                  316.03 Kelvin      (+/-    42.84)
+
+ Instantaneous Values for Frame Saved at      6000 Dynamics Steps
+
+ Current Time                 6.0000 Picosecond
+ Current Potential            7.1747 Kcal/mole
+ Current Kinetic             24.7935 Kcal/mole
+ Frame Number                      6
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     7000 Dynamics Steps
+
+ Simulation Time              7.0000 Picosecond
+ Total Energy                -2.6154 Kcal/mole   (+/-  44.6166)
+ Potential Energy           -25.9559 Kcal/mole   (+/-  44.5218)
+ Kinetic Energy              23.3405 Kcal/mole   (+/-   3.3265)
+ Temperature                  301.16 Kelvin      (+/-    42.92)
+
+ Instantaneous Values for Frame Saved at      7000 Dynamics Steps
+
+ Current Time                 7.0000 Picosecond
+ Current Potential          -34.0214 Kcal/mole
+ Current Kinetic             17.1086 Kcal/mole
+ Frame Number                      7
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     8000 Dynamics Steps
+
+ Simulation Time              8.0000 Picosecond
+ Total Energy                -4.9147 Kcal/mole   (+/-  45.5037)
+ Potential Energy           -27.7331 Kcal/mole   (+/-  45.4208)
+ Kinetic Energy              22.8183 Kcal/mole   (+/-   2.8257)
+ Temperature                  294.43 Kelvin      (+/-    36.46)
+
+ Instantaneous Values for Frame Saved at      8000 Dynamics Steps
+
+ Current Time                 8.0000 Picosecond
+ Current Potential            7.8441 Kcal/mole
+ Current Kinetic             24.3248 Kcal/mole
+ Frame Number                      8
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of     9000 Dynamics Steps
+
+ Simulation Time              9.0000 Picosecond
+ Total Energy                -0.6471 Kcal/mole   (+/-  42.1801)
+ Potential Energy           -24.2663 Kcal/mole   (+/-  42.1448)
+ Kinetic Energy              23.6191 Kcal/mole   (+/-   2.7836)
+ Temperature                  304.76 Kelvin      (+/-    35.92)
+
+ Instantaneous Values for Frame Saved at      9000 Dynamics Steps
+
+ Current Time                 9.0000 Picosecond
+ Current Potential          -16.5633 Kcal/mole
+ Current Kinetic             22.7853 Kcal/mole
+ Frame Number                      9
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    10000 Dynamics Steps
+
+ Simulation Time             10.0000 Picosecond
+ Total Energy                -5.7504 Kcal/mole   (+/-  44.1931)
+ Potential Energy           -28.3713 Kcal/mole   (+/-  44.0982)
+ Kinetic Energy              22.6208 Kcal/mole   (+/-   3.8128)
+ Temperature                  291.88 Kelvin      (+/-    49.20)
+
+ Instantaneous Values for Frame Saved at     10000 Dynamics Steps
+
+ Current Time                10.0000 Picosecond
+ Current Potential          -38.1241 Kcal/mole
+ Current Kinetic             19.0194 Kcal/mole
+ Frame Number                     10
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    11000 Dynamics Steps
+
+ Simulation Time             11.0000 Picosecond
+ Total Energy                -6.6425 Kcal/mole   (+/-  42.9132)
+ Potential Energy           -27.2987 Kcal/mole   (+/-  42.8923)
+ Kinetic Energy              20.6563 Kcal/mole   (+/-   2.9532)
+ Temperature                  266.53 Kelvin      (+/-    38.11)
+
+ Instantaneous Values for Frame Saved at     11000 Dynamics Steps
+
+ Current Time                11.0000 Picosecond
+ Current Potential            1.6732 Kcal/mole
+ Current Kinetic             22.4848 Kcal/mole
+ Frame Number                     11
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    12000 Dynamics Steps
+
+ Simulation Time             12.0000 Picosecond
+ Total Energy                -4.9345 Kcal/mole   (+/-  42.4179)
+ Potential Energy           -27.8962 Kcal/mole   (+/-  42.4435)
+ Kinetic Energy              22.9617 Kcal/mole   (+/-   3.2194)
+ Temperature                  296.28 Kelvin      (+/-    41.54)
+
+ Instantaneous Values for Frame Saved at     12000 Dynamics Steps
+
+ Current Time                12.0000 Picosecond
+ Current Potential            5.3524 Kcal/mole
+ Current Kinetic             19.8100 Kcal/mole
+ Frame Number                     12
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    13000 Dynamics Steps
+
+ Simulation Time             13.0000 Picosecond
+ Total Energy                -0.2184 Kcal/mole   (+/-  44.2745)
+ Potential Energy           -24.0876 Kcal/mole   (+/-  44.3229)
+ Kinetic Energy              23.8692 Kcal/mole   (+/-   3.0501)
+ Temperature                  307.99 Kelvin      (+/-    39.36)
+
+ Instantaneous Values for Frame Saved at     13000 Dynamics Steps
+
+ Current Time                13.0000 Picosecond
+ Current Potential           -9.5190 Kcal/mole
+ Current Kinetic             24.8730 Kcal/mole
+ Frame Number                     13
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    14000 Dynamics Steps
+
+ Simulation Time             14.0000 Picosecond
+ Total Energy                -0.7521 Kcal/mole   (+/-  41.3749)
+ Potential Energy           -23.9304 Kcal/mole   (+/-  41.4921)
+ Kinetic Energy              23.1784 Kcal/mole   (+/-   3.0818)
+ Temperature                  299.07 Kelvin      (+/-    39.76)
+
+ Instantaneous Values for Frame Saved at     14000 Dynamics Steps
+
+ Current Time                14.0000 Picosecond
+ Current Potential          -51.1454 Kcal/mole
+ Current Kinetic             23.4559 Kcal/mole
+ Frame Number                     14
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    15000 Dynamics Steps
+
+ Simulation Time             15.0000 Picosecond
+ Total Energy                -1.5699 Kcal/mole   (+/-  45.7133)
+ Potential Energy           -25.6308 Kcal/mole   (+/-  45.7485)
+ Kinetic Energy              24.0609 Kcal/mole   (+/-   3.1181)
+ Temperature                  310.46 Kelvin      (+/-    40.23)
+
+ Instantaneous Values for Frame Saved at     15000 Dynamics Steps
+
+ Current Time                15.0000 Picosecond
+ Current Potential          -22.3820 Kcal/mole
+ Current Kinetic             21.4423 Kcal/mole
+ Frame Number                     15
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    16000 Dynamics Steps
+
+ Simulation Time             16.0000 Picosecond
+ Total Energy                 0.7240 Kcal/mole   (+/-  43.3589)
+ Potential Energy           -22.7402 Kcal/mole   (+/-  43.2077)
+ Kinetic Energy              23.4642 Kcal/mole   (+/-   3.5829)
+ Temperature                  302.76 Kelvin      (+/-    46.23)
+
+ Instantaneous Values for Frame Saved at     16000 Dynamics Steps
+
+ Current Time                16.0000 Picosecond
+ Current Potential           81.5155 Kcal/mole
+ Current Kinetic             22.5207 Kcal/mole
+ Frame Number                     16
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    17000 Dynamics Steps
+
+ Simulation Time             17.0000 Picosecond
+ Total Energy                 1.5039 Kcal/mole   (+/-  43.7812)
+ Potential Energy           -22.9222 Kcal/mole   (+/-  43.5567)
+ Kinetic Energy              24.4261 Kcal/mole   (+/-   3.7596)
+ Temperature                  315.17 Kelvin      (+/-    48.51)
+
+ Instantaneous Values for Frame Saved at     17000 Dynamics Steps
+
+ Current Time                17.0000 Picosecond
+ Current Potential           -0.5799 Kcal/mole
+ Current Kinetic             23.7215 Kcal/mole
+ Frame Number                     17
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    18000 Dynamics Steps
+
+ Simulation Time             18.0000 Picosecond
+ Total Energy                -2.2327 Kcal/mole   (+/-  43.0494)
+ Potential Energy           -25.3319 Kcal/mole   (+/-  43.2347)
+ Kinetic Energy              23.0992 Kcal/mole   (+/-   2.3830)
+ Temperature                  298.05 Kelvin      (+/-    30.75)
+
+ Instantaneous Values for Frame Saved at     18000 Dynamics Steps
+
+ Current Time                18.0000 Picosecond
+ Current Potential            1.9133 Kcal/mole
+ Current Kinetic             25.9298 Kcal/mole
+ Frame Number                     18
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    19000 Dynamics Steps
+
+ Simulation Time             19.0000 Picosecond
+ Total Energy                -3.2649 Kcal/mole   (+/-  43.4949)
+ Potential Energy           -25.4943 Kcal/mole   (+/-  43.5940)
+ Kinetic Energy              22.2294 Kcal/mole   (+/-   3.2718)
+ Temperature                  286.83 Kelvin      (+/-    42.22)
+
+ Instantaneous Values for Frame Saved at     19000 Dynamics Steps
+
+ Current Time                19.0000 Picosecond
+ Current Potential          -59.2530 Kcal/mole
+ Current Kinetic             27.7448 Kcal/mole
+ Frame Number                     19
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    20000 Dynamics Steps
+
+ Simulation Time             20.0000 Picosecond
+ Total Energy                 1.1089 Kcal/mole   (+/-  43.5421)
+ Potential Energy           -22.3346 Kcal/mole   (+/-  43.3158)
+ Kinetic Energy              23.4435 Kcal/mole   (+/-   3.4220)
+ Temperature                  302.49 Kelvin      (+/-    44.15)
+
+ Instantaneous Values for Frame Saved at     20000 Dynamics Steps
+
+ Current Time                20.0000 Picosecond
+ Current Potential           37.7382 Kcal/mole
+ Current Kinetic             22.7332 Kcal/mole
+ Frame Number                     20
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    21000 Dynamics Steps
+
+ Simulation Time             21.0000 Picosecond
+ Total Energy                 1.0152 Kcal/mole   (+/-  44.0174)
+ Potential Energy           -23.7695 Kcal/mole   (+/-  43.9491)
+ Kinetic Energy              24.7846 Kcal/mole   (+/-   3.8666)
+ Temperature                  319.80 Kelvin      (+/-    49.89)
+
+ Instantaneous Values for Frame Saved at     21000 Dynamics Steps
+
+ Current Time                21.0000 Picosecond
+ Current Potential          -37.2957 Kcal/mole
+ Current Kinetic             17.5702 Kcal/mole
+ Frame Number                     21
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    22000 Dynamics Steps
+
+ Simulation Time             22.0000 Picosecond
+ Total Energy                 3.6627 Kcal/mole   (+/-  42.2965)
+ Potential Energy           -21.8792 Kcal/mole   (+/-  42.1618)
+ Kinetic Energy              25.5419 Kcal/mole   (+/-   4.1405)
+ Temperature                  329.57 Kelvin      (+/-    53.43)
+
+ Instantaneous Values for Frame Saved at     22000 Dynamics Steps
+
+ Current Time                22.0000 Picosecond
+ Current Potential          -27.8257 Kcal/mole
+ Current Kinetic             21.3263 Kcal/mole
+ Frame Number                     22
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    23000 Dynamics Steps
+
+ Simulation Time             23.0000 Picosecond
+ Total Energy                 1.3221 Kcal/mole   (+/-  45.4726)
+ Potential Energy           -23.2762 Kcal/mole   (+/-  45.4130)
+ Kinetic Energy              24.5982 Kcal/mole   (+/-   3.5715)
+ Temperature                  317.39 Kelvin      (+/-    46.08)
+
+ Instantaneous Values for Frame Saved at     23000 Dynamics Steps
+
+ Current Time                23.0000 Picosecond
+ Current Potential          -78.4372 Kcal/mole
+ Current Kinetic             28.2159 Kcal/mole
+ Frame Number                     23
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    24000 Dynamics Steps
+
+ Simulation Time             24.0000 Picosecond
+ Total Energy                -0.1029 Kcal/mole   (+/-  44.9635)
+ Potential Energy           -23.6455 Kcal/mole   (+/-  44.8072)
+ Kinetic Energy              23.5427 Kcal/mole   (+/-   3.2440)
+ Temperature                  303.77 Kelvin      (+/-    41.86)
+
+ Instantaneous Values for Frame Saved at     24000 Dynamics Steps
+
+ Current Time                24.0000 Picosecond
+ Current Potential           76.0308 Kcal/mole
+ Current Kinetic             24.7818 Kcal/mole
+ Frame Number                     24
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    25000 Dynamics Steps
+
+ Simulation Time             25.0000 Picosecond
+ Total Energy                -1.3130 Kcal/mole   (+/-  44.0934)
+ Potential Energy           -24.5563 Kcal/mole   (+/-  43.9156)
+ Kinetic Energy              23.2432 Kcal/mole   (+/-   3.5209)
+ Temperature                  299.91 Kelvin      (+/-    45.43)
+
+ Instantaneous Values for Frame Saved at     25000 Dynamics Steps
+
+ Current Time                25.0000 Picosecond
+ Current Potential          -30.1287 Kcal/mole
+ Current Kinetic             25.6188 Kcal/mole
+ Frame Number                     25
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    26000 Dynamics Steps
+
+ Simulation Time             26.0000 Picosecond
+ Total Energy                 2.3658 Kcal/mole   (+/-  45.6117)
+ Potential Energy           -22.1922 Kcal/mole   (+/-  45.5809)
+ Kinetic Energy              24.5580 Kcal/mole   (+/-   3.5308)
+ Temperature                  316.87 Kelvin      (+/-    45.56)
+
+ Instantaneous Values for Frame Saved at     26000 Dynamics Steps
+
+ Current Time                26.0000 Picosecond
+ Current Potential           75.6909 Kcal/mole
+ Current Kinetic             22.4460 Kcal/mole
+ Frame Number                     26
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    27000 Dynamics Steps
+
+ Simulation Time             27.0000 Picosecond
+ Total Energy                 4.7871 Kcal/mole   (+/-  45.3434)
+ Potential Energy           -20.7453 Kcal/mole   (+/-  45.1902)
+ Kinetic Energy              25.5325 Kcal/mole   (+/-   3.5837)
+ Temperature                  329.45 Kelvin      (+/-    46.24)
+
+ Instantaneous Values for Frame Saved at     27000 Dynamics Steps
+
+ Current Time                27.0000 Picosecond
+ Current Potential          -63.1505 Kcal/mole
+ Current Kinetic             21.2139 Kcal/mole
+ Frame Number                     27
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    28000 Dynamics Steps
+
+ Simulation Time             28.0000 Picosecond
+ Total Energy                 1.8298 Kcal/mole   (+/-  44.7283)
+ Potential Energy           -22.8100 Kcal/mole   (+/-  44.5492)
+ Kinetic Energy              24.6397 Kcal/mole   (+/-   3.4087)
+ Temperature                  317.93 Kelvin      (+/-    43.98)
+
+ Instantaneous Values for Frame Saved at     28000 Dynamics Steps
+
+ Current Time                28.0000 Picosecond
+ Current Potential          -76.5666 Kcal/mole
+ Current Kinetic             24.6208 Kcal/mole
+ Frame Number                     28
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    29000 Dynamics Steps
+
+ Simulation Time             29.0000 Picosecond
+ Total Energy                -1.8401 Kcal/mole   (+/-  44.9660)
+ Potential Energy           -25.5639 Kcal/mole   (+/-  44.8225)
+ Kinetic Energy              23.7238 Kcal/mole   (+/-   3.4428)
+ Temperature                  306.11 Kelvin      (+/-    44.42)
+
+ Instantaneous Values for Frame Saved at     29000 Dynamics Steps
+
+ Current Time                29.0000 Picosecond
+ Current Potential           20.1131 Kcal/mole
+ Current Kinetic             24.5373 Kcal/mole
+ Frame Number                     29
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    30000 Dynamics Steps
+
+ Simulation Time             30.0000 Picosecond
+ Total Energy                -3.1711 Kcal/mole   (+/-  45.8530)
+ Potential Energy           -26.0062 Kcal/mole   (+/-  45.7523)
+ Kinetic Energy              22.8352 Kcal/mole   (+/-   3.0993)
+ Temperature                  294.64 Kelvin      (+/-    39.99)
+
+ Instantaneous Values for Frame Saved at     30000 Dynamics Steps
+
+ Current Time                30.0000 Picosecond
+ Current Potential           12.4995 Kcal/mole
+ Current Kinetic             28.0452 Kcal/mole
+ Frame Number                     30
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    31000 Dynamics Steps
+
+ Simulation Time             31.0000 Picosecond
+ Total Energy                -8.0421 Kcal/mole   (+/-  44.5688)
+ Potential Energy           -29.0054 Kcal/mole   (+/-  44.4882)
+ Kinetic Energy              20.9633 Kcal/mole   (+/-   3.2059)
+ Temperature                  270.49 Kelvin      (+/-    41.37)
+
+ Instantaneous Values for Frame Saved at     31000 Dynamics Steps
+
+ Current Time                31.0000 Picosecond
+ Current Potential          -15.7293 Kcal/mole
+ Current Kinetic             29.7464 Kcal/mole
+ Frame Number                     31
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    32000 Dynamics Steps
+
+ Simulation Time             32.0000 Picosecond
+ Total Energy                -2.8887 Kcal/mole   (+/-  45.2367)
+ Potential Energy           -24.8305 Kcal/mole   (+/-  45.0443)
+ Kinetic Energy              21.9418 Kcal/mole   (+/-   3.8413)
+ Temperature                  283.12 Kelvin      (+/-    49.56)
+
+ Instantaneous Values for Frame Saved at     32000 Dynamics Steps
+
+ Current Time                32.0000 Picosecond
+ Current Potential           -7.9297 Kcal/mole
+ Current Kinetic             19.1053 Kcal/mole
+ Frame Number                     32
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    33000 Dynamics Steps
+
+ Simulation Time             33.0000 Picosecond
+ Total Energy                -0.3460 Kcal/mole   (+/-  44.2496)
+ Potential Energy           -23.6074 Kcal/mole   (+/-  44.1167)
+ Kinetic Energy              23.2614 Kcal/mole   (+/-   3.0391)
+ Temperature                  300.14 Kelvin      (+/-    39.21)
+
+ Instantaneous Values for Frame Saved at     33000 Dynamics Steps
+
+ Current Time                33.0000 Picosecond
+ Current Potential          -25.7675 Kcal/mole
+ Current Kinetic             20.4780 Kcal/mole
+ Frame Number                     33
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    34000 Dynamics Steps
+
+ Simulation Time             34.0000 Picosecond
+ Total Energy                -6.9034 Kcal/mole   (+/-  44.5918)
+ Potential Energy           -28.0137 Kcal/mole   (+/-  44.5318)
+ Kinetic Energy              21.1102 Kcal/mole   (+/-   3.0698)
+ Temperature                  272.39 Kelvin      (+/-    39.61)
+
+ Instantaneous Values for Frame Saved at     34000 Dynamics Steps
+
+ Current Time                34.0000 Picosecond
+ Current Potential           30.9703 Kcal/mole
+ Current Kinetic             25.2391 Kcal/mole
+ Frame Number                     34
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    35000 Dynamics Steps
+
+ Simulation Time             35.0000 Picosecond
+ Total Energy                -4.6720 Kcal/mole   (+/-  44.7056)
+ Potential Energy           -26.7003 Kcal/mole   (+/-  44.7208)
+ Kinetic Energy              22.0283 Kcal/mole   (+/-   3.7328)
+ Temperature                  284.23 Kelvin      (+/-    48.17)
+
+ Instantaneous Values for Frame Saved at     35000 Dynamics Steps
+
+ Current Time                35.0000 Picosecond
+ Current Potential           53.4997 Kcal/mole
+ Current Kinetic             23.1175 Kcal/mole
+ Frame Number                     35
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    36000 Dynamics Steps
+
+ Simulation Time             36.0000 Picosecond
+ Total Energy                -4.2329 Kcal/mole   (+/-  44.1036)
+ Potential Energy           -25.5750 Kcal/mole   (+/-  43.5534)
+ Kinetic Energy              21.3421 Kcal/mole   (+/-   4.0405)
+ Temperature                  275.38 Kelvin      (+/-    52.13)
+
+ Instantaneous Values for Frame Saved at     36000 Dynamics Steps
+
+ Current Time                36.0000 Picosecond
+ Current Potential          -24.8201 Kcal/mole
+ Current Kinetic             15.6818 Kcal/mole
+ Frame Number                     36
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    37000 Dynamics Steps
+
+ Simulation Time             37.0000 Picosecond
+ Total Energy                -4.6118 Kcal/mole   (+/-  46.9677)
+ Potential Energy           -27.6720 Kcal/mole   (+/-  46.8035)
+ Kinetic Energy              23.0602 Kcal/mole   (+/-   3.2479)
+ Temperature                  297.55 Kelvin      (+/-    41.91)
+
+ Instantaneous Values for Frame Saved at     37000 Dynamics Steps
+
+ Current Time                37.0000 Picosecond
+ Current Potential           -5.5202 Kcal/mole
+ Current Kinetic             27.9709 Kcal/mole
+ Frame Number                     37
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    38000 Dynamics Steps
+
+ Simulation Time             38.0000 Picosecond
+ Total Energy                -5.9747 Kcal/mole   (+/-  55.9365)
+ Potential Energy           -29.0394 Kcal/mole   (+/-  55.8866)
+ Kinetic Energy              23.0647 Kcal/mole   (+/-   3.0706)
+ Temperature                  297.61 Kelvin      (+/-    39.62)
+
+ Instantaneous Values for Frame Saved at     38000 Dynamics Steps
+
+ Current Time                38.0000 Picosecond
+ Current Potential          -12.1506 Kcal/mole
+ Current Kinetic             22.4070 Kcal/mole
+ Frame Number                     38
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    39000 Dynamics Steps
+
+ Simulation Time             39.0000 Picosecond
+ Total Energy                -8.8651 Kcal/mole   (+/-  52.3963)
+ Potential Energy           -30.5006 Kcal/mole   (+/-  52.3076)
+ Kinetic Energy              21.6355 Kcal/mole   (+/-   3.2162)
+ Temperature                  279.16 Kelvin      (+/-    41.50)
+
+ Instantaneous Values for Frame Saved at     39000 Dynamics Steps
+
+ Current Time                39.0000 Picosecond
+ Current Potential          -24.2176 Kcal/mole
+ Current Kinetic             20.0291 Kcal/mole
+ Frame Number                     39
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    40000 Dynamics Steps
+
+ Simulation Time             40.0000 Picosecond
+ Total Energy                -4.7204 Kcal/mole   (+/-  55.1868)
+ Potential Energy           -28.0372 Kcal/mole   (+/-  54.9685)
+ Kinetic Energy              23.3168 Kcal/mole   (+/-   2.9492)
+ Temperature                  300.86 Kelvin      (+/-    38.05)
+
+ Instantaneous Values for Frame Saved at     40000 Dynamics Steps
+
+ Current Time                40.0000 Picosecond
+ Current Potential          -41.7200 Kcal/mole
+ Current Kinetic             17.8584 Kcal/mole
+ Frame Number                     40
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    41000 Dynamics Steps
+
+ Simulation Time             41.0000 Picosecond
+ Total Energy               -10.0596 Kcal/mole   (+/-  53.1627)
+ Potential Energy           -31.2908 Kcal/mole   (+/-  52.8853)
+ Kinetic Energy              21.2312 Kcal/mole   (+/-   3.8303)
+ Temperature                  273.95 Kelvin      (+/-    49.42)
+
+ Instantaneous Values for Frame Saved at     41000 Dynamics Steps
+
+ Current Time                41.0000 Picosecond
+ Current Potential          -44.9820 Kcal/mole
+ Current Kinetic             23.4869 Kcal/mole
+ Frame Number                     41
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    42000 Dynamics Steps
+
+ Simulation Time             42.0000 Picosecond
+ Total Energy                -8.5829 Kcal/mole   (+/-  51.2551)
+ Potential Energy           -28.9432 Kcal/mole   (+/-  50.9915)
+ Kinetic Energy              20.3603 Kcal/mole   (+/-   3.3984)
+ Temperature                  262.71 Kelvin      (+/-    43.85)
+
+ Instantaneous Values for Frame Saved at     42000 Dynamics Steps
+
+ Current Time                42.0000 Picosecond
+ Current Potential            6.9035 Kcal/mole
+ Current Kinetic             21.6425 Kcal/mole
+ Frame Number                     42
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    43000 Dynamics Steps
+
+ Simulation Time             43.0000 Picosecond
+ Total Energy                -4.7335 Kcal/mole   (+/-  52.6605)
+ Potential Energy           -26.7561 Kcal/mole   (+/-  52.6735)
+ Kinetic Energy              22.0226 Kcal/mole   (+/-   3.3765)
+ Temperature                  284.16 Kelvin      (+/-    43.57)
+
+ Instantaneous Values for Frame Saved at     43000 Dynamics Steps
+
+ Current Time                43.0000 Picosecond
+ Current Potential           68.4233 Kcal/mole
+ Current Kinetic             19.9692 Kcal/mole
+ Frame Number                     43
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    44000 Dynamics Steps
+
+ Simulation Time             44.0000 Picosecond
+ Total Energy                -3.9747 Kcal/mole   (+/-  54.5933)
+ Potential Energy           -27.3427 Kcal/mole   (+/-  54.4626)
+ Kinetic Energy              23.3679 Kcal/mole   (+/-   3.3050)
+ Temperature                  301.52 Kelvin      (+/-    42.65)
+
+ Instantaneous Values for Frame Saved at     44000 Dynamics Steps
+
+ Current Time                44.0000 Picosecond
+ Current Potential          119.0017 Kcal/mole
+ Current Kinetic             19.9206 Kcal/mole
+ Frame Number                     44
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    45000 Dynamics Steps
+
+ Simulation Time             45.0000 Picosecond
+ Total Energy                -2.0121 Kcal/mole   (+/-  52.2944)
+ Potential Energy           -24.8746 Kcal/mole   (+/-  52.3648)
+ Kinetic Energy              22.8625 Kcal/mole   (+/-   3.0945)
+ Temperature                  295.00 Kelvin      (+/-    39.93)
+
+ Instantaneous Values for Frame Saved at     45000 Dynamics Steps
+
+ Current Time                45.0000 Picosecond
+ Current Potential          -33.3538 Kcal/mole
+ Current Kinetic             28.0126 Kcal/mole
+ Frame Number                     45
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    46000 Dynamics Steps
+
+ Simulation Time             46.0000 Picosecond
+ Total Energy                -6.8334 Kcal/mole   (+/-  55.5793)
+ Potential Energy           -29.0490 Kcal/mole   (+/-  55.4345)
+ Kinetic Energy              22.2156 Kcal/mole   (+/-   3.5526)
+ Temperature                  286.65 Kelvin      (+/-    45.84)
+
+ Instantaneous Values for Frame Saved at     46000 Dynamics Steps
+
+ Current Time                46.0000 Picosecond
+ Current Potential         -159.3001 Kcal/mole
+ Current Kinetic             18.6593 Kcal/mole
+ Frame Number                     46
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    47000 Dynamics Steps
+
+ Simulation Time             47.0000 Picosecond
+ Total Energy                -7.2636 Kcal/mole   (+/-  57.0279)
+ Potential Energy           -28.4483 Kcal/mole   (+/-  56.6677)
+ Kinetic Energy              21.1847 Kcal/mole   (+/-   3.8238)
+ Temperature                  273.35 Kelvin      (+/-    49.34)
+
+ Instantaneous Values for Frame Saved at     47000 Dynamics Steps
+
+ Current Time                47.0000 Picosecond
+ Current Potential            3.3057 Kcal/mole
+ Current Kinetic             20.9129 Kcal/mole
+ Frame Number                     47
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    48000 Dynamics Steps
+
+ Simulation Time             48.0000 Picosecond
+ Total Energy                 0.2850 Kcal/mole   (+/-  53.7176)
+ Potential Energy           -21.9365 Kcal/mole   (+/-  53.6157)
+ Kinetic Energy              22.2215 Kcal/mole   (+/-   3.3710)
+ Temperature                  286.73 Kelvin      (+/-    43.50)
+
+ Instantaneous Values for Frame Saved at     48000 Dynamics Steps
+
+ Current Time                48.0000 Picosecond
+ Current Potential           39.5108 Kcal/mole
+ Current Kinetic             16.8446 Kcal/mole
+ Frame Number                     48
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    49000 Dynamics Steps
+
+ Simulation Time             49.0000 Picosecond
+ Total Energy                -5.0565 Kcal/mole   (+/-  52.2563)
+ Potential Energy           -27.6443 Kcal/mole   (+/-  52.0160)
+ Kinetic Energy              22.5878 Kcal/mole   (+/-   3.3744)
+ Temperature                  291.45 Kelvin      (+/-    43.54)
+
+ Instantaneous Values for Frame Saved at     49000 Dynamics Steps
+
+ Current Time                49.0000 Picosecond
+ Current Potential           35.6044 Kcal/mole
+ Current Kinetic             24.1442 Kcal/mole
+ Frame Number                     49
+ Coordinate File            GLH_eq1.arc
+
+ Average Values for the Last  1000 Out of    50000 Dynamics Steps
+
+ Simulation Time             50.0000 Picosecond
+ Total Energy                -0.5936 Kcal/mole   (+/-  53.1651)
+ Potential Energy           -23.7844 Kcal/mole   (+/-  52.9106)
+ Kinetic Energy              23.1908 Kcal/mole   (+/-   3.9185)
+ Temperature                  299.23 Kelvin      (+/-    50.56)
+
+ Instantaneous Values for Frame Saved at     50000 Dynamics Steps
+
+ Current Time                50.0000 Picosecond
+ Current Potential          -23.6763 Kcal/mole
+ Current Kinetic             23.1639 Kcal/mole
+ Frame Number                     50
+ Coordinate File            GLH_eq1.arc
