@@ -134,7 +134,7 @@ c
          string = record(next:120)
          if (keyword(1:15) .eq. 'OPENMP-THREADS ') then
             read (string,*,err=80,end=80)  nthread
-!$          call omp_set_num_threads (nthread)
+c!$          call omp_set_num_threads (nthread)
          end if
    80    continue
       end do

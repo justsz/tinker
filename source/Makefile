@@ -86,9 +86,9 @@ LINKDIR = /usr/local/bin
 F77 = ifort
 LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
 F77FLAGS = -c -xHost
-OPTFLAGS = -O3 -no-ipo -no-prec-div -openmp -mcmodel=large
+OPTFLAGS = -O3 -no-ipo -no-prec-div -openmp #-mcmodel=medium
 LIBFLAGS = -crusv
-LINKFLAGS = $(OPTFLAGS) -shared-intel
+LINKFLAGS = $(OPTFLAGS) -static-intel
 
 ##  Machine:  Macintosh
 ##  CPU Type: Intel Xeon
