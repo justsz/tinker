@@ -34,6 +34,7 @@ c
       character*120 comment
       character*120 record
       character*120 string
+      integer temporary
 c
 c
 c     check for a keyfile specified on the command line
@@ -133,8 +134,9 @@ c
          call gettext (record,keyword,next)
          string = record(next:120)
          if (keyword(1:15) .eq. 'OPENMP-THREADS ') then
-            read (string,*,err=80,end=80)  nthread
-c!$          call omp_set_num_threads (nthread)
+c            read (string,*,err=80,end=80)  nthread
+            read (string,*,err=80,end=80)  temporary
+c           !$          call omp_set_num_threads (nthread)
          end if
    80    continue
       end do

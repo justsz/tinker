@@ -47,6 +47,7 @@ c
       include 'warp.i'
       include 'zclose.i'
 !$    integer omp_get_num_procs, omp_get_num_threads
+!$    integer omp_get_max_threads
       real*8 precise
 c
 c
@@ -54,13 +55,15 @@ c     cores, thread count and options for OpenMP
 c
       nproc = 1
       nthread = -1
+!$    nthread = omp_get_max_threads()
 c!$    nproc = omp_get_num_procs ()
 c!$    nthread = nproc
 c!$    call omp_set_num_threads (nthread)
 !$    call omp_set_nested (.true.)
 
-!$OMP PARALLEL shared(nthread)
-!$    nthread = omp_get_num_threads()
+
+!$OMP PARALLEL
+      print *, "inside parallel region: ",nthread
 !$OMP END PARALLEL
 
       print *, "Number of threads in initial.f: ", nthread

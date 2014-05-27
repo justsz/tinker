@@ -99,7 +99,7 @@ c
 c     choose between serial and parallel list building
 c
       parallel = .false.
-      if (nthread .gt. 1)  parallel = .true.
+      if (nthread .gt. 1) parallel = .true.
 c
 c     perform a complete list build instead of an update
 c
@@ -1212,7 +1212,7 @@ c
 c     choose between serial and parallel list building
 c
       parallel = .false.
-      if (nthread .gt. 1)  parallel = .true.
+      if (nthread .gt. 1) parallel = .true.
 c
 c     perform a complete list build instead of an update
 c
@@ -1350,17 +1350,14 @@ c
       include 'iounit.i'
       include 'mpole.i'
       include 'neigh.i'
-      integer i,j,k,ii,kk,threads 
+      integer i,j,k,ii,kk
       real*8 xi,yi,zi
       real*8 xr,yr,zr,r2
-!$    integer omp_get_num_threads
 c
 c
 c     store new coordinates to reflect update of the site
 c
 !$OMP PARALLEL default(shared) private(i,j,k,ii,kk,xi,yi,zi,xr,yr,zr,r2)
-!$    threads = omp_get_num_threads ()
-      print *,"Number of threads in nblist.f file in ubuild: ", threads
 !$OMP DO schedule(guided)
       do i = 1, npole
          ii = ipole(i)
