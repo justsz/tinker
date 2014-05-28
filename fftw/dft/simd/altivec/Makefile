@@ -200,11 +200,11 @@ AUTOHEADER = ${SHELL} /home/d59/d59/zarins/tinker/fftw/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/d59/d59/zarins/tinker/fftw/missing --run automake-1.11
 AVX_CFLAGS = 
 AWK = gawk
-CC = icc -std=gnu99 -no-gcc
+CC = cc -std=gnu99 -no-gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -O3 -axSSSE3 -no-ipo -no-prec-div -mdynamic-no-pic -ansi-alias -malign-double
 CHECK_PL_OPTS = 
-CPP = icc -std=gnu99 -E
+CPP = cc -std=gnu99 -E
 CPPFLAGS = 
 CYGPATH_W = echo
 C_FFTW_R2R_KIND = C_INT32_T
@@ -219,10 +219,10 @@ ECHO_N = -n
 ECHO_T = 
 EGREP = /usr/bin/grep -E
 EXEEXT = 
-F77 = ifort
+F77 = ftn
 FFLAGS = -g
 FGREP = /usr/bin/grep -F
-FLIBS =  -L/opt/intel/composer_xe_2013_sp1.1.106/compiler/lib/intel64 -L/usr/lib64/gcc/x86_64-suse-linux/4.3/ -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../lib64 -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/opt/intel/composer_xe_2013_sp1.1.106/compiler/lib/intel64/ -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../x86_64-suse-linux/lib/ -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib -limf -lm -lifport -lifcore -lsvml -lipgo -lirc -lpthread -lirc_s -ldl
+FLIBS =  -L/opt/cray/perftools/6.1.2/lib64 -L/opt/cray/mpt/6.1.1/gni/mpich2-intel/130/lib -L/opt/cray/libsci/12.1.2/INTEL/130/sandybridge/lib -L/opt/fftw/3.3.0.4/sandybridge/lib -L/opt/cray/rca/1.0.0-2.0501.48090.7.46.ari/lib64 -L/opt/cray/alps/5.1.1-2.0501.8507.1.1.ari/lib64 -L/opt/cray/xpmem/0.1-2.0501.48424.3.3.ari/lib64 -L/opt/cray/dmapp/7.0.1-1.0501.8315.8.4.ari/lib64 -L/opt/cray/pmi/4.0.1-1.0000.9753.86.2.ari/lib64 -L/opt/cray/ugni/5.0-1.0501.8253.10.22.ari/lib64 -L/opt/cray/udreg/2.3.2-1.0501.7914.1.13.ari/lib64 -L/opt/cray/atp/1.7.0/lib -L/opt/cray/wlm_detect/1.0-1.0501.47908.2.2.ari/lib64 -L/opt/intel/composer_xe_2013_sp1.1.106/compiler/lib/intel64 -L/usr/lib64/gcc/x86_64-suse-linux/4.3/ -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../lib64 -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/opt/intel/composer_xe_2013_sp1.1.106/compiler/lib/intel64/ -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../x86_64-suse-linux/lib/ -L/usr/lib64/gcc/x86_64-suse-linux/4.3/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib -limf -lm -lAtpSigHCommData -lAtpSigHandler -lsci_intel_mp -liomp5 -lfftw3 -lfftw3f -lcray_memcpy -lmpichf90_intel -lmpich_intel -lrt -ldl -ldmapp -lmpl -lxpmem -ludreg -lpmi -lalpslli -lalpsutil -lrca -lwlm_detect -lugni -lpthread -lifport -lifcore -lsvml -lipgo -lirc -lirc_s
 GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -265,8 +265,8 @@ PATH_SEPARATOR = :
 POW_LIB = 
 PRECISION = d
 PREC_SUFFIX = 
-PTHREAD_CC = icc -std=gnu99 -no-gcc
-PTHREAD_CFLAGS = -pthread
+PTHREAD_CC = cc -std=gnu99 -no-gcc
+PTHREAD_CFLAGS = 
 PTHREAD_LIBS = 
 RANLIB = ranlib
 SED = /usr/bin/sed
@@ -283,7 +283,7 @@ abs_srcdir = /home/d59/d59/zarins/tinker/fftw/dft/simd/altivec
 abs_top_builddir = /home/d59/d59/zarins/tinker/fftw
 abs_top_srcdir = /home/d59/d59/zarins/tinker/fftw
 ac_ct_AR = ar
-ac_ct_CC = icc
+ac_ct_CC = cc
 ac_ct_DUMPBIN = 
 ac_ct_F77 = 
 acx_pthread_config = 

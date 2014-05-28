@@ -14,7 +14,7 @@ library_names=''
 old_library='libfftw3_threads.a'
 
 # Linker flags that can not go in dependency_libs.
-inherited_linker_flags=' -pthread'
+inherited_linker_flags=''
 
 # Libraries that this one depends upon.
 dependency_libs=' /home/d59/d59/zarins/tinker/fftw/libfftw3.la -lm'

@@ -39,7 +39,7 @@
 /* #undef FC_DUMMY_MAIN_EQ_F77 */
 
 /* C compiler name and flags */
-#define FFTW_CC "icc -std=gnu99 -no-gcc -O3 -axSSSE3 -no-ipo -no-prec-div -mdynamic-no-pic -ansi-alias -malign-double"
+#define FFTW_CC "cc -std=gnu99 -no-gcc -O3 -axSSSE3 -no-ipo -no-prec-div -mdynamic-no-pic -ansi-alias -malign-double"
 
 /* Define to enable extra FFTW debugging code. */
 /* #undef FFTW_DEBUG */
@@ -88,7 +88,7 @@
 /* #undef HAVE_BSDGETTIMEOFDAY */
 
 /* Define to 1 if you have the `clock_gettime' function. */
-/* #undef HAVE_CLOCK_GETTIME */
+#define HAVE_CLOCK_GETTIME 1
 
 /* Define to 1 if you have the `cosl' function. */
 #define HAVE_COSL 1

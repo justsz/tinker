@@ -83,7 +83,7 @@ LINKDIR = /usr/local/bin
 ##  Compiler: Intel Fortran for Linux 14.0
 ##  Parallel: OpenMP
 
-F77 = ifort
+F77 = ftn
 LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
 F77FLAGS = -c -xHost
 OPTFLAGS = -O3 -no-ipo -no-prec-div -openmp #-mcmodel=medium
