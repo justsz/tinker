@@ -1,0 +1,816 @@
+
+     ######################################################################
+   ##########################################################################
+  ###                                                                      ###
+ ###            TINKER  ---  Software Tools for Molecular Design            ###
+ ##                                                                          ##
+ ##                        Version 6.3  February 2014                        ##
+ ##                                                                          ##
+ ##               Copyright (c)  Jay William Ponder  1990-2014               ##
+ ###                           All Rights Reserved                          ###
+  ###                                                                      ###
+   ##########################################################################
+     ######################################################################
+
+
+ Molecular Dynamics Trajectory via Velocity Verlet Algorithm
+
+ Average Values for the Last  1000 Out of     1000 Dynamics Steps
+
+ Simulation Time              1.0000 Picosecond
+ Total Energy             -2411.1812 Kcal/mole   (+/- 950.5110)
+ Potential Energy         -4266.3647 Kcal/mole   (+/- 950.9573)
+ Kinetic Energy            1855.1835 Kcal/mole   (+/-  37.9145)
+ Temperature                  296.79 Kelvin      (+/-     6.07)
+
+ Instantaneous Values for Frame Saved at      1000 Dynamics Steps
+
+ Current Time                 1.0000 Picosecond
+ Current Potential        -3479.2769 Kcal/mole
+ Current Kinetic           1894.5462 Kcal/mole
+ Frame Number                      1
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     2000 Dynamics Steps
+
+ Simulation Time              2.0000 Picosecond
+ Total Energy             -2469.9508 Kcal/mole   (+/- 909.6786)
+ Potential Energy         -4330.3859 Kcal/mole   (+/- 908.5966)
+ Kinetic Energy            1860.4351 Kcal/mole   (+/-  32.5613)
+ Temperature                  297.63 Kelvin      (+/-     5.21)
+
+ Instantaneous Values for Frame Saved at      2000 Dynamics Steps
+
+ Current Time                 2.0000 Picosecond
+ Current Potential        -4532.3403 Kcal/mole
+ Current Kinetic           1837.6699 Kcal/mole
+ Frame Number                      2
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     3000 Dynamics Steps
+
+ Simulation Time              3.0000 Picosecond
+ Total Energy             -2404.0286 Kcal/mole   (+/- 925.7981)
+ Potential Energy         -4273.8041 Kcal/mole   (+/- 926.6478)
+ Kinetic Energy            1869.7755 Kcal/mole   (+/-  30.2314)
+ Temperature                  299.13 Kelvin      (+/-     4.84)
+
+ Instantaneous Values for Frame Saved at      3000 Dynamics Steps
+
+ Current Time                 3.0000 Picosecond
+ Current Potential        -6312.2536 Kcal/mole
+ Current Kinetic           1783.9872 Kcal/mole
+ Frame Number                      3
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     4000 Dynamics Steps
+
+ Simulation Time              4.0000 Picosecond
+ Total Energy             -2410.5049 Kcal/mole   (+/- 965.1055)
+ Potential Energy         -4273.4572 Kcal/mole   (+/- 962.9281)
+ Kinetic Energy            1862.9523 Kcal/mole   (+/-  31.0912)
+ Temperature                  298.04 Kelvin      (+/-     4.97)
+
+ Instantaneous Values for Frame Saved at      4000 Dynamics Steps
+
+ Current Time                 4.0000 Picosecond
+ Current Potential        -4592.8702 Kcal/mole
+ Current Kinetic           1843.8454 Kcal/mole
+ Frame Number                      4
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     5000 Dynamics Steps
+
+ Simulation Time              5.0000 Picosecond
+ Total Energy             -2389.3722 Kcal/mole   (+/- 987.9909)
+ Potential Energy         -4255.8225 Kcal/mole   (+/- 988.3697)
+ Kinetic Energy            1866.4504 Kcal/mole   (+/-  36.1301)
+ Temperature                  298.60 Kelvin      (+/-     5.78)
+
+ Instantaneous Values for Frame Saved at      5000 Dynamics Steps
+
+ Current Time                 5.0000 Picosecond
+ Current Potential        -5755.4816 Kcal/mole
+ Current Kinetic           1898.9415 Kcal/mole
+ Frame Number                      5
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     6000 Dynamics Steps
+
+ Simulation Time              6.0000 Picosecond
+ Total Energy             -2478.2111 Kcal/mole   (+/- 946.6736)
+ Potential Energy         -4342.6580 Kcal/mole   (+/- 946.1789)
+ Kinetic Energy            1864.4469 Kcal/mole   (+/-  26.9751)
+ Temperature                  298.28 Kelvin      (+/-     4.32)
+
+ Instantaneous Values for Frame Saved at      6000 Dynamics Steps
+
+ Current Time                 6.0000 Picosecond
+ Current Potential        -4299.1683 Kcal/mole
+ Current Kinetic           1875.7373 Kcal/mole
+ Frame Number                      6
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     7000 Dynamics Steps
+
+ Simulation Time              7.0000 Picosecond
+ Total Energy             -2397.2319 Kcal/mole   (+/- 969.0494)
+ Potential Energy         -4267.5982 Kcal/mole   (+/- 968.8980)
+ Kinetic Energy            1870.3662 Kcal/mole   (+/-  29.8603)
+ Temperature                  299.22 Kelvin      (+/-     4.78)
+
+ Instantaneous Values for Frame Saved at      7000 Dynamics Steps
+
+ Current Time                 7.0000 Picosecond
+ Current Potential        -5237.6910 Kcal/mole
+ Current Kinetic           1856.0343 Kcal/mole
+ Frame Number                      7
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     8000 Dynamics Steps
+
+ Simulation Time              8.0000 Picosecond
+ Total Energy             -2438.2427 Kcal/mole   (+/- 958.0106)
+ Potential Energy         -4302.1966 Kcal/mole   (+/- 957.2093)
+ Kinetic Energy            1863.9539 Kcal/mole   (+/-  33.1133)
+ Temperature                  298.20 Kelvin      (+/-     5.30)
+
+ Instantaneous Values for Frame Saved at      8000 Dynamics Steps
+
+ Current Time                 8.0000 Picosecond
+ Current Potential        -4800.0504 Kcal/mole
+ Current Kinetic           1865.6441 Kcal/mole
+ Frame Number                      8
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of     9000 Dynamics Steps
+
+ Simulation Time              9.0000 Picosecond
+ Total Energy             -2444.5150 Kcal/mole   (+/- 937.6375)
+ Potential Energy         -4322.3685 Kcal/mole   (+/- 936.8337)
+ Kinetic Energy            1877.8535 Kcal/mole   (+/-  33.7554)
+ Temperature                  300.42 Kelvin      (+/-     5.40)
+
+ Instantaneous Values for Frame Saved at      9000 Dynamics Steps
+
+ Current Time                 9.0000 Picosecond
+ Current Potential        -3356.8114 Kcal/mole
+ Current Kinetic           1844.3366 Kcal/mole
+ Frame Number                      9
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    10000 Dynamics Steps
+
+ Simulation Time             10.0000 Picosecond
+ Total Energy             -2399.8897 Kcal/mole   (+/- 964.6900)
+ Potential Energy         -4271.0933 Kcal/mole   (+/- 964.9966)
+ Kinetic Energy            1871.2036 Kcal/mole   (+/-  26.7096)
+ Temperature                  299.36 Kelvin      (+/-     4.27)
+
+ Instantaneous Values for Frame Saved at     10000 Dynamics Steps
+
+ Current Time                10.0000 Picosecond
+ Current Potential        -3956.3266 Kcal/mole
+ Current Kinetic           1922.9763 Kcal/mole
+ Frame Number                     10
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    11000 Dynamics Steps
+
+ Simulation Time             11.0000 Picosecond
+ Total Energy             -2436.1533 Kcal/mole   (+/- 927.7752)
+ Potential Energy         -4301.0031 Kcal/mole   (+/- 928.0898)
+ Kinetic Energy            1864.8498 Kcal/mole   (+/-  34.2459)
+ Temperature                  298.34 Kelvin      (+/-     5.48)
+
+ Instantaneous Values for Frame Saved at     11000 Dynamics Steps
+
+ Current Time                11.0000 Picosecond
+ Current Potential        -3947.1594 Kcal/mole
+ Current Kinetic           1932.0162 Kcal/mole
+ Frame Number                     11
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    12000 Dynamics Steps
+
+ Simulation Time             12.0000 Picosecond
+ Total Energy             -2481.9158 Kcal/mole   (+/- 945.5655)
+ Potential Energy         -4352.2580 Kcal/mole   (+/- 944.2186)
+ Kinetic Energy            1870.3422 Kcal/mole   (+/-  31.0570)
+ Temperature                  299.22 Kelvin      (+/-     4.97)
+
+ Instantaneous Values for Frame Saved at     12000 Dynamics Steps
+
+ Current Time                12.0000 Picosecond
+ Current Potential        -6346.4086 Kcal/mole
+ Current Kinetic           1865.6615 Kcal/mole
+ Frame Number                     12
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    13000 Dynamics Steps
+
+ Simulation Time             13.0000 Picosecond
+ Total Energy             -2428.8444 Kcal/mole   (+/- 943.6937)
+ Potential Energy         -4300.6134 Kcal/mole   (+/- 942.9894)
+ Kinetic Energy            1871.7690 Kcal/mole   (+/-  31.2353)
+ Temperature                  299.45 Kelvin      (+/-     5.00)
+
+ Instantaneous Values for Frame Saved at     13000 Dynamics Steps
+
+ Current Time                13.0000 Picosecond
+ Current Potential        -4362.0307 Kcal/mole
+ Current Kinetic           1883.0938 Kcal/mole
+ Frame Number                     13
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    14000 Dynamics Steps
+
+ Simulation Time             14.0000 Picosecond
+ Total Energy             -2341.5900 Kcal/mole   (+/- 951.7263)
+ Potential Energy         -4215.5348 Kcal/mole   (+/- 952.4622)
+ Kinetic Energy            1873.9447 Kcal/mole   (+/-  28.1210)
+ Temperature                  299.80 Kelvin      (+/-     4.50)
+
+ Instantaneous Values for Frame Saved at     14000 Dynamics Steps
+
+ Current Time                14.0000 Picosecond
+ Current Potential        -2379.3509 Kcal/mole
+ Current Kinetic           1822.8791 Kcal/mole
+ Frame Number                     14
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    15000 Dynamics Steps
+
+ Simulation Time             15.0000 Picosecond
+ Total Energy             -2418.0973 Kcal/mole   (+/- 906.5864)
+ Potential Energy         -4296.3880 Kcal/mole   (+/- 906.1372)
+ Kinetic Energy            1878.2907 Kcal/mole   (+/-  34.0048)
+ Temperature                  300.49 Kelvin      (+/-     5.44)
+
+ Instantaneous Values for Frame Saved at     15000 Dynamics Steps
+
+ Current Time                15.0000 Picosecond
+ Current Potential        -4437.0492 Kcal/mole
+ Current Kinetic           1835.3686 Kcal/mole
+ Frame Number                     15
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    16000 Dynamics Steps
+
+ Simulation Time             16.0000 Picosecond
+ Total Energy             -2411.7689 Kcal/mole   (+/- 920.2338)
+ Potential Energy         -4304.2529 Kcal/mole   (+/- 921.5556)
+ Kinetic Energy            1892.4840 Kcal/mole   (+/-  33.9988)
+ Temperature                  302.76 Kelvin      (+/-     5.44)
+
+ Instantaneous Values for Frame Saved at     16000 Dynamics Steps
+
+ Current Time                16.0000 Picosecond
+ Current Potential        -3925.1465 Kcal/mole
+ Current Kinetic           1879.7745 Kcal/mole
+ Frame Number                     16
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    17000 Dynamics Steps
+
+ Simulation Time             17.0000 Picosecond
+ Total Energy             -2411.8893 Kcal/mole   (+/- 921.1144)
+ Potential Energy         -4298.4553 Kcal/mole   (+/- 921.5489)
+ Kinetic Energy            1886.5659 Kcal/mole   (+/-  32.3700)
+ Temperature                  301.81 Kelvin      (+/-     5.18)
+
+ Instantaneous Values for Frame Saved at     17000 Dynamics Steps
+
+ Current Time                17.0000 Picosecond
+ Current Potential        -4035.8476 Kcal/mole
+ Current Kinetic           1892.5662 Kcal/mole
+ Frame Number                     17
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    18000 Dynamics Steps
+
+ Simulation Time             18.0000 Picosecond
+ Total Energy             -2424.4825 Kcal/mole   (+/- 928.3222)
+ Potential Energy         -4307.7419 Kcal/mole   (+/- 927.8526)
+ Kinetic Energy            1883.2594 Kcal/mole   (+/-  31.9900)
+ Temperature                  301.29 Kelvin      (+/-     5.12)
+
+ Instantaneous Values for Frame Saved at     18000 Dynamics Steps
+
+ Current Time                18.0000 Picosecond
+ Current Potential        -4946.1180 Kcal/mole
+ Current Kinetic           1952.8005 Kcal/mole
+ Frame Number                     18
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    19000 Dynamics Steps
+
+ Simulation Time             19.0000 Picosecond
+ Total Energy             -2427.7990 Kcal/mole   (+/- 912.9834)
+ Potential Energy         -4318.1441 Kcal/mole   (+/- 912.9029)
+ Kinetic Energy            1890.3451 Kcal/mole   (+/-  35.9615)
+ Temperature                  302.42 Kelvin      (+/-     5.75)
+
+ Instantaneous Values for Frame Saved at     19000 Dynamics Steps
+
+ Current Time                19.0000 Picosecond
+ Current Potential        -4308.1057 Kcal/mole
+ Current Kinetic           1875.2045 Kcal/mole
+ Frame Number                     19
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    20000 Dynamics Steps
+
+ Simulation Time             20.0000 Picosecond
+ Total Energy             -2411.7119 Kcal/mole   (+/- 874.4832)
+ Potential Energy         -4289.1296 Kcal/mole   (+/- 875.6213)
+ Kinetic Energy            1877.4178 Kcal/mole   (+/-  26.6836)
+ Temperature                  300.35 Kelvin      (+/-     4.27)
+
+ Instantaneous Values for Frame Saved at     20000 Dynamics Steps
+
+ Current Time                20.0000 Picosecond
+ Current Potential        -4337.7251 Kcal/mole
+ Current Kinetic           1831.2200 Kcal/mole
+ Frame Number                     20
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    21000 Dynamics Steps
+
+ Simulation Time             21.0000 Picosecond
+ Total Energy             -2451.9393 Kcal/mole   (+/- 886.5014)
+ Potential Energy         -4333.3058 Kcal/mole   (+/- 884.9909)
+ Kinetic Energy            1881.3664 Kcal/mole   (+/-  32.4801)
+ Temperature                  300.98 Kelvin      (+/-     5.20)
+
+ Instantaneous Values for Frame Saved at     21000 Dynamics Steps
+
+ Current Time                21.0000 Picosecond
+ Current Potential        -5230.2212 Kcal/mole
+ Current Kinetic           1870.8793 Kcal/mole
+ Frame Number                     21
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    22000 Dynamics Steps
+
+ Simulation Time             22.0000 Picosecond
+ Total Energy             -2462.3382 Kcal/mole   (+/- 928.3787)
+ Potential Energy         -4340.8713 Kcal/mole   (+/- 927.3418)
+ Kinetic Energy            1878.5332 Kcal/mole   (+/-  31.9722)
+ Temperature                  300.53 Kelvin      (+/-     5.11)
+
+ Instantaneous Values for Frame Saved at     22000 Dynamics Steps
+
+ Current Time                22.0000 Picosecond
+ Current Potential        -2047.5583 Kcal/mole
+ Current Kinetic           1865.4547 Kcal/mole
+ Frame Number                     22
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    23000 Dynamics Steps
+
+ Simulation Time             23.0000 Picosecond
+ Total Energy             -2439.5052 Kcal/mole   (+/- 922.8269)
+ Potential Energy         -4309.7935 Kcal/mole   (+/- 922.3596)
+ Kinetic Energy            1870.2884 Kcal/mole   (+/-  23.8458)
+ Temperature                  299.21 Kelvin      (+/-     3.81)
+
+ Instantaneous Values for Frame Saved at     23000 Dynamics Steps
+
+ Current Time                23.0000 Picosecond
+ Current Potential        -4465.5555 Kcal/mole
+ Current Kinetic           1898.8195 Kcal/mole
+ Frame Number                     23
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    24000 Dynamics Steps
+
+ Simulation Time             24.0000 Picosecond
+ Total Energy             -2461.0339 Kcal/mole   (+/- 971.2084)
+ Potential Energy         -4324.7023 Kcal/mole   (+/- 972.2916)
+ Kinetic Energy            1863.6684 Kcal/mole   (+/-  28.5337)
+ Temperature                  298.15 Kelvin      (+/-     4.56)
+
+ Instantaneous Values for Frame Saved at     24000 Dynamics Steps
+
+ Current Time                24.0000 Picosecond
+ Current Potential        -3581.3256 Kcal/mole
+ Current Kinetic           1871.6911 Kcal/mole
+ Frame Number                     24
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    25000 Dynamics Steps
+
+ Simulation Time             25.0000 Picosecond
+ Total Energy             -2472.4657 Kcal/mole   (+/- 948.8366)
+ Potential Energy         -4350.4910 Kcal/mole   (+/- 948.5383)
+ Kinetic Energy            1878.0253 Kcal/mole   (+/-  30.1073)
+ Temperature                  300.45 Kelvin      (+/-     4.82)
+
+ Instantaneous Values for Frame Saved at     25000 Dynamics Steps
+
+ Current Time                25.0000 Picosecond
+ Current Potential        -3250.8130 Kcal/mole
+ Current Kinetic           1857.0720 Kcal/mole
+ Frame Number                     25
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    26000 Dynamics Steps
+
+ Simulation Time             26.0000 Picosecond
+ Total Energy             -2423.5956 Kcal/mole   (+/- 912.3296)
+ Potential Energy         -4298.2427 Kcal/mole   (+/- 913.5900)
+ Kinetic Energy            1874.6471 Kcal/mole   (+/-  26.6116)
+ Temperature                  299.91 Kelvin      (+/-     4.26)
+
+ Instantaneous Values for Frame Saved at     26000 Dynamics Steps
+
+ Current Time                26.0000 Picosecond
+ Current Potential        -3355.3651 Kcal/mole
+ Current Kinetic           1888.8438 Kcal/mole
+ Frame Number                     26
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    27000 Dynamics Steps
+
+ Simulation Time             27.0000 Picosecond
+ Total Energy             -2428.8659 Kcal/mole   (+/- 928.7055)
+ Potential Energy         -4285.4201 Kcal/mole   (+/- 927.9111)
+ Kinetic Energy            1856.5542 Kcal/mole   (+/-  30.6950)
+ Temperature                  297.01 Kelvin      (+/-     4.91)
+
+ Instantaneous Values for Frame Saved at     27000 Dynamics Steps
+
+ Current Time                27.0000 Picosecond
+ Current Potential        -4322.9100 Kcal/mole
+ Current Kinetic           1875.8621 Kcal/mole
+ Frame Number                     27
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    28000 Dynamics Steps
+
+ Simulation Time             28.0000 Picosecond
+ Total Energy             -2378.1511 Kcal/mole   (+/- 930.4274)
+ Potential Energy         -4243.4448 Kcal/mole   (+/- 931.2902)
+ Kinetic Energy            1865.2937 Kcal/mole   (+/-  36.9813)
+ Temperature                  298.41 Kelvin      (+/-     5.92)
+
+ Instantaneous Values for Frame Saved at     28000 Dynamics Steps
+
+ Current Time                28.0000 Picosecond
+ Current Potential        -5464.6346 Kcal/mole
+ Current Kinetic           1891.0197 Kcal/mole
+ Frame Number                     28
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    29000 Dynamics Steps
+
+ Simulation Time             29.0000 Picosecond
+ Total Energy             -2423.1469 Kcal/mole   (+/- 906.2443)
+ Potential Energy         -4282.7157 Kcal/mole   (+/- 905.5668)
+ Kinetic Energy            1859.5689 Kcal/mole   (+/-  27.5960)
+ Temperature                  297.50 Kelvin      (+/-     4.41)
+
+ Instantaneous Values for Frame Saved at     29000 Dynamics Steps
+
+ Current Time                29.0000 Picosecond
+ Current Potential        -4255.3373 Kcal/mole
+ Current Kinetic           1871.3280 Kcal/mole
+ Frame Number                     29
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    30000 Dynamics Steps
+
+ Simulation Time             30.0000 Picosecond
+ Total Energy             -2459.1842 Kcal/mole   (+/- 938.7466)
+ Potential Energy         -4317.3161 Kcal/mole   (+/- 938.2408)
+ Kinetic Energy            1858.1320 Kcal/mole   (+/-  35.9592)
+ Temperature                  297.27 Kelvin      (+/-     5.75)
+
+ Instantaneous Values for Frame Saved at     30000 Dynamics Steps
+
+ Current Time                30.0000 Picosecond
+ Current Potential        -4694.0759 Kcal/mole
+ Current Kinetic           1842.7753 Kcal/mole
+ Frame Number                     30
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    31000 Dynamics Steps
+
+ Simulation Time             31.0000 Picosecond
+ Total Energy             -2415.9989 Kcal/mole   (+/- 961.2419)
+ Potential Energy         -4289.5988 Kcal/mole   (+/- 961.8344)
+ Kinetic Energy            1873.6000 Kcal/mole   (+/-  25.1809)
+ Temperature                  299.74 Kelvin      (+/-     4.03)
+
+ Instantaneous Values for Frame Saved at     31000 Dynamics Steps
+
+ Current Time                31.0000 Picosecond
+ Current Potential        -4814.2096 Kcal/mole
+ Current Kinetic           1909.5978 Kcal/mole
+ Frame Number                     31
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    32000 Dynamics Steps
+
+ Simulation Time             32.0000 Picosecond
+ Total Energy             -2395.3569 Kcal/mole   (+/- 914.0414)
+ Potential Energy         -4273.4576 Kcal/mole   (+/- 913.5662)
+ Kinetic Energy            1878.1007 Kcal/mole   (+/-  27.4366)
+ Temperature                  300.46 Kelvin      (+/-     4.39)
+
+ Instantaneous Values for Frame Saved at     32000 Dynamics Steps
+
+ Current Time                32.0000 Picosecond
+ Current Potential        -5574.3731 Kcal/mole
+ Current Kinetic           1846.9243 Kcal/mole
+ Frame Number                     32
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    33000 Dynamics Steps
+
+ Simulation Time             33.0000 Picosecond
+ Total Energy             -2350.3133 Kcal/mole   (+/- 947.7017)
+ Potential Energy         -4224.9917 Kcal/mole   (+/- 945.3449)
+ Kinetic Energy            1874.6785 Kcal/mole   (+/-  31.2398)
+ Temperature                  299.91 Kelvin      (+/-     5.00)
+
+ Instantaneous Values for Frame Saved at     33000 Dynamics Steps
+
+ Current Time                33.0000 Picosecond
+ Current Potential        -3621.8154 Kcal/mole
+ Current Kinetic           1880.0569 Kcal/mole
+ Frame Number                     33
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    34000 Dynamics Steps
+
+ Simulation Time             34.0000 Picosecond
+ Total Energy             -2460.9298 Kcal/mole   (+/- 941.0393)
+ Potential Energy         -4325.2749 Kcal/mole   (+/- 941.1119)
+ Kinetic Energy            1864.3451 Kcal/mole   (+/-  27.4746)
+ Temperature                  298.26 Kelvin      (+/-     4.40)
+
+ Instantaneous Values for Frame Saved at     34000 Dynamics Steps
+
+ Current Time                34.0000 Picosecond
+ Current Potential        -5346.0510 Kcal/mole
+ Current Kinetic           1907.8300 Kcal/mole
+ Frame Number                     34
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    35000 Dynamics Steps
+
+ Simulation Time             35.0000 Picosecond
+ Total Energy             -2394.5747 Kcal/mole   (+/- 928.5485)
+ Potential Energy         -4285.9757 Kcal/mole   (+/- 928.4131)
+ Kinetic Energy            1891.4009 Kcal/mole   (+/-  31.0480)
+ Temperature                  302.59 Kelvin      (+/-     4.97)
+
+ Instantaneous Values for Frame Saved at     35000 Dynamics Steps
+
+ Current Time                35.0000 Picosecond
+ Current Potential        -3505.6981 Kcal/mole
+ Current Kinetic           1854.8155 Kcal/mole
+ Frame Number                     35
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    36000 Dynamics Steps
+
+ Simulation Time             36.0000 Picosecond
+ Total Energy             -2404.7239 Kcal/mole   (+/- 908.8908)
+ Potential Energy         -4285.8269 Kcal/mole   (+/- 909.8663)
+ Kinetic Energy            1881.1030 Kcal/mole   (+/-  33.0274)
+ Temperature                  300.94 Kelvin      (+/-     5.28)
+
+ Instantaneous Values for Frame Saved at     36000 Dynamics Steps
+
+ Current Time                36.0000 Picosecond
+ Current Potential        -5744.1977 Kcal/mole
+ Current Kinetic           1838.9723 Kcal/mole
+ Frame Number                     36
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    37000 Dynamics Steps
+
+ Simulation Time             37.0000 Picosecond
+ Total Energy             -2417.6635 Kcal/mole   (+/- 931.5058)
+ Potential Energy         -4297.7872 Kcal/mole   (+/- 932.6786)
+ Kinetic Energy            1880.1237 Kcal/mole   (+/-  31.1491)
+ Temperature                  300.78 Kelvin      (+/-     4.98)
+
+ Instantaneous Values for Frame Saved at     37000 Dynamics Steps
+
+ Current Time                37.0000 Picosecond
+ Current Potential        -2439.2143 Kcal/mole
+ Current Kinetic           1923.8664 Kcal/mole
+ Frame Number                     37
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    38000 Dynamics Steps
+
+ Simulation Time             38.0000 Picosecond
+ Total Energy             -2426.9669 Kcal/mole   (+/- 958.6114)
+ Potential Energy         -4304.5021 Kcal/mole   (+/- 959.7610)
+ Kinetic Energy            1877.5352 Kcal/mole   (+/-  26.4722)
+ Temperature                  300.37 Kelvin      (+/-     4.24)
+
+ Instantaneous Values for Frame Saved at     38000 Dynamics Steps
+
+ Current Time                38.0000 Picosecond
+ Current Potential        -2739.8954 Kcal/mole
+ Current Kinetic           1915.7740 Kcal/mole
+ Frame Number                     38
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    39000 Dynamics Steps
+
+ Simulation Time             39.0000 Picosecond
+ Total Energy             -2318.0995 Kcal/mole   (+/- 946.0929)
+ Potential Energy         -4203.1280 Kcal/mole   (+/- 944.5233)
+ Kinetic Energy            1885.0286 Kcal/mole   (+/-  32.6179)
+ Temperature                  301.57 Kelvin      (+/-     5.22)
+
+ Instantaneous Values for Frame Saved at     39000 Dynamics Steps
+
+ Current Time                39.0000 Picosecond
+ Current Potential        -5114.7972 Kcal/mole
+ Current Kinetic           1872.7649 Kcal/mole
+ Frame Number                     39
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    40000 Dynamics Steps
+
+ Simulation Time             40.0000 Picosecond
+ Total Energy             -2346.2140 Kcal/mole   (+/- 942.9170)
+ Potential Energy         -4245.6880 Kcal/mole   (+/- 942.0345)
+ Kinetic Energy            1899.4740 Kcal/mole   (+/-  31.7042)
+ Temperature                  303.88 Kelvin      (+/-     5.07)
+
+ Instantaneous Values for Frame Saved at     40000 Dynamics Steps
+
+ Current Time                40.0000 Picosecond
+ Current Potential        -3693.3305 Kcal/mole
+ Current Kinetic           1817.1533 Kcal/mole
+ Frame Number                     40
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    41000 Dynamics Steps
+
+ Simulation Time             41.0000 Picosecond
+ Total Energy             -2376.8018 Kcal/mole   (+/-1102.3688)
+ Potential Energy         -4254.2597 Kcal/mole   (+/-1102.0705)
+ Kinetic Energy            1877.4579 Kcal/mole   (+/-  23.3515)
+ Temperature                  300.36 Kelvin      (+/-     3.74)
+
+ Instantaneous Values for Frame Saved at     41000 Dynamics Steps
+
+ Current Time                41.0000 Picosecond
+ Current Potential        -6507.5089 Kcal/mole
+ Current Kinetic           1872.4782 Kcal/mole
+ Frame Number                     41
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    42000 Dynamics Steps
+
+ Simulation Time             42.0000 Picosecond
+ Total Energy             -2441.1907 Kcal/mole   (+/-1140.6016)
+ Potential Energy         -4305.9001 Kcal/mole   (+/-1140.4650)
+ Kinetic Energy            1864.7094 Kcal/mole   (+/-  26.3147)
+ Temperature                  298.32 Kelvin      (+/-     4.21)
+
+ Instantaneous Values for Frame Saved at     42000 Dynamics Steps
+
+ Current Time                42.0000 Picosecond
+ Current Potential        -5704.0448 Kcal/mole
+ Current Kinetic           1829.3344 Kcal/mole
+ Frame Number                     42
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    43000 Dynamics Steps
+
+ Simulation Time             43.0000 Picosecond
+ Total Energy             -2395.3925 Kcal/mole   (+/-1102.0562)
+ Potential Energy         -4271.1253 Kcal/mole   (+/-1102.8335)
+ Kinetic Energy            1875.7329 Kcal/mole   (+/-  32.1780)
+ Temperature                  300.08 Kelvin      (+/-     5.15)
+
+ Instantaneous Values for Frame Saved at     43000 Dynamics Steps
+
+ Current Time                43.0000 Picosecond
+ Current Potential        -4558.5831 Kcal/mole
+ Current Kinetic           1877.5481 Kcal/mole
+ Frame Number                     43
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    44000 Dynamics Steps
+
+ Simulation Time             44.0000 Picosecond
+ Total Energy             -2392.9098 Kcal/mole   (+/- 953.1385)
+ Potential Energy         -4286.5569 Kcal/mole   (+/- 951.1939)
+ Kinetic Energy            1893.6471 Kcal/mole   (+/-  34.9295)
+ Temperature                  302.95 Kelvin      (+/-     5.59)
+
+ Instantaneous Values for Frame Saved at     44000 Dynamics Steps
+
+ Current Time                44.0000 Picosecond
+ Current Potential        -4866.0828 Kcal/mole
+ Current Kinetic           1970.8401 Kcal/mole
+ Frame Number                     44
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    45000 Dynamics Steps
+
+ Simulation Time             45.0000 Picosecond
+ Total Energy             -2413.2317 Kcal/mole   (+/- 960.0090)
+ Potential Energy         -4290.2021 Kcal/mole   (+/- 959.5409)
+ Kinetic Energy            1876.9704 Kcal/mole   (+/-  28.7646)
+ Temperature                  300.28 Kelvin      (+/-     4.60)
+
+ Instantaneous Values for Frame Saved at     45000 Dynamics Steps
+
+ Current Time                45.0000 Picosecond
+ Current Potential        -5309.1105 Kcal/mole
+ Current Kinetic           1874.1548 Kcal/mole
+ Frame Number                     45
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    46000 Dynamics Steps
+
+ Simulation Time             46.0000 Picosecond
+ Total Energy             -2379.5935 Kcal/mole   (+/-1005.9043)
+ Potential Energy         -4260.1699 Kcal/mole   (+/-1006.9962)
+ Kinetic Energy            1880.5764 Kcal/mole   (+/-  31.3157)
+ Temperature                  300.86 Kelvin      (+/-     5.01)
+
+ Instantaneous Values for Frame Saved at     46000 Dynamics Steps
+
+ Current Time                46.0000 Picosecond
+ Current Potential        -2060.2141 Kcal/mole
+ Current Kinetic           1869.4646 Kcal/mole
+ Frame Number                     46
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    47000 Dynamics Steps
+
+ Simulation Time             47.0000 Picosecond
+ Total Energy             -2380.1420 Kcal/mole   (+/-1097.1702)
+ Potential Energy         -4244.3221 Kcal/mole   (+/-1096.4841)
+ Kinetic Energy            1864.1801 Kcal/mole   (+/-  33.3658)
+ Temperature                  298.23 Kelvin      (+/-     5.34)
+
+ Instantaneous Values for Frame Saved at     47000 Dynamics Steps
+
+ Current Time                47.0000 Picosecond
+ Current Potential        -2920.5740 Kcal/mole
+ Current Kinetic           1860.3791 Kcal/mole
+ Frame Number                     47
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    48000 Dynamics Steps
+
+ Simulation Time             48.0000 Picosecond
+ Total Energy             -2378.5662 Kcal/mole   (+/-1186.0788)
+ Potential Energy         -4220.7931 Kcal/mole   (+/-1185.4105)
+ Kinetic Energy            1842.2270 Kcal/mole   (+/-  34.9160)
+ Temperature                  294.72 Kelvin      (+/-     5.59)
+
+ Instantaneous Values for Frame Saved at     48000 Dynamics Steps
+
+ Current Time                48.0000 Picosecond
+ Current Potential        -4162.3138 Kcal/mole
+ Current Kinetic           1853.4927 Kcal/mole
+ Frame Number                     48
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    49000 Dynamics Steps
+
+ Simulation Time             49.0000 Picosecond
+ Total Energy             -2349.6160 Kcal/mole   (+/-1091.9504)
+ Potential Energy         -4230.7696 Kcal/mole   (+/-1092.1738)
+ Kinetic Energy            1881.1536 Kcal/mole   (+/-  24.2375)
+ Temperature                  300.95 Kelvin      (+/-     3.88)
+
+ Instantaneous Values for Frame Saved at     49000 Dynamics Steps
+
+ Current Time                49.0000 Picosecond
+ Current Potential        -4130.4018 Kcal/mole
+ Current Kinetic           1861.7896 Kcal/mole
+ Frame Number                     49
+ Coordinate File            3BDC_eq2.arc
+
+ Average Values for the Last  1000 Out of    50000 Dynamics Steps
+
+ Simulation Time             50.0000 Picosecond
+ Total Energy             -2349.2410 Kcal/mole   (+/-1132.9464)
+ Potential Energy         -4218.8901 Kcal/mole   (+/-1131.1773)
+ Kinetic Energy            1869.6491 Kcal/mole   (+/-  36.4819)
+ Temperature                  299.11 Kelvin      (+/-     5.84)
+
+ Instantaneous Values for Frame Saved at     50000 Dynamics Steps
+
+ Current Time                50.0000 Picosecond
+ Current Potential        -4721.1687 Kcal/mole
+ Current Kinetic           1844.0445 Kcal/mole
+ Frame Number                     50
+ Coordinate File            3BDC_eq2.arc

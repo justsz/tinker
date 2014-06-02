@@ -1,0 +1,5 @@
+fftw/
+source/*.o
+source/*.x
+source/*.mod
+source/*.a

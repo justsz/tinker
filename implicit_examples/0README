@@ -1,0 +1,9 @@
+This folder contains files for benchmarking implicit solvent code and setup of
+implicit solvent pKa prediction runs.
+
+The 3BDC_GK.* and GLH_capped.* files are provided to use for benchmarks
+of the GK code. They can be modified to introduce cutoffs or change
+openmp threads as desired.
+
+The equilibration_files folder contains files from the minimisation, heating
+and equilibration of the system prior to production.
