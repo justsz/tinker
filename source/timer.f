@@ -39,6 +39,7 @@ c
       character*1 answer
       character*120 record
       character*120 string
+      integer omp_get_num_threads 
 c
 c
 c     read in the molecular system to be timed
@@ -94,6 +95,13 @@ c     get the timing for setup of the calculation
 c
       call settime
       call mechanic
+      
+!$OMP PARALLEL
+!$OMP MASTER
+      print *, "Number of threads:", omp_get_num_threads()
+!$OMP END MASTER
+!$OMP END PARALLEL
+
       if (use_list)  call nblist
       call gettime (wall,cpu)
       write (iout,60)  ncalls
@@ -118,6 +126,8 @@ c
       write (iout,80)  wall,cpu
    80 format (/,' Potential Energy :  ',f15.3,' Sec (Wall)',
      &           f15.3,' Sec (CPU)')
+     
+      print *, "Energy value:", value
 c
 c     run the energy and gradient timing experiment
 c
@@ -129,6 +139,8 @@ c
       write (iout,90)  wall,cpu
    90 format (/,' Energy & Gradient : ',f15.3,' Sec (Wall)',
      &           f15.3,' Sec (CPU)')
+      
+      print *, "Gradient value:", sum(derivs)
 c
 c     run the Hessian matrix only timing experiment
 c

@@ -89,10 +89,10 @@ LINKDIR = /usr/local/bin
 F77 = ifort
 LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
 F77FLAGS = -c -xHost
-OPTFLAGS = -O3 -no-ipo -no-prec-div -recursive -openmp
+OPTFLAGS =  -O0 -g -traceback -check bounds -no-ipo -no-prec-div -openmp #-recursive -openmp
 LIBFLAGS = -crusv
-RANLIB =
-LINKFLAGS = $(OPTFLAGS) -static-libgcc -static-intel
+RANLIB = ranlib
+LINKFLAGS = $(OPTFLAGS) -static-intel #-static-libgcc -static-intel
 
 ##  Machine:  Macintosh
 ##  CPU Type: Intel Xeon
@@ -720,6 +720,9 @@ EXEFILES = alchemy.x \
 	${F77} ${LINKFLAGS} -o $@ $^ ${LIBS}; strip $@
 
 all:	${EXEFILES}
+
+msc: timer.x
+	cp timer.x $(BINDIR)/timer
 
 clean:
 	rm -f *.o *.mod *.a *.x
