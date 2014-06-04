@@ -52,10 +52,12 @@ c
       use mutant
       use neigh
       use nonpol
+      use omega
       use opbend
       use opdist
       use orbits
       use paths
+      use pbstuf
       use pdb
       use piorbs
       use pistuf
@@ -69,6 +71,7 @@ c
       use rgddyn
       use rigid
       use ring
+      use rotbnd
       use socket
       use solute
       use stodyn
@@ -456,6 +459,12 @@ c
       if (allocated(rdisp))  deallocate (rdisp)
       if (allocated(cdisp))  deallocate (cdisp)
 c
+c     deallocation of global arrays from module omega
+c
+      if (allocated(iomega))  deallocate (iomega)
+      if (allocated(zline))  deallocate (zline)
+      if (allocated(dihed))  deallocate (dihed)
+c
 c     deallocation of global arrays from module opbend
 c
       if (allocated(iopb))  deallocate (iopb)
@@ -480,6 +489,16 @@ c
       if (allocated(pstep))  deallocate (pstep)
       if (allocated(pzet))  deallocate (pzet)
       if (allocated(gc))  deallocate (gc)
+c
+c     deallocation of global arrays from module pbstuf
+c
+      if (allocated(apbe))  deallocate (apbe)
+      if (allocated(pbr))  deallocate (pbr)
+      if (allocated(pbep))  deallocate (pbep)
+      if (allocated(pbfp))  deallocate (pbfp)
+      if (allocated(pbtp))  deallocate (pbtp)
+      if (allocated(pbeuind))  deallocate (pbeuind)
+      if (allocated(pbeuinp))  deallocate (pbeuinp)
 c
 c     deallocation of global arrays from module pdb
 c
@@ -609,6 +628,16 @@ c
       if (allocated(iring4))  deallocate (iring4)
       if (allocated(iring5))  deallocate (iring5)
       if (allocated(iring6))  deallocate (iring6)
+c
+c     deallocation of global arrays from module rotbnd
+c
+      if (allocated(rot))  deallocate (rot)
+c
+c     deallocation of global arrays from module socket
+c
+      if (allocated(cdx))  deallocate (cdx)
+      if (allocated(cdy))  deallocate (cdy)
+      if (allocated(cdz))  deallocate (cdz)
 c
 c     deallocation of global arrays from module solute
 c

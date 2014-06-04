@@ -46,38 +46,38 @@ LINKDIR = /usr/local/bin
 ##  CPU Type: Intel x86 Compatible
 ##  Compiler: GNU gfortran
 
-#F77 = /usr/local/bin/gfortran
+#F77 = gfortran
 #LIBS =
 #F77FLAGS = -c
 #OPTFLAGS = -O3 -ffast-math
 #LIBFLAGS = -crusv
-#RANLIB =
+#RANLIB = ranlib -c
 #LINKFLAGS = $(OPTFLAGS) -static-libgcc
 
-##  Machine:  Generic Linux or Macintosh OS X
+##  Machine:  Generic Linux or Macintosh
 ##  CPU Type: Intel x86 Compatible
 ##  Compiler: GNU gfortran
 ##  Parallel: OpenMP
 
-#F77 = /usr/local/bin/gfortran
-#LIBS =
-#F77FLAGS = -c
-#OPTFLAGS = -O3 -ffast-math -fopenmp
-#LIBFLAGS = -crusv
-#RANLIB =
-#LINKFLAGS = $(OPTFLAGS) -static-libgcc
+F77 = gfortran
+LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
+F77FLAGS = -c
+OPTFLAGS = -O3 -ffast-math -fopenmp
+LIBFLAGS = -crusv
+RANLIB = ranlib -c
+LINKFLAGS = $(OPTFLAGS) -static-libgcc
 
 ##  Machine:  Generic Linux
 ##  CPU Type: Intel x86 Compatible (also AMD)
 ##  Oper Sys: Fedora Core
 ##  Compiler: Intel Fortran for Linux 14.0
 
-#F77 = /opt/intel/bin/ifort
+#F77 = ifort
 #LIBS =
 #F77FLAGS = -c -xHost
 #OPTFLAGS = -O3 -no-ipo -no-prec-div -recursive
 #LIBFLAGS = -crusv
-#RANLIB =
+#RANLIB = ranlib -c
 #LINKFLAGS = -static-libgcc -static-intel
 
 ##  Machine:  Generic Linux
@@ -86,12 +86,12 @@ LINKDIR = /usr/local/bin
 ##  Compiler: Intel Fortran for Linux 14.0
 ##  Parallel: OpenMP
 
-#F77 = /opt/intel/bin/ifort
+#F77 = ifort
 #LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
 #F77FLAGS = -c -xHost
 #OPTFLAGS = -O3 -no-ipo -no-prec-div -recursive -openmp
 #LIBFLAGS = -crusv
-#RANLIB =
+#RANLIB = ranlib -c
 #LINKFLAGS = $(OPTFLAGS) -static-libgcc -static-intel
 
 ##  Machine:  Macintosh
@@ -99,12 +99,12 @@ LINKDIR = /usr/local/bin
 ##  Oper Sys: OS X 10.9 (Mavericks)
 ##  Compiler: Intel Fortran for Mac 14.0
 
-#F77 = /opt/intel/bin/ifort
+#F77 = ifort
 #LIBS =
 #F77FLAGS = -c -axSSSE3
 #OPTFLAGS = -O3 -no-ipo -no-prec-div -mdynamic-no-pic
 #LIBFLAGS = -crusv
-#RANLIB =
+#RANLIB = ranlib -c
 #LINKFLAGS = $(OPTFLAGS) -static-intel -mmacosx-version-min=10.6 \
              -Wl,-stack_size,0x10000000
 
@@ -114,14 +114,14 @@ LINKDIR = /usr/local/bin
 ##  Compiler: Intel Fortran for Mac 14.0
 ##  Parallel: OpenMP
 
-F77 = /opt/intel/bin/ifort
-LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
-F77FLAGS = -c -axSSSE3
-OPTFLAGS = -O3 -no-ipo -no-prec-div -mdynamic-no-pic -openmp
-LIBFLAGS = -crusv
-RANLIB = /usr/bin/ranlib -c
-LINKFLAGS = $(OPTFLAGS) -static-intel -mmacosx-version-min=10.6 \
-            -Wl,-stack_size,0x10000000
+#F77 = ifort
+#LIBS = -L$(TINKERDIR)/fftw/lib -lfftw3_threads -lfftw3
+#F77FLAGS = -c -axSSSE3
+#OPTFLAGS = -O3 -no-ipo -no-prec-div -mdynamic-no-pic -openmp
+#LIBFLAGS = -crusv
+#RANLIB = ranlib -c
+#LINKFLAGS = $(OPTFLAGS) -static-intel -mmacosx-version-min=10.6 \
+#            -Wl,-stack_size,0x10000000
 
 #################################################################
 ##  Should not be Necessary to Change Things Below this Point  ##
@@ -1330,7 +1330,6 @@ libtinker.a: ${OBJS}
         shunt.o \
         sigmoid.o \
         sizes.o \
-        sizes.o \
         sktstuff.o \
         socket.o \
         solute.o \
@@ -1420,22 +1419,22 @@ boxes.o:
 bussi.o: atomid.o atoms.o bath.o boxes.o freeze.o mdstuf.o moldyn.o sizes.o units.o usage.o
 calendar.o:
 cell.o: sizes.o
-center.o: align.o sizes.o
+center.o: align.o
 charge.o:
 chgpot.o:
 chkpole.o: atoms.o mpole.o sizes.o
-chkring.o: couple.o sizes.o
+chkring.o: couple.o
 chkxyz.o: atoms.o iounit.o sizes.o
 cholesky.o:
 chrono.o:
 chunks.o:
 clock.o: chrono.o
 cluster.o: atomid.o atoms.o bound.o group.o inform.o iounit.o keys.o limits.o molcul.o sizes.o
-column.o: sizes.o
+column.o:
 command.o: argue.o
 connect.o: atoms.o couple.o sizes.o zclose.o zcoord.o
 connolly.o: atoms.o faces.o inform.o iounit.o math.o sizes.o
-control.o: argue.o inform.o keys.o output.o sizes.o
+control.o: argue.o inform.o keys.o output.o
 correlate.o: ascii.o atomid.o atoms.o files.o inform.o iounit.o sizes.o
 couple.o: sizes.o
 crystal.o: atomid.o atoms.o bound.o boxes.o couple.o files.o iounit.o math.o molcul.o sizes.o
@@ -1452,7 +1451,7 @@ disgeo.o:
 distgeom.o: angbnd.o atomid.o atoms.o bndstr.o couple.o disgeo.o files.o inform.o iounit.o kvdws.o math.o refer.o restrn.o sizes.o tors.o
 dma.o:
 document.o: iounit.o
-domega.o: sizes.o
+domega.o:
 dynamic.o: atoms.o bath.o bndstr.o bound.o inform.o iounit.o keys.o mdstuf.o potent.o sizes.o solute.o stodyn.o usage.o
 eangang.o: angang.o angbnd.o angpot.o atoms.o bound.o energi.o group.o math.o sizes.o usage.o
 eangang1.o: angang.o angbnd.o angpot.o atoms.o bound.o deriv.o energi.o group.o math.o sizes.o usage.o virial.o
@@ -1575,12 +1574,12 @@ extra3.o: action.o analyz.o atoms.o energi.o sizes.o
 faces.o:
 fatal.o: iounit.o
 fft.o: sizes.o
-fft3d.o: fft.o openmp.o pme.o sizes.o
+fft3d.o: fft.o openmp.o pme.o
 fftpack.o: math.o
-field.o: keys.o potent.o sizes.o
-fields.o: sizes.o
+field.o: keys.o potent.o
+fields.o:
 files.o:
-final.o: align.o analyz.o angang.o angbnd.o angtor.o atmlst.o bitor.o bndstr.o charge.o chunks.o couple.o deriv.o dipole.o disgeo.o faces.o fracs.o freeze.o group.o hessn.o hpmf.o improp.o imptor.o inform.o iounit.o light.o merck.o molcul.o moldyn.o mpole.o mutant.o neigh.o nonpol.o opbend.o opdist.o orbits.o paths.o pdb.o piorbs.o pistuf.o pitors.o pme.o polar.o polgrp.o qmstuf.o refer.o restrn.o rgddyn.o rigid.o ring.o sizes.o socket.o solute.o stodyn.o strbnd.o strtor.o syntrn.o tarray.o tors.o tortor.o uprior.o urey.o usage.o usolve.o vdw.o vibs.o
+final.o: align.o analyz.o angang.o angbnd.o angtor.o atmlst.o bitor.o bndstr.o charge.o chunks.o couple.o deriv.o dipole.o disgeo.o domega.o faces.o fracs.o freeze.o group.o hessn.o hpmf.o improp.o imptor.o inform.o iounit.o light.o merck.o molcul.o moldyn.o mpole.o mutant.o neigh.o nonpol.o omega.o opbend.o opdist.o orbits.o paths.o pbstuf.o pdb.o piorbs.o pistuf.o pitors.o pme.o polar.o polgrp.o qmstuf.o refer.o restrn.o rgddyn.o rigid.o ring.o rotbnd.o sizes.o socket.o solute.o stodyn.o strbnd.o strtor.o syntrn.o tarray.o tors.o tortor.o uprior.o urey.o usage.o usolve.o vdw.o vibs.o warp.o
 flatten.o: atoms.o fields.o inform.o iounit.o keys.o sizes.o warp.o
 fracs.o:
 freeunit.o: iounit.o
@@ -1588,12 +1587,12 @@ freeze.o:
 gda.o: atoms.o files.o iounit.o minima.o potent.o sizes.o vdwpot.o warp.o
 geometry.o: atoms.o math.o sizes.o
 getint.o: atoms.o inform.o iounit.o output.o sizes.o
-getkey.o: argue.o files.o iounit.o keys.o openmp.o sizes.o
+getkey.o: argue.o files.o iounit.o keys.o openmp.o
 getmol.o: files.o iounit.o
 getmol2.o: files.o iounit.o
 getnumb.o: ascii.o
 getpdb.o: iounit.o
-getprm.o: files.o iounit.o keys.o params.o sizes.o
+getprm.o: files.o iounit.o keys.o params.o
 getref.o: atomid.o atoms.o couple.o files.o refer.o sizes.o titles.o
 getstring.o: ascii.o
 gettext.o: ascii.o
@@ -1605,7 +1604,7 @@ gradient.o: atoms.o bound.o deriv.o energi.o inter.o iounit.o limits.o potent.o 
 gradrgd.o: atoms.o group.o rigid.o sizes.o
 gradrot.o: atoms.o deriv.o domega.o omega.o potent.o rotbnd.o sizes.o
 group.o:
-groups.o: group.o sizes.o
+groups.o: group.o
 grpline.o: atomid.o atoms.o group.o rgddyn.o sizes.o
 gyrate.o: atoms.o sizes.o usage.o
 hescut.o:
@@ -1622,10 +1621,10 @@ imptor.o:
 induce.o: atoms.o bound.o boxes.o cell.o couple.o ewald.o gkstuf.o group.o inform.o iounit.o limits.o math.o mpole.o neigh.o openmp.o pbstuf.o pme.o polar.o polgrp.o polpot.o potent.o shunt.o sizes.o solute.o tarray.o units.o uprior.o usolve.o
 inertia.o: atomid.o atoms.o iounit.o math.o sizes.o
 inform.o:
-initatom.o: ptable.o sizes.o
+initatom.o: ptable.o
 initial.o: align.o atoms.o bath.o bound.o boxes.o cell.o files.o group.o inform.o iounit.o keys.o linmin.o minima.o molcul.o mutant.o neigh.o openmp.o output.o params.o pdb.o precis.o rigid.o scales.o sequen.o sizes.o socket.o warp.o zclose.o
-initprm.o: angpot.o bndpot.o chgpot.o fields.o kanang.o kangs.o kantor.o katoms.o kbonds.o kchrge.o kdipol.o khbond.o kiprop.o kitors.o kmulti.o kopbnd.o kopdst.o korbs.o kpitor.o kpolr.o kstbnd.o ksttor.o ktorsn.o ktrtor.o kurybr.o kvdwpr.o kvdws.o math.o merck.o mplpot.o polpot.o rxnpot.o sizes.o solute.o torpot.o units.o urypot.o vdwpot.o
-initres.o: resdue.o sizes.o
+initprm.o: angpot.o bndpot.o chgpot.o fields.o kanang.o kangs.o kantor.o katoms.o kbonds.o kchrge.o kdipol.o khbond.o kiprop.o kitors.o kmulti.o kopbnd.o kopdst.o korbs.o kpitor.o kpolr.o kstbnd.o ksttor.o ktorsn.o ktrtor.o kurybr.o kvdwpr.o kvdws.o math.o merck.o mplpot.o polpot.o rxnpot.o solute.o torpot.o units.o urypot.o vdwpot.o
+initres.o: resdue.o
 initrot.o: atoms.o couple.o group.o inform.o iounit.o math.o omega.o potent.o restrn.o rotbnd.o sizes.o usage.o zcoord.o
 insert.o: atomid.o atoms.o couple.o inform.o iounit.o sizes.o
 intedit.o: atomid.o atoms.o files.o iounit.o katoms.o sizes.o zcoord.o
@@ -1651,7 +1650,7 @@ kdipol.o:
 kdipole.o: atmlst.o atoms.o bndstr.o couple.o dipole.o inform.o iounit.o kdipol.o keys.o potent.o sizes.o
 kewald.o: atoms.o bound.o boxes.o chunks.o ewald.o fft.o inform.o iounit.o keys.o limits.o math.o openmp.o pme.o sizes.o
 kextra.o:
-keys.o: sizes.o
+keys.o:
 kgeom.o: atomid.o atoms.o bound.o couple.o group.o iounit.o keys.o molcul.o potent.o restrn.o sizes.o
 khbond.o:
 kimprop.o: atomid.o atoms.o couple.o improp.o inform.o iounit.o keys.o kiprop.o potent.o sizes.o tors.o
@@ -1686,8 +1685,8 @@ kurybr.o:
 kvdw.o: atomid.o atoms.o couple.o fields.o inform.o iounit.o keys.o khbond.o kvdwpr.o kvdws.o math.o merck.o potent.o sizes.o vdw.o vdwpot.o
 kvdwpr.o:
 kvdws.o: sizes.o
-lattice.o: boxes.o cell.o inform.o iounit.o math.o sizes.o
-lbfgs.o: inform.o iounit.o keys.o linmin.o math.o minima.o output.o scales.o sizes.o
+lattice.o: boxes.o cell.o inform.o iounit.o math.o
+lbfgs.o: inform.o iounit.o keys.o linmin.o math.o minima.o output.o scales.o
 light.o:
 lights.o: bound.o boxes.o cell.o iounit.o light.o sizes.o
 limits.o:
@@ -1720,7 +1719,7 @@ mplpot.o:
 mpole.o:
 mutant.o:
 mutate.o: atomid.o atoms.o charge.o inform.o iounit.o katoms.o keys.o mpole.o mutant.o polar.o potent.o sizes.o
-nblist.o: atoms.o bound.o boxes.o cell.o charge.o iounit.o light.o limits.o mpole.o neigh.o openmp.o potent.o sizes.o vdw.o
+nblist.o: atoms.o bound.o boxes.o cell.o charge.o iounit.o light.o limits.o mpole.o neigh.o potent.o sizes.o vdw.o
 neigh.o:
 newton.o: atoms.o files.o inform.o iounit.o keys.o sizes.o usage.o
 newtrot.o: files.o hescut.o inform.o iounit.o keys.o math.o omega.o sizes.o zcoord.o
@@ -1734,15 +1733,15 @@ nucleo.o: sizes.o
 number.o: inform.o iounit.o
 numeral.o:
 numgrad.o: atoms.o sizes.o
-ocvm.o: inform.o iounit.o keys.o linmin.o math.o minima.o output.o potent.o scales.o sizes.o
-omega.o: sizes.o
+ocvm.o: inform.o iounit.o keys.o linmin.o math.o minima.o output.o potent.o scales.o
+omega.o:
 opbend.o:
 opdist.o:
 openend.o:
 openmp.o:
 optimize.o: atoms.o files.o inform.o iounit.o keys.o scales.o sizes.o usage.o
 optirot.o: files.o inform.o iounit.o keys.o math.o omega.o scales.o sizes.o zcoord.o
-optrigid.o: files.o group.o inform.o iounit.o keys.o math.o output.o rigid.o sizes.o
+optrigid.o: files.o group.o inform.o iounit.o keys.o math.o output.o rigid.o
 optsave.o: atoms.o files.o iounit.o math.o omega.o output.o scales.o sizes.o socket.o usage.o zcoord.o
 orbital.o: atomid.o atoms.o bndstr.o couple.o iounit.o keys.o piorbs.o potent.o sizes.o tors.o
 orbits.o:
@@ -1750,10 +1749,10 @@ orient.o: atomid.o atoms.o group.o math.o rigid.o sizes.o
 orthog.o:
 output.o:
 overlap.o: units.o
-params.o: sizes.o
+params.o:
 path.o: align.o atomid.o atoms.o files.o inform.o iounit.o linmin.o minima.o output.o paths.o sizes.o
 paths.o:
-pbstuf.o: sizes.o
+pbstuf.o:
 pdb.o:
 pdbxyz.o: atomid.o atoms.o couple.o fields.o files.o inform.o iounit.o katoms.o pdb.o resdue.o sequen.o sizes.o titles.o
 phipsi.o: sizes.o
@@ -1777,7 +1776,7 @@ precis.o:
 precise.o:
 pressure.o: atomid.o atoms.o bath.o bound.o boxes.o group.o iounit.o math.o mdstuf.o molcul.o sizes.o units.o usage.o virial.o
 prmedit.o: angpot.o bndpot.o iounit.o math.o params.o sizes.o urypot.o vdwpot.o
-prmkey.o: angpot.o bndpot.o chgpot.o fields.o mplpot.o polpot.o potent.o rxnpot.o sizes.o torpot.o urypot.o vdwpot.o
+prmkey.o: angpot.o bndpot.o chgpot.o fields.o mplpot.o polpot.o potent.o rxnpot.o torpot.o urypot.o vdwpot.o
 promo.o: iounit.o
 protein.o: atomid.o atoms.o couple.o files.o group.o inform.o iounit.o katoms.o math.o molcul.o output.o phipsi.o potent.o resdue.o restrn.o rigid.o sequen.o sizes.o titles.o usage.o
 prtdyn.o: atoms.o boxes.o files.o group.o mdstuf.o moldyn.o rgddyn.o sizes.o titles.o
@@ -1791,33 +1790,33 @@ prtxyz.o: atomid.o atoms.o bound.o boxes.o couple.o files.o inform.o sizes.o tit
 pss.o: atoms.o files.o hescut.o inform.o iounit.o math.o omega.o refer.o sizes.o tree.o warp.o zcoord.o
 pssrigid.o: atoms.o files.o group.o inform.o iounit.o math.o minima.o molcul.o refer.o rigid.o sizes.o warp.o
 pssrot.o: atoms.o files.o inform.o iounit.o math.o minima.o omega.o refer.o sizes.o warp.o zcoord.o
-ptable.o: sizes.o
+ptable.o:
 qmstuf.o:
 quatfit.o: align.o sizes.o
 radial.o: argue.o atomid.o atoms.o bound.o boxes.o files.o inform.o iounit.o limits.o math.o molcul.o potent.o sizes.o
-random.o: inform.o iounit.o keys.o math.o sizes.o
+random.o: inform.o iounit.o keys.o math.o
 rattle.o: atomid.o atoms.o freeze.o group.o inform.o iounit.o moldyn.o sizes.o units.o usage.o virial.o
 readdyn.o: atoms.o boxes.o files.o group.o iounit.o mdstuf.o moldyn.o rgddyn.o sizes.o
 readgau.o: ascii.o iounit.o qmstuf.o sizes.o units.o
 readint.o: atomid.o atoms.o files.o inform.o iounit.o sizes.o titles.o zclose.o zcoord.o
 readmol.o: atomid.o atoms.o couple.o files.o iounit.o ptable.o sizes.o titles.o
 readmol2.o: atomid.o atoms.o couple.o files.o iounit.o sizes.o titles.o
-readpdb.o: files.o inform.o iounit.o pdb.o resdue.o sequen.o sizes.o titles.o
+readpdb.o: files.o inform.o iounit.o pdb.o resdue.o sequen.o titles.o
 readprm.o: fields.o iounit.o kanang.o kangs.o kantor.o katoms.o kbonds.o kchrge.o kdipol.o khbond.o kiprop.o kitors.o kmulti.o kopbnd.o kopdst.o korbs.o kpitor.o kpolr.o kstbnd.o ksttor.o ktorsn.o ktrtor.o kurybr.o kvdwpr.o kvdws.o merck.o params.o sizes.o
-readseq.o: files.o iounit.o resdue.o sequen.o sizes.o
+readseq.o: files.o iounit.o resdue.o sequen.o
 readxyz.o: atomid.o atoms.o bound.o boxes.o couple.o files.o inform.o iounit.o sizes.o titles.o
 refer.o: sizes.o
-replica.o: bound.o boxes.o cell.o inform.o iounit.o sizes.o
-resdue.o: sizes.o
+replica.o: bound.o boxes.o cell.o inform.o iounit.o
+resdue.o:
 respa.o: atomid.o atoms.o freeze.o limits.o moldyn.o potent.o sizes.o units.o usage.o virial.o
 restrn.o:
 rgddyn.o:
 rgdstep.o: atomid.o atoms.o bound.o group.o iounit.o rgddyn.o sizes.o units.o virial.o
 rigid.o:
 ring.o:
-rings.o: angbnd.o atoms.o bitor.o bndstr.o couple.o inform.o iounit.o ring.o sizes.o tors.o
+rings.o: angbnd.o atoms.o bitor.o bndstr.o couple.o inform.o iounit.o ring.o tors.o
 rmsfit.o: align.o sizes.o
-rotbnd.o: sizes.o
+rotbnd.o:
 rotlist.o: atoms.o couple.o iounit.o molcul.o rotbnd.o sizes.o zclose.o
 rotpole.o: atoms.o mpole.o sizes.o
 rxnfld.o:
@@ -1836,7 +1835,7 @@ sizes.o:
 sizes.o:
 sktstuff.o: atomid.o atoms.o charge.o couple.o deriv.o fields.o files.o inform.o iounit.o keys.o moldyn.o mpole.o polar.o potent.o sizes.o socket.o
 sniffer.o: atoms.o files.o inform.o iounit.o linmin.o math.o minima.o output.o scales.o sizes.o usage.o
-socket.o: sizes.o
+socket.o:
 solute.o:
 sort.o:
 spacefill.o: atomid.o atoms.o files.o inform.o iounit.o kvdws.o math.o sizes.o usage.o
@@ -1849,7 +1848,7 @@ suffix.o: ascii.o
 superpose.o: align.o atomid.o atoms.o bound.o files.o inform.o iounit.o sizes.o titles.o
 surface.o: atoms.o inform.o iounit.o math.o sizes.o usage.o
 surfatom.o: atoms.o iounit.o math.o sizes.o
-switch.o: limits.o nonpol.o shunt.o sizes.o
+switch.o: limits.o nonpol.o shunt.o
 sybylxyz.o: files.o iounit.o titles.o
 syntrn.o:
 tarray.o:
@@ -1872,7 +1871,7 @@ torsions.o: atoms.o bndstr.o couple.o iounit.o sizes.o tors.o
 tortor.o:
 tree.o:
 trimtext.o:
-unitcell.o: bound.o boxes.o iounit.o keys.o sizes.o
+unitcell.o: bound.o boxes.o iounit.o keys.o
 units.o:
 uprior.o:
 urey.o:
@@ -1891,7 +1890,7 @@ vibrot.o: iounit.o omega.o sizes.o
 vibs.o:
 virial.o:
 volume.o: atoms.o iounit.o math.o sizes.o
-warp.o: sizes.o
+warp.o:
 xtalfit.o: atomid.o atoms.o bound.o boxes.o charge.o dipole.o files.o fracs.o iounit.o kvdws.o math.o molcul.o potent.o sizes.o vdw.o xtals.o
 xtalmin.o: atoms.o boxes.o files.o inform.o iounit.o keys.o math.o scales.o sizes.o
 xtals.o:
