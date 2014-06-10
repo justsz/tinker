@@ -676,10 +676,11 @@ c
 !$OMP& scale3,scale5,scale7,xr,yr,zr,r,r2,rr1,rr3,rr5,rr7,rr9,
 !$OMP& ci,dix,diy,diz,qixx,qixy,qixz,qiyy,qiyz,qizz,uix,uiy,uiz,
 !$OMP& ck,dkx,dky,dkz,qkxx,qkxy,qkxz,qkyy,qkyz,qkzz,ukx,uky,ukz,
-!$OMP& fgrp,fm,fp,sc,gl,sci,gli)
+!$OMP& fgrp,fm,fp,sc,gl,sci,gli,usei)
 !$OMP& firstprivate(mscale,pscale)
+        print *, "emtt and eptt", emtt, eptt
 !$OMP DO reduction(+:emtt,eptt)
-!$OMP& schedule(guided)
+!$OMP& schedule(static, 1)
 c
 c     calculate the multipole interaction energy term
 c
@@ -886,10 +887,14 @@ c
 c     end OpenMP directives for the major loop structure
 c
 !$OMP END DO
+
+        print *, "fgrp", fgrp
 !$OMP END PARALLEL
 c
 c     add local copies to global variables for OpenMP calculation
-c
+c       
+      print *,"em and emtt", em, emtt
+      print *,"ep and eptt", ep, eptt
       em = em + emtt
       ep = ep + eptt
 c

@@ -147,6 +147,7 @@ c
 c     set a default if no Born radius method was assigned
 c
       if (use_born .and. borntyp.eq.'       ') then
+         print *, "setting default borntpy"
          borntyp = solvtyp
          if (solvtyp .eq. 'GB-HPMF')  borntyp = 'STILL'
          if (solvtyp .eq. 'GK')  borntyp = 'GRYCUK'
@@ -159,6 +160,9 @@ c
 c
 c     invoke the setup needed for specific solvation models
 c
+
+      print *,"solvtype:", solvtyp
+
       if (solvtyp.eq.'ASP' .or. solvtyp.eq.'SASA') then
          call ksa
       else if (solvtyp .eq. 'GB-HPMF') then

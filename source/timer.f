@@ -24,6 +24,7 @@ c
       use inform
       use iounit
       use limits
+c      use omp_lib
       implicit none
       integer i,ncalls,next
       integer, allocatable :: hindex(:)
@@ -40,6 +41,9 @@ c
       character*120 record
       character*120 string
       integer omp_get_num_threads 
+
+!$pomp inst init
+
 c
 c
 c     read in the molecular system to be timed
@@ -98,7 +102,7 @@ c
       
 !$OMP PARALLEL
 !$OMP MASTER
-      print *, "Number of threads:", omp_get_num_threads()
+c      print *, "Number of threads:", omp_get_num_threads()
 !$OMP END MASTER
 !$OMP END PARALLEL
 
@@ -128,6 +132,7 @@ c
      &           f15.3,' Sec (CPU)')
      
       print *, "Energy value:", value
+      goto 11
 c
 c     run the energy and gradient timing experiment
 c
@@ -140,7 +145,7 @@ c
    90 format (/,' Energy & Gradient : ',f15.3,' Sec (Wall)',
      &           f15.3,' Sec (CPU)')
       
-      print *, "Gradient value:", sum(derivs)
+      print *, "Gradient value:", sum(abs(derivs))
 c
 c     run the Hessian matrix only timing experiment
 c
@@ -189,6 +194,8 @@ c
   130    format (/,' Hessian Matrix :    ',f15.3,' Sec (Wall)',
      &              f15.3,' Sec (CPU)')
       end if
+
+   11 continue 
 c
 c     perform deallocation of some local arrays
 c

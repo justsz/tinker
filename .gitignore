@@ -3,3 +3,8 @@ source/*.o
 source/*.x
 source/*.mod
 source/*.a
+source/*.opari.inc
+source/*.mod.F
+implicit_examples/*.txt
+bin/*
+source/Makefile

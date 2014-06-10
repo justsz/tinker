@@ -68,6 +68,9 @@ c
 c
 c     assign bond, angle and cross term potential parameters
 c
+
+      print *,"use_solv", use_solv
+
       if (use_bond .or. use_strbnd .or. use_strtor .or.
      &    (use_vdw .and. vdwtyp.eq.'MM3-HBOND'))  call kbond
       if (use_angle .or. use_strbnd .or.
