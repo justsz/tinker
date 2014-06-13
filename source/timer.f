@@ -132,7 +132,6 @@ c
      &           f15.3,' Sec (CPU)')
      
       print *, "Energy value:", value
-      goto 11
 c
 c     run the energy and gradient timing experiment
 c
@@ -195,7 +194,6 @@ c
      &              f15.3,' Sec (CPU)')
       end if
 
-   11 continue 
 c
 c     perform deallocation of some local arrays
 c

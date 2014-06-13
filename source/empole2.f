@@ -91,11 +91,12 @@ c     get multipole first derivatives for the base structure
 c
       if (.not. twosided) then
          call empole2a (nlist,list,reinduce)
-         do k = 1, n
-            do j = 1, 3
-               d0(j,k) = dem(j,k) + dep(j,k)
-            end do
-         end do
+c         do k = 1, n
+c            do j = 1, 3
+c               d0(j,k) = dem(j,k) + dep(j,k)
+c            end do
+c         end do
+         d0 = dem + dep
       end if
 c
 c     find numerical x-components via perturbed structures
@@ -104,20 +105,22 @@ c
       if (twosided) then
          x(i) = x(i) - 0.5d0*eps
          call empole2a (nlist,list,reinduce)
-         do k = 1, n
-            do j = 1, 3
-               d0(j,k) = dem(j,k) + dep(j,k)
-            end do
-         end do
+c         do k = 1, n
+c            do j = 1, 3
+c               d0(j,k) = dem(j,k) + dep(j,k)
+c            end do
+c         end do
+         d0 = dem + dep
       end if
       x(i) = x(i) + eps
       call empole2a (nlist,list,reinduce)
       x(i) = old
-      do k = 1, n
-         do j = 1, 3
-            hessx(j,k) = hessx(j,k) + (dem(j,k)+dep(j,k)-d0(j,k))/eps
-         end do
-      end do
+c      do k = 1, n
+c         do j = 1, 3
+c            hessx(j,k) = hessx(j,k) + (dem(j,k)+dep(j,k)-d0(j,k))/eps
+c         end do
+c      end do
+      hessx = hessx + (dem + dep - d0)/eps
 c
 c     find numerical y-components via perturbed structures
 c
@@ -125,20 +128,22 @@ c
       if (twosided) then
          y(i) = y(i) - 0.5d0*eps
          call empole2a (nlist,list,reinduce)
-         do k = 1, n
-            do j = 1, 3
-               d0(j,k) = dem(j,k) + dep(j,k)
-            end do
-         end do
+c         do k = 1, n
+c            do j = 1, 3
+c               d0(j,k) = dem(j,k) + dep(j,k)
+c            end do
+c         end do
+         d0 = dem + dep
       end if
       y(i) = y(i) + eps
       call empole2a (nlist,list,reinduce)
       y(i) = old
-      do k = 1, n
-         do j = 1, 3
-            hessy(j,k) = hessy(j,k) + (dem(j,k)+dep(j,k)-d0(j,k))/eps
-         end do
-      end do
+c      do k = 1, n
+c         do j = 1, 3
+c            hessy(j,k) = hessy(j,k) + (dem(j,k)+dep(j,k)-d0(j,k))/eps
+c         end do
+c      end do
+      hessy = hessy + (dem + dep - d0)/eps
 c
 c     find numerical z-components via perturbed structures
 c
@@ -146,20 +151,22 @@ c
       if (twosided) then
          z(i) = z(i) - 0.5d0*eps
          call empole2a (nlist,list,reinduce)
-         do k = 1, n
-            do j = 1, 3
-               d0(j,k) = dem(j,k) + dep(j,k)
-            end do
-         end do
+c         do k = 1, n
+c            do j = 1, 3
+c               d0(j,k) = dem(j,k) + dep(j,k)
+c            end do
+c         end do
+         d0 = dem + dep
       end if
       z(i) = z(i) + eps
       call empole2a (nlist,list,reinduce)
       z(i) = old
-      do k = 1, n
-         do j = 1, 3
-            hessz(j,k) = hessz(j,k) + (dem(j,k)+dep(j,k)-d0(j,k))/eps
-         end do
-      end do
+c      do k = 1, n
+c         do j = 1, 3
+c            hessz(j,k) = hessz(j,k) + (dem(j,k)+dep(j,k)-d0(j,k))/eps
+c         end do
+c      end do
+        hessz = hessz + (dem + dep - d0)/eps
 c
 c     perform deallocation of some local arrays
 c
