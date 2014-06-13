@@ -92,10 +92,6 @@ c
 c
 c     perform dynamic allocation of some local arrays
 c
-
-      print *, "calling born"
-      print *, "borntyp:", borntyp
-
       if (borntyp .eq. 'STILL')  allocate (skip(n))
       allocate (roff(n))
       if (borntyp .eq. 'PERFECT') then
@@ -114,14 +110,9 @@ c
 c
 c     set offset modified radii and OBC chain rule factor
 c
-
-      print *, "drobc allocated:", allocated(drobc)
-c      if (.not. allocated(drobc)) allocate (drobc(n))
-
-
       do i = 1, n
          roff(i) = rsolv(i) - doffset
-         if (allocated(drobc)) drobc(i) = 1.0d0
+         drobc(i) = 1.0d0
       end do
 c
 c     get the Born radii via the numerical "Onion" method
