@@ -91,7 +91,6 @@ c     a single PME atomic site along a particular direction
 c
 c
       subroutine bsplgen (w,thetai)
-      use sizes
       use pme
       use potent
       implicit none
@@ -99,7 +98,6 @@ c
       integer level
       real*8 w,denom
       real*8 thetai(4,*)
-      real*8 temp(maxorder,maxorder)
 c
 c
 c     set B-spline depth for partial charges or multipoles
@@ -109,77 +107,78 @@ c
 c
 c     initialization to get to 2nd order recursion
 c
-      temp(2,2) = w
-      temp(2,1) = 1.0d0 - w
+      bsbuild(2,2) = w
+      bsbuild(2,1) = 1.0d0 - w
 c
 c     perform one pass to get to 3rd order recursion
 c
-      temp(3,3) = 0.5d0 * w * temp(2,2)
-      temp(3,2) = 0.5d0 * ((1.0d0+w)*temp(2,1)+(2.0d0-w)*temp(2,2))
-      temp(3,1) = 0.5d0 * (1.0d0-w) * temp(2,1)
+      bsbuild(3,3) = 0.5d0 * w * bsbuild(2,2)
+      bsbuild(3,2) = 0.5d0 * ((1.0d0+w)*bsbuild(2,1)
+     &                       +(2.0d0-w)*bsbuild(2,2))
+      bsbuild(3,1) = 0.5d0 * (1.0d0-w) * bsbuild(2,1)
 c
 c     compute standard B-spline recursion to desired order
 c
       do i = 4, bsorder
          k = i - 1
          denom = 1.0d0 / dble(k)
-         temp(i,i) = denom * w * temp(k,k)
+         bsbuild(i,i) = denom * w * bsbuild(k,k)
          do j = 1, i-2
-            temp(i,i-j) = denom * ((w+dble(j))*temp(k,i-j-1)
-     &                             +(dble(i-j)-w)*temp(k,i-j))
+            bsbuild(i,i-j) = denom * ((w+dble(j))*bsbuild(k,i-j-1)
+     &                               +(dble(i-j)-w)*bsbuild(k,i-j))
          end do
-         temp(i,1) = denom * (1.0d0-w) * temp(k,1)
+         bsbuild(i,1) = denom * (1.0d0-w) * bsbuild(k,1)
       end do
 c
 c     get coefficients for the B-spline first derivative
 c
       k = bsorder - 1
-      temp(k,bsorder) = temp(k,bsorder-1)
+      bsbuild(k,bsorder) = bsbuild(k,bsorder-1)
       do i = bsorder-1, 2, -1
-         temp(k,i) = temp(k,i-1) - temp(k,i)
+         bsbuild(k,i) = bsbuild(k,i-1) - bsbuild(k,i)
       end do
-      temp(k,1) = -temp(k,1)
+      bsbuild(k,1) = -bsbuild(k,1)
 c
 c     get coefficients for the B-spline second derivative
 c
       if (level .eq. 4) then
          k = bsorder - 2
-         temp(k,bsorder-1) = temp(k,bsorder-2)
+         bsbuild(k,bsorder-1) = bsbuild(k,bsorder-2)
          do i = bsorder-2, 2, -1
-            temp(k,i) = temp(k,i-1) - temp(k,i)
+            bsbuild(k,i) = bsbuild(k,i-1) - bsbuild(k,i)
          end do
-         temp(k,1) = -temp(k,1)
-         temp(k,bsorder) = temp(k,bsorder-1)
+         bsbuild(k,1) = -bsbuild(k,1)
+         bsbuild(k,bsorder) = bsbuild(k,bsorder-1)
          do i = bsorder-1, 2, -1
-            temp(k,i) = temp(k,i-1) - temp(k,i)
+            bsbuild(k,i) = bsbuild(k,i-1) - bsbuild(k,i)
          end do
-         temp(k,1) = -temp(k,1)
+         bsbuild(k,1) = -bsbuild(k,1)
 c
 c     get coefficients for the B-spline third derivative
 c
          k = bsorder - 3
-         temp(k,bsorder-2) = temp(k,bsorder-3)
+         bsbuild(k,bsorder-2) = bsbuild(k,bsorder-3)
          do i = bsorder-3, 2, -1
-            temp(k,i) = temp(k,i-1) - temp(k,i)
+            bsbuild(k,i) = bsbuild(k,i-1) - bsbuild(k,i)
          end do
-         temp(k,1) = -temp(k,1)
-         temp(k,bsorder-1) = temp(k,bsorder-2)
+         bsbuild(k,1) = -bsbuild(k,1)
+         bsbuild(k,bsorder-1) = bsbuild(k,bsorder-2)
          do i = bsorder-2, 2, -1
-            temp(k,i) = temp(k,i-1) - temp(k,i)
+            bsbuild(k,i) = bsbuild(k,i-1) - bsbuild(k,i)
          end do
-         temp(k,1) = -temp(k,1)
-         temp(k,bsorder) = temp(k,bsorder-1)
+         bsbuild(k,1) = -bsbuild(k,1)
+         bsbuild(k,bsorder) = bsbuild(k,bsorder-1)
          do i = bsorder-1, 2, -1
-            temp(k,i) = temp(k,i-1) - temp(k,i)
+            bsbuild(k,i) = bsbuild(k,i-1) - bsbuild(k,i)
          end do
-         temp(k,1) = -temp(k,1)
+         bsbuild(k,1) = -bsbuild(k,1)
       end if
 c
 c     copy coefficients from temporary to permanent storage
 c
       do i = 1, bsorder
          do j = 1, level
-            thetai(j,i) = temp(bsorder-j+1,i)
+            thetai(j,i) = bsbuild(bsorder-j+1,i)
          end do
       end do
       return
