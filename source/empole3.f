@@ -800,14 +800,25 @@ c
 c
 c     set OpenMP directives for the major loop structure
 c
-!$OMP PARALLEL default(shared) firstprivate(f)
+!$OMP PARALLEL default(none) firstprivate(f)
+!$OMP& shared(npole,ipole, xaxis,yaxis,zaxis, pdamp,thole,rpole,
+!$OMP& uind,use, n12,n13,n14,n15,i12,i13,i14,i15,
+!$OMP& m2scale,m3scale,m4scale,m5scale,
+!$OMP& p2scale,p3scale,p4scale,p5scale,p41scale,
+!$OMP& np11,ip11, nelst,elst, use_group,use_intra,use_bounds,
+!$OMP& x,y,z, off2, use_mpole,use_polar, molcule,
+!$OMP& debug, verbose, iout, name)
 !$OMP& private(i,j,k,ii,kk,kkk,e,ei,damp,expdamp,pdi,pti,pgamma,
 !$OMP& scale3,scale5,scale7,xr,yr,zr,r,r2,rr1,rr3,rr5,rr7,rr9,
 !$OMP& ci,dix,diy,diz,qixx,qixy,qixz,qiyy,qiyz,qizz,uix,uiy,uiz,
 !$OMP& ck,dkx,dky,dkz,qkxx,qkxy,qkxz,qkyy,qkyz,qkzz,ukx,uky,ukz,
-!$OMP& fgrp,fm,fp,sc,gl,sci,gli)
+!$OMP& fgrp,fm,fp,sc,gl,sci,gli,
+!$OMP& usei,usek,proceed,ix,iy,iz,kx,ky,kz,
+!$OMP& qix,qiy,qiz, qkx,qky,qkz,
+!$OMP& muse,puse,huge,header)
 !$OMP& firstprivate(mscale,pscale)
-!$OMP DO reduction(+:emtt,eptt,eintert,nemtt,neptt,aemtt,aeptt)
+!$OMP& reduction(+:emtt,eptt,eintert,nemtt,neptt,aemtt,aeptt)
+!$OMP DO 
 !$OMP& schedule(guided)
 c
 c     calculate the multipole interaction energy term
