@@ -8,3 +8,4 @@ source/*.mod.F
 implicit_examples/*.txt
 bin/*
 source/Makefile
+source/*genmod*
