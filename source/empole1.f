@@ -1791,7 +1791,16 @@ c
 c
 c     set OpenMP directives for the major loop structure
 c
-!$OMP PARALLEL default(shared) firstprivate(f)
+!$OMP PARALLEL default(none) firstprivate(f)
+!$OMP& shared(npole,ipole, xaxis,yaxis,zaxis, pdamp,thole,rpole,
+!$OMP& uind,use, n12,n13,n14,n15,i12,i13,i14,i15,
+!$OMP& m2scale,m3scale,m4scale,m5scale,
+!$OMP& p2scale,p3scale,p4scale,p5scale,p41scale,
+!$OMP& np11,ip11, nelst,elst, use_group,use_intra,use_bounds,
+!$OMP& x,y,z, off2, 
+!$OMP& d1scale,d2scale,d3scale,d4scale,
+!$OMP& u1scale,u2scale,u3scale,u4scale, 
+!$OMP& np12,np13,np14,ip12,ip13,ip14, uinp, molcule, poltyp)
 !$OMP& private(i,j,k,ii,kk,kkk,e,ei,damp,expdamp,
 !$OMP& pdi,pti,pgamma,scale3,scale5,scale7,temp3,temp5,temp7,
 !$OMP& dsc3,dsc5,dsc7,psc3,psc5,psc7,gfd,xr,yr,zr,xix,yix,zix,
@@ -1803,9 +1812,12 @@ c
 !$OMP& ukxqirp,qiuk,qkui,qiukp,qkuip,rxqiuk,rxqkui,rxqiukp,rxqkuip,
 !$OMP& qidk,qkdi,qir,qkr,qiqkr,qkqir,qixqk,rxqir,dixr,dkxr,dixqkr,
 !$OMP& dkxqir,rxqkr,qkrxqir,rxqikr,rxqkir,rxqidk,rxqkdi,
-!$OMP& ddsc3,ddsc5,ddsc7,sc,gl,sci,scip,gli,glip,gf,gfi)
+!$OMP& ddsc3,ddsc5,ddsc7,sc,gl,sci,scip,gli,glip,gf,gfi,
+!$OMP& usei,usek,proceed,ix,iy,iz,kx,ky,kz, fgrp,
+!$OMP& scale3i,scale5i,scale7i,gti )
 !$OMP& firstprivate(mscale,pscale,dscale,uscale)
-!$OMP DO reduction(+:emtt,eptt,eintert,demt1,demt2,dept1,dept2,virt)
+!$OMP& reduction(+:emtt,eptt,eintert,demt1,demt2,dept1,dept2,virt)
+!$OMP DO
 !$OMP& schedule(guided)
 c
 c     set scale factors for permanent multipole and induced terms
@@ -2151,8 +2163,8 @@ c
      &                   + rr7*gli(3)*psc7)
                e = f * mscale(kk) * e
                ei = f * ei
-               em = em + e
-               ep = ep + ei
+               emtt = emtt + e
+               eptt = eptt + ei
 c
 c     increment the total intermolecular energy
 c
