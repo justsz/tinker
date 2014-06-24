@@ -157,6 +157,8 @@ c
          write (iout,100)  wall,cpu
   100    format (/,' Hessian Matrix :    ',f15.3,' Sec (Wall)',
      &              f15.3,' Sec (CPU)')
+
+         print *, "Hessian value:", sum(abs(hdiag))
       end if
 c
 c     repeat the potential energy only timing experiment
