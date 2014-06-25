@@ -4715,13 +4715,11 @@ c     find cavity energy from only a SASA-based term
 c
       else
          ecav = esurf
-!$OMP PARALLEL DO private(i) shared(n,des,dsurf)
          do i = 1, n
             des(1,i) = des(1,i) + dsurf(1,i)
             des(2,i) = des(2,i) + dsurf(2,i)
             des(3,i) = des(3,i) + dsurf(3,i)
          end do
-!$OMP END PARALLEL DO
       end if
 c
 c     perform deallocation of some local arrays
@@ -4794,6 +4792,16 @@ c
 c
 c     find the WCA dispersion energy and gradient components
 c
+!$OMP PARALLEL DO default(none)
+!$OMP& private(i,epsi,rmini,emixo,rmixo,rmixo7,ao,emixh,rmixh,rmixh7,
+!$OMP& ah,r,ri,xi,yi,zi,sum,k,xr,yr,zr,r2,r3,rk,sk,sk2,de,
+!$OMP& rmax,lik,lik2,lik3,lik4,uik,uik2,uik3,uik4,term,dl,du,iwca,
+!$OMP& uik5,uik6,uik10,uik11,uik12,uik13,lik5,lik6,lik10,lik11,lik12,
+!$OMP& lik13,idisp,irep,dedx,dedy,dedz,e)
+!$OMP& shared(n,eps,class,rad,rdisp,x,y,z,shctd,
+!$OMP& cdisp,des)
+!$OMP& reduction(+:edisp)
+!$OMP& schedule(guided)
       do i = 1, n
          epsi = eps(class(i))
          rmini = rad(class(i))
@@ -4999,12 +5007,14 @@ c
                   dedx = de * xr
                   dedy = de * yr
                   dedz = de * zr
+!$OMP CRITICAL
                   des(1,i) = des(1,i) + dedx
                   des(2,i) = des(2,i) + dedy
                   des(3,i) = des(3,i) + dedz
                   des(1,k) = des(1,k) - dedx
                   des(2,k) = des(2,k) - dedy
                   des(3,k) = des(3,k) - dedz
+!$OMP END CRITICAL
                end if
             end if
          end do
@@ -5014,6 +5024,7 @@ c
          e = cdisp(i) - slevy*awater*sum
          edisp = edisp + e
       end do
+!$OMP END PARALLEL DO
       return
       end
 c
