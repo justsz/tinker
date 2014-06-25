@@ -4620,47 +4620,30 @@ c
 c
 c     compute solvent excluded volume for needed for small solutes
 c
-!$OMP PARALLEL default(none)
-!$OMP& shared(reff, spoff, evol, rcav, exclude, solvprs, dvol, n, spcut,
-!$OMP& ecav, des,
-!$OMP& stoff, mode, taperv, c5, reff5, c4, reff4, c3, reff3, c2, reff2,
-!$OMP& c1, c0, dtaperv, dreff, dsurf, tapersa, dtapersa, esurf, stcut)
-!$OMP& private(i)
       if (reff .lt. spoff) then
-!$OMP SINGLE
          call volume (evol,rcav,exclude)
          evol = evol * solvprs
          call volume1 (rcav,exclude,dvol)
-!$OMP END SINGLE
-
-!$OMP DO
          do i = 1, n
             dvol(1,i) = dvol(1,i) * solvprs
             dvol(2,i) = dvol(2,i) * solvprs
             dvol(3,i) = dvol(3,i) * solvprs
          end do
-!$OMP END DO
       end if
 c
 c     find cavity energy from only the solvent excluded volume
 c
       if (reff .le. spcut) then
-!$OMP SINGLE
          ecav = evol
-!$OMP END SINGLE
-
-!$OMP DO
          do i = 1, n
             des(1,i) = des(1,i) + dvol(1,i)
             des(2,i) = des(2,i) + dvol(2,i)
             des(3,i) = des(3,i) + dvol(3,i)
          end do
-!$OMP END DO
 c
 c     find cavity energy from only a tapered volume term
 c
       else if (reff.gt.spcut .and. reff.le.stoff) then
-!$OMP SINGLE
          mode = 'GKV'
          call switch (mode)
          taperv = c5*reff5 + c4*reff4 + c3*reff3
@@ -4668,9 +4651,6 @@ c
          dtaperv = (5.0d0*c5*reff4+4.0d0*c4*reff3+3.0d0*c3*reff2
      &                 +2.0d0*c2*reff+c1) * dreff
          ecav = evol * taperv
-!$OMP END SINGLE
-
-!$OMP DO
          do i = 1, n
             des(1,i) = des(1,i) + taperv*dvol(1,i)
      &                    + evol*dtaperv*dsurf(1,i)
@@ -4679,12 +4659,10 @@ c
             des(3,i) = des(3,i) + taperv*dvol(3,i)
      &                    + evol*dtaperv*dsurf(3,i)
          end do
-!$OMP END DO
 c
 c     find cavity energy using both volume and SASA terms
 c
       else if (reff.gt.stoff .and. reff.le.spoff) then
-!$OMP SINGLE
          mode = 'GKV'
          call switch (mode)
          taperv = c5*reff5 + c4*reff4 + c3*reff3
@@ -4700,9 +4678,6 @@ c
      &                  +2.0d0*c2*reff+c1) * dreff
          dtapersa = -dtapersa
          ecav = evol * taperv
-!$OMP END SINGLE
-
-!$OMP DO
          do i = 1, n
             des(1,i) = des(1,i) + taperv*dvol(1,i)
      &                    + evol*dtaperv*dsurf(1,i)
@@ -4711,24 +4686,16 @@ c
             des(3,i) = des(3,i) + taperv*dvol(3,i)
      &                    + evol*dtaperv*dsurf(3,i)
          end do
-!$OMP END DO
-
-!$OMP SINGLE
          ecav = ecav + tapersa*esurf
-!$OMP END SINGLE
-
-!$OMP DO
          do i = 1, n
             des(1,i) = des(1,i) + (tapersa+esurf*dtapersa)*dsurf(1,i)
             des(2,i) = des(2,i) + (tapersa+esurf*dtapersa)*dsurf(2,i)
             des(3,i) = des(3,i) + (tapersa+esurf*dtapersa)*dsurf(3,i)
          end do
-!$OMP END DO
 c
 c     find cavity energy from only a tapered SASA term
 c
       else if (reff.gt.spoff .and. reff.le.stcut) then
-!$OMP SINGLE
          mode = 'GKSA'
          call switch (mode)
          tapersa = c5*reff5 + c4*reff4 + c3*reff3
@@ -4738,33 +4705,24 @@ c
      &                  +2.0d0*c2*reff+c1) * dreff
          dtapersa = -dtapersa
          ecav = tapersa * esurf
-!$OMP END SINGLE
-
-!$OMP DO
          do i = 1, n
             des(1,i) = des(1,i) + (tapersa+esurf*dtapersa)*dsurf(1,i)
             des(2,i) = des(2,i) + (tapersa+esurf*dtapersa)*dsurf(2,i)
             des(3,i) = des(3,i) + (tapersa+esurf*dtapersa)*dsurf(3,i)
          end do
-!$OMP END DO
 c
 c     find cavity energy from only a SASA-based term
 c
       else
-!$OMP SINGLE
          ecav = esurf
-!$OMP END SINGLE
-
-!$OMP DO
+!$OMP PARALLEL DO private(i) shared(n,des,dsurf)
          do i = 1, n
             des(1,i) = des(1,i) + dsurf(1,i)
             des(2,i) = des(2,i) + dsurf(2,i)
             des(3,i) = des(3,i) + dsurf(3,i)
          end do
-!$OMP END DO
+!$OMP END PARALLEL DO
       end if
-
-!$OMP END PARALLEL
 c
 c     perform deallocation of some local arrays
 c
