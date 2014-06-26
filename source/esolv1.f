@@ -4776,6 +4776,7 @@ c
       real*8 uik11,uik12,uik13
       real*8 de,dl,du
       real*8 dedx,dedy,dedz
+      real*8 dedxred, dedyred, dedzred
 c
 c
 c     zero out the Weeks-Chandler-Andersen dispersion energy
@@ -4792,16 +4793,15 @@ c
 c
 c     find the WCA dispersion energy and gradient components
 c
-!$OMP PARALLEL DO default(none)
+!$OMP PARALLEL default(none)
 !$OMP& private(i,epsi,rmini,emixo,rmixo,rmixo7,ao,emixh,rmixh,rmixh7,
 !$OMP& ah,r,ri,xi,yi,zi,sum,k,xr,yr,zr,r2,r3,rk,sk,sk2,de,
 !$OMP& rmax,lik,lik2,lik3,lik4,uik,uik2,uik3,uik4,term,dl,du,iwca,
 !$OMP& uik5,uik6,uik10,uik11,uik12,uik13,lik5,lik6,lik10,lik11,lik12,
 !$OMP& lik13,idisp,irep,dedx,dedy,dedz,e)
 !$OMP& shared(n,eps,class,rad,rdisp,x,y,z,shctd,
-!$OMP& cdisp,des)
-!$OMP& reduction(+:edisp)
-!$OMP& schedule(guided)
+!$OMP& cdisp,des,edisp, dedxred,dedyred,dedzred)
+c!$OMP& reduction(+:edisp)
       do i = 1, n
          epsi = eps(class(i))
          rmini = rad(class(i))
@@ -4821,6 +4821,13 @@ c
          yi = y(i)
          zi = z(i)
          sum = 0.0d0
+
+!$OMP SINGLE
+         dedxred = 0.0d0
+         dedyred = 0.0d0
+         dedzred = 0.0d0
+!$OMP END SINGLE
+!$OMP DO schedule(guided) reduction(+:dedxred,dedyred,dedzred)
          do k = 1, n
             if (i .ne. k) then
                xr = xi - x(k)
@@ -5007,24 +5014,31 @@ c
                   dedx = de * xr
                   dedy = de * yr
                   dedz = de * zr
-!$OMP CRITICAL
-                  des(1,i) = des(1,i) + dedx
-                  des(2,i) = des(2,i) + dedy
-                  des(3,i) = des(3,i) + dedz
+c                  des(1,i) = des(1,i) + dedx
+c                  des(2,i) = des(2,i) + dedy
+c                  des(3,i) = des(3,i) + dedz
+                  dedxred = dedxred + dedx      
+                  dedyred = dedyred + dedy      
+                  dedzred = dedzred + dedz      
                   des(1,k) = des(1,k) - dedx
                   des(2,k) = des(2,k) - dedy
                   des(3,k) = des(3,k) - dedz
-!$OMP END CRITICAL
                end if
             end if
          end do
+!$OMP END DO
 c
 c     increment the overall dispersion energy component
 c
+!$OMP SINGLE
+         des(1,i) = des(1,i) + dedxred
+         des(2,i) = des(2,i) + dedyred
+         des(3,i) = des(3,i) + dedzred
          e = cdisp(i) - slevy*awater*sum
          edisp = edisp + e
+!$OMP END SINGLE
       end do
-!$OMP END PARALLEL DO
+!$OMP END PARALLEL
       return
       end
 c
