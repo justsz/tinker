@@ -1536,6 +1536,16 @@ c
 c
 c     find the Weeks-Chandler-Andersen dispersion energy
 c
+!$OMP PARALLEL DO default(none)
+!$OMP& private(i,epsi,rmini,emixo,rmixo,rmixo7,ao,emixh,rmixh,rmixh7,
+!$OMP& ah,r,ri,xi,yi,zi,sum,k,xr,yr,zr,r2,rk,sk,sk2,
+!$OMP& rmax,lik,lik2,lik3,lik4,uik,uik2,uik3,uik4,term,iwca,
+!$OMP& uik5,uik10,uik11,uik12,lik5,lik10,lik11,lik12,
+!$OMP& idisp,irep,e)
+!$OMP& shared(n,eps,class,rad,rdisp,x,y,z,shctd,
+!$OMP& cdisp,des)
+!$OMP& reduction(+:edisp)
+!$OMP& schedule(guided)
       do i = 1, n
          epsi = eps(class(i))
          rmini = rad(class(i))
@@ -1653,6 +1663,7 @@ c
          e = cdisp(i) - slevy*awater*sum
          edisp = edisp + e
       end do
+!$OMP END PARALLEL DO
       return
       end
 c
