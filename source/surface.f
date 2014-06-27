@@ -152,6 +152,22 @@ c
 c
 c     compute the area and derivatives of current "ir" sphere
 c
+! Directive inserted by Cray Reveal.  May be incomplete.
+!$OMP  PARALLEL DO default(none)                                         
+!$OMP&   private (arclen,arcsum,bk,bsqk,dsql,exang,i,ii,l,t1,tb,tr,tr2,  
+!$OMP&            txk,tyk,tzk,rr,xr,rplus,tx,yr,ty,zr,tz,xysq,rminus,cc, 
+!$OMP&            io,ccsq,rrx2,gi,rrsq,therk,td,dk,axy, 
+!$OMP&            tyl,axx,txl,axz,tzl,ayx,ayy,azy,azx,azz,cosine,uyl,    
+!$OMP&            uxl,gk,uzl,rik,risqk,txb,tyr,txr,tyb,tk1,tk2,thec,     
+!$OMP&            narc,ti,tf,komit,mi,t,ni,jb,m,tt,top,ib,moved,wght,
+!$OMP&            arci,b1,bsq1,dsq1,gr,ir,j,kent,key,kout,omit,xc1,yc1,
+!$OMP&            zc1,intag,intag1,ux,uy,uz,
+!$OMP&            b,bg,bsq,dsq,ri,risq,the,ther,xc,yc,zc,
+!$OMP&            arcf,ex,lt )    
+!$OMP&   shared  (area,weight,iout,n,r,skip,x,y,z,  
+!$OMP&            delta,delta2,eps,rmove,pix2,pix4,pid2)               
+!$OMP&   reduction (+:total)
+!$OMP&   schedule (guided)
       do ir = 1, n
          if (skip(ir))  goto 180
          xr = x(ir)
