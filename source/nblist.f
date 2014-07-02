@@ -355,7 +355,7 @@ c
          zi = zred(i)
          if (kbx(i) .le. kex(i)) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = kex(i)
          else
             repeat = .true.
@@ -391,7 +391,7 @@ c
          end do
          if (repeat) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = nvdw
             goto 10
          end if
@@ -716,7 +716,7 @@ c
          zi = z(ii)
          if (kbx(i) .le. kex(i)) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = kex(i)
          else
             repeat = .true.
@@ -753,7 +753,7 @@ c
          end do
          if (repeat) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = nion
             goto 10
          end if
@@ -1078,7 +1078,7 @@ c
          zi = z(ii)
          if (kbx(i) .le. kex(i)) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = kex(i)
          else
             repeat = .true.
@@ -1115,7 +1115,7 @@ c
          end do
          if (repeat) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = npole
             goto 10
          end if
@@ -1441,7 +1441,7 @@ c
          zi = z(ii)
          if (kbx(i) .le. kex(i)) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = kex(i)
          else
             repeat = .true.
@@ -1478,7 +1478,7 @@ c
          end do
          if (repeat) then
             repeat = .false.
-            start = kbx(i) + 1
+            start = kbx(i)
             stop = npole
             goto 10
          end if
