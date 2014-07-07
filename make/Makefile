@@ -8,20 +8,20 @@
 ##  Invocation Options:
 ##
 ##   1. make all              Build all the TINKER executables
-##   2. make rename           Move the executables to BINDIR
+##   2. make install          Move the executables to BINDIR
 ##   3. make create_links     Create soft links in LINKDIR
 ##   4. make remove_links     Remove soft links from LINKDIR
 ##   6. make listing          Concatenate source to tinker.txt
 ##   5. make clean            Delete objects and executables
 ##
 ##  Original version of this file is due to Peter Happersberger
-##  and Jochen Buehler of the University of Konstanz, Jan. 1998,
+##  and Jochen Buehler of the University of Konstanz, January 1998,
 ##  Modifications by Reece Hart & Jay Ponder, Washington University
 ##
 ##  Note: Building TINKER requires libraries for the FFTW Fast
 ##  Fourier Transform package and (optionally) the APBS Poisson-
 ##  Boltzmann solver. These libraries are assumed to already be
-##  present, and are not built by this Makefile.
+##  present, and are not built by this Makefile
 ##
 ###################################################################
 
@@ -33,7 +33,7 @@
 ##  BINDIR       Hard Copies of TINKER Executables
 ##  LINKDIR      Linked Copies of TINKER Executables
 
-TINKERDIR = /Users/ponder/tinker
+TINKERDIR = $(HOME)/tinker
 BINDIR = $(TINKERDIR)/bin
 LINKDIR = /usr/local/bin
 
@@ -577,7 +577,6 @@ OBJS = action.o \
        shunt.o \
        sigmoid.o \
        sizes.o \
-       sizes.o \
        sktstuff.o \
        sniffer.o \
        socket.o \
@@ -719,7 +718,11 @@ EXEFILES = alchemy.x \
 %.x: %.o libtinker.a
 	${F77} ${LINKFLAGS} -o $@ $^ ${LIBS}; strip $@
 
-all:	${EXEFILES}
+all:
+	${EXEFILES}
+
+install:
+	rename
 
 clean:
 	rm -f *.o *.mod *.a *.x
@@ -1600,7 +1603,7 @@ getword.o: ascii.o
 getxyz.o: inform.o iounit.o output.o
 ghmcstep.o: atomid.o atoms.o bath.o freeze.o iounit.o mdstuf.o moldyn.o sizes.o stodyn.o units.o usage.o virial.o
 gkstuf.o: sizes.o
-gradient.o: atoms.o bound.o deriv.o energi.o inter.o iounit.o limits.o potent.o rigid.o sizes.o vdwpot.o virial.o
+gradient.o: atoms.o bound.o couple.o deriv.o energi.o inter.o iounit.o limits.o potent.o rigid.o sizes.o vdwpot.o virial.o
 gradrgd.o: atoms.o group.o rigid.o sizes.o
 gradrot.o: atoms.o deriv.o domega.o omega.o potent.o rotbnd.o sizes.o
 group.o:
@@ -1671,7 +1674,7 @@ kpitor.o:
 kpitors.o: atomid.o atoms.o bndstr.o couple.o inform.o iounit.o keys.o kpitor.o pitors.o potent.o sizes.o tors.o
 kpolar.o: atoms.o couple.o inform.o iounit.o keys.o kpolr.o mpole.o polar.o polgrp.o polpot.o potent.o sizes.o usolve.o
 kpolr.o: sizes.o
-ksolv.o: angbnd.o atmlst.o atomid.o atoms.o bath.o bndstr.o chgpot.o couple.o gkstuf.o hpmf.o inform.o iounit.o keys.o kvdws.o math.o nonpol.o pbstuf.o potent.o sizes.o solute.o
+ksolv.o: angbnd.o atmlst.o atomid.o atoms.o bath.o bndstr.o chgpot.o couple.o gkstuf.o hpmf.o inform.o iounit.o keys.o kvdws.o math.o nonpol.o pbstuf.o potent.o ptable.o sizes.o solute.o
 kstbnd.o:
 kstrbnd.o: angbnd.o angpot.o atmlst.o atomid.o atoms.o couple.o fields.o inform.o iounit.o keys.o kstbnd.o merck.o potent.o ring.o sizes.o strbnd.o
 kstrtor.o: atmlst.o atomid.o atoms.o couple.o inform.o iounit.o keys.o ksttor.o potent.o sizes.o strtor.o tors.o
@@ -1832,7 +1835,6 @@ shakeup.o: angbnd.o atmlst.o atomid.o atoms.o bndstr.o bound.o couple.o freeze.o
 shunt.o:
 sigmoid.o:
 sizes.o:
-sizes.o:
 sktstuff.o: atomid.o atoms.o charge.o couple.o deriv.o fields.o files.o inform.o iounit.o keys.o moldyn.o mpole.o polar.o potent.o sizes.o socket.o
 sniffer.o: atoms.o files.o inform.o iounit.o linmin.o math.o minima.o output.o scales.o sizes.o usage.o
 socket.o:
@@ -1895,7 +1897,7 @@ xtalfit.o: atomid.o atoms.o bound.o boxes.o charge.o dipole.o files.o fracs.o io
 xtalmin.o: atoms.o boxes.o files.o inform.o iounit.o keys.o math.o scales.o sizes.o
 xtals.o:
 xyzatm.o: atoms.o inform.o iounit.o math.o sizes.o
-xyzedit.o: atomid.o atoms.o bound.o boxes.o couple.o files.o iounit.o limits.o math.o molcul.o refer.o sizes.o titles.o units.o usage.o
+xyzedit.o: atomid.o atoms.o bound.o boxes.o couple.o files.o inform.o iounit.o limits.o math.o molcul.o ptable.o refer.o sizes.o titles.o units.o usage.o
 xyzint.o: files.o iounit.o titles.o
 xyzpdb.o: atomid.o atoms.o couple.o fields.o files.o inform.o molcul.o pdb.o resdue.o sequen.o sizes.o
 xyzsybyl.o: files.o iounit.o sizes.o titles.o

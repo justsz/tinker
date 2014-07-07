@@ -33,11 +33,11 @@ c
       end
 c
 c
-c     ################################################################
-c     ##                                                            ##
-c     ##  subroutine vlist  --  build van der Waals neighbor lists  ##
-c     ##                                                            ##
-c     ################################################################
+c     ##############################################################
+c     ##                                                          ##
+c     ##  subroutine vlist  --  get van der Waals neighbor lists  ##
+c     ##                                                          ##
+c     ##############################################################
 c
 c
 c     "vlist" performs an update or a complete rebuild of the
@@ -237,10 +237,13 @@ c
       real*8 zred(*)
 c
 c
-c     store coordinates to reflect update of the site
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,k,xi,yi,zi,xr,yr,zr,r2)
 !$OMP DO schedule(guided)
+c
+c     store coordinates to reflect update of the site
+c
       do i = 1, nvdw
          xi = xred(i)
          yi = yred(i)
@@ -273,17 +276,20 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
       end
 c
 c
-c     ###############################################################
-c     ##                                                           ##
-c     ##  subroutine vlight  --  make vdw pair list for all sites  ##
-c     ##                                                           ##
-c     ###############################################################
+c     #############################################################
+c     ##                                                         ##
+c     ##  subroutine vlight  --  build vdw pair list via lights  ##
+c     ##                                                         ##
+c     #############################################################
 c
 c
 c     "vlight" performs a complete rebuild of the van der Waals
@@ -344,11 +350,14 @@ c
       deallocate (ysort)
       deallocate (zsort)
 c
-c     loop over all atoms computing the neighbor lists
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,j,k,xi,yi,zi,
 !$OMP& xr,yr,zr,r2,kgy,kgz,start,stop,repeat)
 !$OMP DO schedule(guided)
+c
+c     loop over all atoms computing the neighbor lists
+c
       do i = 1, nvdw
          xi = xred(i)
          yi = yred(i)
@@ -405,17 +414,20 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
       end
 c
 c
-c     #################################################################
-c     ##                                                             ##
-c     ##  subroutine clist  --  build partial charge neighbor lists  ##
-c     ##                                                             ##
-c     #################################################################
+c     ###############################################################
+c     ##                                                           ##
+c     ##  subroutine clist  --  get partial charge neighbor lists  ##
+c     ##                                                           ##
+c     ###############################################################
 c
 c
 c     "clist" performs an update or a complete rebuild of the
@@ -596,10 +608,13 @@ c
       real*8 xr,yr,zr,r2
 c
 c
-c     store new coordinates to reflect update of the site
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,k,ii,kk,xi,yi,zi,xr,yr,zr,r2)
 !$OMP DO schedule(guided)
+c
+c     store new coordinates to reflect update of the site
+c
       do i = 1, nion
          ii = kion(i)
          xi = x(ii)
@@ -634,17 +649,20 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
       end
 c
 c
-c     ##################################################################
-c     ##                                                              ##
-c     ##  subroutine clight  --  make charge pair list for all sites  ##
-c     ##                                                              ##
-c     ##################################################################
+c     #################################################################
+c     ##                                                             ##
+c     ##  subroutine clight  --  get partial charge list via lights  ##
+c     ##                                                             ##
+c     #################################################################
 c
 c
 c     "clight" performs a complete rebuild of the partial charge
@@ -704,11 +722,14 @@ c
       deallocate (ysort)
       deallocate (zsort)
 c
-c     loop over all atoms computing the neighbor lists
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,j,k,ii,kk,xi,yi,zi,
 !$OMP& xr,yr,zr,r2,kgy,kgz,start,stop,repeat)
 !$OMP DO schedule(guided)
+c
+c     loop over all atoms computing the neighbor lists
+c
       do i = 1, nion
          ii = kion(i)
          xi = x(ii)
@@ -767,6 +788,9 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
@@ -775,7 +799,7 @@ c
 c
 c     #################################################################
 c     ##                                                             ##
-c     ##  subroutine mlist  --  build atom multipole neighbor lists  ##
+c     ##  subroutine mlist  --  get atomic multipole neighbor lists  ##
 c     ##                                                             ##
 c     #################################################################
 c
@@ -933,11 +957,11 @@ c
       end
 c
 c
-c     ############################################################
-c     ##                                                        ##
-c     ##  subroutine mbuild  --  make mpole list for all sites  ##
-c     ##                                                        ##
-c     ############################################################
+c     #############################################################
+c     ##                                                         ##
+c     ##  subroutine mbuild  --  build mpole list for all sites  ##
+c     ##                                                         ##
+c     #############################################################
 c
 c
 c     "mbuild" performs a complete rebuild of the atomic multipole
@@ -958,10 +982,13 @@ c
       real*8 xr,yr,zr,r2
 c
 c
-c     store new coordinates to reflect update of the site
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,k,ii,kk,xi,yi,zi,xr,yr,zr,r2)
 !$OMP DO schedule(guided)
+c
+c     store new coordinates to reflect update of the site
+c
       do i = 1, npole
          ii = ipole(i)
          xi = x(ii)
@@ -996,6 +1023,9 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
@@ -1004,7 +1034,7 @@ c
 c
 c     #################################################################
 c     ##                                                             ##
-c     ##  subroutine mlight  --  make mpole pair list for all sites  ##
+c     ##  subroutine mlight  --  get multipole pair list via lights  ##
 c     ##                                                             ##
 c     #################################################################
 c
@@ -1066,11 +1096,14 @@ c
       deallocate (ysort)
       deallocate (zsort)
 c
-c     loop over all atoms computing the neighbor lists
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,j,k,ii,kk,xi,yi,zi,
 !$OMP& xr,yr,zr,r2,kgy,kgz,start,stop,repeat)
 !$OMP DO schedule(guided)
+c
+c     loop over all atoms computing the neighbor lists
+c
       do i = 1, npole
          ii = ipole(i)
          xi = x(ii)
@@ -1129,17 +1162,20 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
       end
 c
 c
-c     #################################################################
-c     ##                                                             ##
-c     ##  subroutine ulist  --  build preconditioner neighbor lists  ##
-c     ##                                                             ##
-c     #################################################################
+c     ###############################################################
+c     ##                                                           ##
+c     ##  subroutine ulist  --  get preconditioner neighbor lists  ##
+c     ##                                                           ##
+c     ###############################################################
 c
 c
 c     "ulist" performs an update or a complete rebuild of the
@@ -1320,10 +1356,13 @@ c
       real*8 xr,yr,zr,r2
 c
 c
-c     store new coordinates to reflect update of the site
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,k,ii,kk,xi,yi,zi,xr,yr,zr,r2)
 !$OMP DO schedule(guided)
+c
+c     store new coordinates to reflect update of the site
+c
       do i = 1, npole
          ii = ipole(i)
          xi = x(ii)
@@ -1358,17 +1397,20 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
       end
 c
 c
-c     ################################################################
-c     ##                                                            ##
-c     ##  subroutine ulight  --  preconditioner list for all sites  ##
-c     ##                                                            ##
-c     ################################################################
+c     #################################################################
+c     ##                                                             ##
+c     ##  subroutine ulight  --  get preconditioner list via lights  ##
+c     ##                                                             ##
+c     #################################################################
 c
 c
 c     "ulight" performs a complete rebuild of the polarization
@@ -1429,11 +1471,14 @@ c
       deallocate (ysort)
       deallocate (zsort)
 c
-c     loop over all atoms computing the neighbor lists
+c     set OpenMP directives for the major loop structure
 c
 !$OMP PARALLEL default(shared) private(i,j,k,ii,kk,xi,yi,zi,
 !$OMP& xr,yr,zr,r2,kgy,kgz,start,stop,repeat)
 !$OMP DO schedule(guided)
+c
+c     loop over all atoms computing the neighbor lists
+c
       do i = 1, npole
          ii = ipole(i)
          xi = x(ii)
@@ -1492,6 +1537,9 @@ c
             call fatal
          end if
       end do
+c
+c     end OpenMP directives for the major loop structure
+c
 !$OMP END DO
 !$OMP END PARALLEL
       return
