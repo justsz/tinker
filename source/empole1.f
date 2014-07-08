@@ -1804,7 +1804,6 @@ c
 !$OMP& qidk,qkdi,qir,qkr,qiqkr,qkqir,qixqk,rxqir,dixr,dkxr,dixqkr,
 !$OMP& dkxqir,rxqkr,qkrxqir,rxqikr,rxqkir,rxqidk,rxqkdi,
 !$OMP& ddsc3,ddsc5,ddsc7,sc,gl,sci,scip,gli,glip,gf,gfi,
-!$OMP& usei,usek,proceed,ix,iy,iz,kx,ky,kz, fgrp,
 !$OMP& scale3i,scale5i,scale7i,gti )
 !$OMP& firstprivate(mscale,pscale,dscale,uscale)
 !$OMP DO reduction(+:emo,epo,eintero,demo1,demo2,depo1,depo2,viro)
