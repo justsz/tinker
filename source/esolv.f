@@ -514,6 +514,7 @@ c
 c
       subroutine egk
       use potent
+      use limits
       implicit none
 c
 c
@@ -527,7 +528,12 @@ c
 c
 c     compute the generalized Kirkwood electrostatic energy
 c
-      call egk0a
+        
+      if (use_clist) then
+         call egk0b
+      else
+         call egk0a
+      end if
 c
 c     correct the solvation energy for vacuum to polarized state
 c
@@ -966,6 +972,756 @@ c     end OpenMP directives for the major loop structure
 c
 !$OMP END DO
 !$OMP END PARALLEL
+c
+c     add local copies to global variables for OpenMP calculation
+c
+      es = es + est
+      return
+      end
+c
+c
+c     ##############################################################
+c     ##                                                          ##
+c     ##  subroutine egk0b  --  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!##
+c     ##                                                          ##
+c     ##############################################################
+c
+c
+c     "egk0b" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+c
+c
+c
+      subroutine egk0b
+      use sizes
+      use atoms
+      use chgpot
+      use energi
+      use gkstuf
+      use group
+      use neigh
+      use mpole
+      use polar
+      use shunt
+      use solute
+      use usage
+      implicit none
+      integer i,k,ii,kk,kkk
+      real*8 e,ei,est
+      real*8 fc,fd,fq
+      real*8 dwater,fgrp
+      real*8 r2,rb2
+      real*8 xi,yi,zi
+      real*8 xr,yr,zr
+      real*8 xr2,yr2,zr2
+      real*8 ci,ck
+      real*8 uxi,uyi,uzi
+      real*8 uxk,uyk,uzk
+      real*8 dxi,dyi,dzi
+      real*8 dxk,dyk,dzk
+      real*8 qxxi,qxyi,qxzi
+      real*8 qyyi,qyzi,qzzi
+      real*8 qxxk,qxyk,qxzk
+      real*8 qyyk,qyzk,qzzk
+      real*8 rbi,rbk
+      real*8 expterm
+      real*8 gf,gf2,gf3
+      real*8 gf5,gf7,gf9
+      real*8 expc,dexpc
+      real*8 expc1,expcdexpc
+      real*8 esym,ewi,ewk
+      real*8 esymi,ewii,ewki
+      real*8 a(0:4,0:2)
+      real*8 gc(10),gux(10)
+      real*8 guy(10),guz(10)
+      real*8 gqxx(10),gqxy(10)
+      real*8 gqxz(10),gqyy(10)
+      real*8 gqyz(10),gqzz(10)
+      logical proceed,usei
+      character*6 mode
+c
+c
+c     set the bulk dielectric constant to the water value
+c
+      if (npole .eq. 0)  return
+      dwater = 78.3d0
+      fc = electric * 1.0d0 * (1.0d0-dwater)/(0.0d0+1.0d0*dwater)
+      fd = electric * 2.0d0 * (1.0d0-dwater)/(1.0d0+2.0d0*dwater)
+      fq = electric * 3.0d0 * (1.0d0-dwater)/(2.0d0+3.0d0*dwater)
+c
+c     set cutoff distances and switching function coefficients
+c
+      mode = 'MPOLE'
+      call switch (mode)
+c
+c     initialize local variables for OpenMP calculation
+c
+      est = 0.0d0
+c
+c     calculate GK electrostatic solvation free energy
+c
+        print *, "running egk0b!"
+      do ii = 1, npole
+         i = ipole(ii)
+         usei = use(i)
+         xi = x(i)
+         yi = y(i)
+         zi = z(i)
+         rbi = rborn(i)
+         ci = rpole(1,ii)
+         uxi = rpole(2,ii)
+         uyi = rpole(3,ii)
+         uzi = rpole(4,ii)
+         qxxi = rpole(5,ii)
+         qxyi = rpole(6,ii)
+         qxzi = rpole(7,ii)
+         qyyi = rpole(9,ii)
+         qyzi = rpole(10,ii)
+         qzzi = rpole(13,ii)
+         dxi = uinds(1,ii)
+         dyi = uinds(2,ii)
+         dzi = uinds(3,ii)
+c
+c       self energy term!!!!!!!!!!!!!!!!!!!!!!!!!
+c
+
+                !these are zero
+               xr = x(i) - xi 
+               yr = y(i) - yi 
+               zr = z(i) - zi 
+               xr2 = xr * xr 
+               yr2 = yr * yr
+               zr2 = zr * zr
+               r2 = xr2 + yr2 + zr2
+
+                   !these are equivalent to the ones above
+                  rbk = rborn(i)
+                  ck = rpole(1,ii)
+                  uxk = rpole(2,ii)
+                  uyk = rpole(3,ii)
+                  uzk = rpole(4,ii)
+                  qxxk = rpole(5,ii)
+                  qxyk = rpole(6,ii)
+                  qxzk = rpole(7,ii)
+                  qyyk = rpole(9,ii)
+                  qyzk = rpole(10,ii)
+                  qzzk = rpole(13,ii)
+                  dxk = uinds(1,ii)
+                  dyk = uinds(2,ii)
+                  dzk = uinds(3,ii)
+
+                  rb2 = rbi * rbk
+                  expterm = exp(-r2/(gkc*rb2)) !1 because r2=0
+                  expc = expterm / gkc
+                  dexpc = -2.0d0 / (gkc*rbi*rbk)
+                  gf2 = 1.0d0 / (r2 + rb2*expterm) !1/rbi^2
+                  gf = sqrt(gf2) !1/rbi
+                  gf3 = gf2 * gf
+                  gf5 = gf3 * gf2
+                  gf7 = gf5 * gf2
+                  gf9 = gf7 * gf2
+c
+c     reaction potential auxiliary terms
+c
+                  a(0,0) = gf
+                  a(1,0) = -gf3
+                  a(2,0) = 3.0d0 * gf5
+                  a(3,0) = -15.0d0 * gf7
+                  a(4,0) = 105.0d0 * gf9
+c
+c     reaction potential gradient auxiliary terms
+c
+                  expc1 = 1.0d0 - expc
+                  a(0,1) = expc1 * a(1,0)
+                  a(1,1) = expc1 * a(2,0)
+                  a(2,1) = expc1 * a(3,0)
+                  a(3,1) = expc1 * a(4,0)
+c
+c     second reaction potential gradient auxiliary terms
+c
+                  expcdexpc = -expc * dexpc
+                  a(0,2) = expc1*a(1,1) + expcdexpc*a(1,0)
+                  a(1,2) = expc1*a(2,1) + expcdexpc*a(2,0)
+                  a(2,2) = expc1*a(3,1) + expcdexpc*a(3,0)
+c
+c     multiply the auxillary terms by their dieletric functions
+c
+                  a(0,0) = fc * a(0,0)
+                  a(0,1) = fc * a(0,1)
+                  a(0,2) = fc * a(0,2)
+                  a(1,0) = fd * a(1,0)
+                  a(1,1) = fd * a(1,1)
+                  a(1,2) = fd * a(1,2)
+                  a(2,0) = fq * a(2,0)
+                  a(2,1) = fq * a(2,1)
+                  a(2,2) = fq * a(2,2)
+c
+c     unweighted reaction potential tensor
+c
+                  gc(1) = a(0,0)
+                        !all zero
+                  gux(1) = xr * a(1,0)
+                  guy(1) = yr * a(1,0)
+                  guz(1) = zr * a(1,0)
+                  gqxx(1) = xr2 * a(2,0)
+                  gqyy(1) = yr2 * a(2,0)
+                  gqzz(1) = zr2 * a(2,0)
+                  gqxy(1) = xr * yr * a(2,0)
+                  gqxz(1) = xr * zr * a(2,0)
+                  gqyz(1) = yr * zr * a(2,0)
+c
+c     unweighted reaction potential gradient tensor
+c
+                        !most are zero
+                  gc(2) = xr * a(0,1)
+                  gc(3) = yr * a(0,1)
+                  gc(4) = zr * a(0,1)
+                  gux(2) = a(1,0) + xr2*a(1,1)
+                  gux(3) = xr * yr * a(1,1)
+                  gux(4) = xr * zr * a(1,1)
+                  guy(2) = gux(3)
+                  guy(3) = a(1,0) + yr2*a(1,1)
+                  guy(4) = yr * zr * a(1,1)
+                  guz(2) = gux(4)
+                  guz(3) = guy(4)
+                  guz(4) = a(1,0) + zr2*a(1,1)
+                  gqxx(2) = xr * (2.0d0*a(2,0)+xr2*a(2,1))
+                  gqxx(3) = yr * xr2 * a(2,1)
+                  gqxx(4) = zr * xr2 * a(2,1)
+                  gqyy(2) = xr * yr2 * a(2,1)
+                  gqyy(3) = yr * (2.0d0*a(2,0)+yr2*a(2,1))
+                  gqyy(4) = zr * yr2 * a(2,1)
+                  gqzz(2) = xr * zr2 * a(2,1)
+                  gqzz(3) = yr * zr2 * a(2,1)
+                  gqzz(4) = zr * (2.0d0*a(2,0)+zr2*a(2,1))
+                  gqxy(2) = yr * (a(2,0)+xr2*a(2,1))
+                  gqxy(3) = xr * (a(2,0)+yr2*a(2,1))
+                  gqxy(4) = zr * xr * yr * a(2,1)
+                  gqxz(2) = zr * (a(2,0)+xr2*a(2,1))
+                  gqxz(3) = gqxy(4)
+                  gqxz(4) = xr * (a(2,0)+zr2*a(2,1))
+                  gqyz(2) = gqxy(4)
+                  gqyz(3) = zr * (a(2,0)+yr2*a(2,1))
+                  gqyz(4) = yr * (a(2,0)+zr2*a(2,1))
+c
+c     unweighted second reaction potential gradient tensor
+c
+                  gc(5) = a(0,1) + xr2*a(0,2)
+                  gc(6) = xr * yr * a(0,2)
+                  gc(7) = xr * zr * a(0,2)
+                  gc(8) = a(0,1) + yr2*a(0,2)
+                  gc(9) = yr * zr * a(0,2)
+                  gc(10) = a(0,1) + zr2*a(0,2)
+                  gux(5) = xr * (a(1,1)+2.0d0*a(1,1)+xr2*a(1,2))
+                  gux(6) = yr * (a(1,1)+xr2*a(1,2))
+                  gux(7) = zr * (a(1,1)+xr2*a(1,2))
+                  gux(8) = xr * (a(1,1)+yr2*a(1,2))
+                  gux(9) = zr * xr * yr * a(1,2)
+                  gux(10) = xr * (a(1,1)+zr2*a(1,2))
+                  guy(5) = yr * (a(1,1)+xr2*a(1,2))
+                  guy(6) = xr * (a(1,1)+yr2*a(1,2))
+                  guy(7) = gux(9)
+                  guy(8) = yr * (a(1,1)+2.0d0*a(1,1)+yr2*a(1,2))
+                  guy(9) = zr * (a(1,1)+yr2*a(1,2))
+                  guy(10) = yr * (a(1,1)+zr2*a(1,2))
+                  guz(5) = zr * (a(1,1)+xr2*a(1,2))
+                  guz(6) = gux(9)
+                  guz(7) = xr * (a(1,1)+zr2*a(1,2))
+                  guz(8) = zr * (a(1,1)+yr2*a(1,2))
+                  guz(9) = yr * (a(1,1)+zr2*a(1,2))
+                  guz(10) = zr * (a(1,1)+2.0d0*a(1,1)+zr2*a(1,2))
+                  gqxx(5) = 2.0d0*a(2,0) + xr2*(5.0d0*a(2,1)+xr2*a(2,2))
+                  gqxx(6) = yr * xr *(2.0d0*a(2,1)+xr2*a(2,2))
+                  gqxx(7) = zr * xr *(2.0d0*a(2,1)+xr2*a(2,2))
+                  gqxx(8) = xr2 * (a(2,1)+yr2*a(2,2))
+                  gqxx(9) = zr * yr * xr2 * a(2,2)
+                  gqxx(10) = xr2 * (a(2,1)+zr2*a(2,2))
+                  gqyy(5) = yr2 * (a(2,1)+xr2*a(2,2))
+                  gqyy(6) = xr * yr * (2.0d0*a(2,1)+yr2*a(2,2))
+                  gqyy(7) = xr * zr * yr2 * a(2,2)
+                  gqyy(8) = 2.0d0*a(2,0) + yr2*(5.0d0*a(2,1)+yr2*a(2,2))
+                  gqyy(9) = yr * zr * (2.0d0*a(2,1)+yr2*a(2,2))
+                  gqyy(10) = yr2 * (a(2,1)+zr2*a(2,2))
+                  gqzz(5) = zr2 * (a(2,1)+xr2*a(2,2))
+                  gqzz(6) = xr * yr * zr2 * a(2,2)
+                  gqzz(7) = xr * zr * (2.0d0*a(2,1)+zr2*a(2,2))
+                  gqzz(8) = zr2 * (a(2,1)+yr2*a(2,2))
+                  gqzz(9) = yr * zr * (2.0d0*a(2,1)+zr2*a(2,2))
+                  gqzz(10) = 2.0d0*a(2,0)
+     &                          + zr2*(5.0d0*a(2,1)+zr2*a(2,2))
+                  gqxy(5) = xr * yr * (3.0d0*a(2,1)+xr2*a(2,2))
+                  gqxy(6) = a(2,0) + (xr2+yr2)*a(2,1) + xr2*yr2*a(2,2)
+                  gqxy(7) = zr * yr * (a(2,1)+xr2*a(2,2))
+                  gqxy(8) = xr * yr * (3.0d0*a(2,1)+yr2*a(2,2))
+                  gqxy(9) = zr * xr * (a(2,1)+yr2*a(2,2))
+                  gqxy(10) = xr * yr * (a(2,1)+zr2*a(2,2))
+                  gqxz(5) = xr * zr * (3.0d0*a(2,1)+xr2*a(2,2))
+                  gqxz(6) = yr * zr * (a(2,1)+xr2*a(2,2))
+                  gqxz(7) = a(2,0) + (xr2+zr2)*a(2,1) + xr2*zr2*a(2,2)
+                  gqxz(8) = xr * zr * (a(2,1)+yr2*a(2,2))
+                  gqxz(9) = xr * yr * (a(2,1)+zr2*a(2,2))
+                  gqxz(10) = xr * zr * (3.0d0*a(2,1)+zr2*a(2,2))
+                  gqyz(5) = zr * yr * (a(2,1)+xr2*a(2,2))
+                  gqyz(6) = xr * zr * (a(2,1)+yr2*a(2,2))
+                  gqyz(7) = xr * yr * (a(2,1)+zr2*a(2,2))
+                  gqyz(8) = yr * zr * (3.0d0*a(2,1)+yr2*a(2,2))
+                  gqyz(9) = a(2,0) + (yr2+zr2)*a(2,1) + yr2*zr2*a(2,2)
+                  gqyz(10) = yr * zr * (3.0d0*a(2,1)+zr2*a(2,2))
+c
+c     electrostatic solvation free energy of the permanent multipoles
+c     in their own GK reaction potential
+c
+                  esym = ci*ck*gc(1)
+     &                     - uxi*(uxk*gux(2)+uyk*guy(2)+uzk*guz(2))
+     &                     - uyi*(uxk*gux(3)+uyk*guy(3)+uzk*guz(3))
+     &                     - uzi*(uxk*gux(4)+uyk*guy(4)+uzk*guz(4))
+                  ewi = ci*(uxk*gc(2)+uyk*gc(3)+uzk*gc(4))
+     &                    - ck*(uxi*gux(1)+uyi*guy(1)+uzi*guz(1))
+     &               + ci*(qxxk*gc(5)+qyyk*gc(8)+qzzk*gc(10)
+     &                  +2.0d0*(qxyk*gc(6)+qxzk*gc(7)+qyzk*gc(9)))
+     &               + ck*(qxxi*gqxx(1)+qyyi*gqyy(1)+qzzi*gqzz(1)
+     &                  +2.0d0*(qxyi*gqxy(1)+qxzi*gqxz(1)+qyzi*gqyz(1)))
+     &               - uxi*(qxxk*gux(5)+qyyk*gux(8)+qzzk*gux(10)
+     &                  +2.0d0*(qxyk*gux(6)+qxzk*gux(7)+qyzk*gux(9)))
+     &               - uyi*(qxxk*guy(5)+qyyk*guy(8)+qzzk*guy(10)
+     &                  +2.0d0*(qxyk*guy(6)+qxzk*guy(7)+qyzk*guy(9)))
+     &               - uzi*(qxxk*guz(5)+qyyk*guz(8)+qzzk*guz(10)
+     &                  +2.0d0*(qxyk*guz(6)+qxzk*guz(7)+qyzk*guz(9)))
+     &               + uxk*(qxxi*gqxx(2)+qyyi*gqyy(2)+qzzi*gqzz(2)
+     &                  +2.0d0*(qxyi*gqxy(2)+qxzi*gqxz(2)+qyzi*gqyz(2)))
+     &               + uyk*(qxxi*gqxx(3)+qyyi*gqyy(3)+qzzi*gqzz(3)
+     &                  +2.0d0*(qxyi*gqxy(3)+qxzi*gqxz(3)+qyzi*gqyz(3)))
+     &               + uzk*(qxxi*gqxx(4)+qyyi*gqyy(4)+qzzi*gqzz(4)
+     &                  +2.0d0*(qxyi*gqxy(4)+qxzi*gqxz(4)+qyzi*gqyz(4)))
+     &               + qxxi*(qxxk*gqxx(5)+qyyk*gqxx(8)+qzzk*gqxx(10)
+     &                  +2.0d0*(qxyk*gqxx(6)+qxzk*gqxx(7)+qyzk*gqxx(9)))
+     &               + qyyi*(qxxk*gqyy(5)+qyyk*gqyy(8)+qzzk*gqyy(10)
+     &                  +2.0d0*(qxyk*gqyy(6)+qxzk*gqyy(7)+qyzk*gqyy(9)))
+     &               + qzzi*(qxxk*gqzz(5)+qyyk*gqzz(8)+qzzk*gqzz(10)
+     &                  +2.0d0*(qxyk*gqzz(6)+qxzk*gqzz(7)+qyzk*gqzz(9)))
+     &          + 2.0d0 * (qxyi*(qxxk*gqxy(5)+qyyk*gqxy(8)+qzzk*gqxy(10)
+     &               +2.0d0*(qxyk*gqxy(6)+qxzk*gqxy(7)+qyzk*gqxy(9)))
+     &               + qxzi*(qxxk*gqxz(5)+qyyk*gqxz(8)+qzzk*gqxz(10)
+     &               +2.0d0*(qxyk*gqxz(6)+qxzk*gqxz(7)+qyzk*gqxz(9)))
+     &               + qyzi*(qxxk*gqyz(5)+qyyk*gqyz(8)+qzzk*gqyz(10)
+     &               +2.0d0*(qxyk*gqyz(6)+qxzk*gqyz(7)+qyzk*gqyz(9))))
+                  ewk = ci*(uxk*gux(1)+uyk*guy(1)+uzk*guz(1))
+     &                    - ck*(uxi*gc(2)+uyi*gc(3)+uzi*gc(4))
+     &               + ci*(qxxk*gqxx(1)+qyyk*gqyy(1)+qzzk*gqzz(1)
+     &                  +2.0d0*(qxyk*gqxy(1)+qxzk*gqxz(1)+qyzk*gqyz(1)))
+     &               + ck*(qxxi*gc(5)+qyyi*gc(8)+qzzi*gc(10)
+     &                  +2.0d0*(qxyi*gc(6)+qxzi*gc(7)+qyzi*gc(9)))
+     &               - uxi*(qxxk*gqxx(2)+qyyk*gqyy(2)+qzzk*gqzz(2)
+     &                  +2.0d0*(qxyk*gqxy(2)+qxzk*gqxz(2)+qyzk*gqyz(2)))
+     &               - uyi*(qxxk*gqxx(3)+qyyk*gqyy(3)+qzzk*gqzz(3)
+     &                  +2.0d0*(qxyk*gqxy(3)+qxzk*gqxz(3)+qyzk*gqyz(3)))
+     &               - uzi*(qxxk*gqxx(4)+qyyk*gqyy(4)+qzzk*gqzz(4)
+     &                  +2.0d0*(qxyk*gqxy(4)+qxzk*gqxz(4)+qyzk*gqyz(4)))
+     &               + uxk*(qxxi*gux(5)+qyyi*gux(8)+qzzi*gux(10)
+     &                  +2.0d0*(qxyi*gux(6)+qxzi*gux(7)+qyzi*gux(9)))
+     &               + uyk*(qxxi*guy(5)+qyyi*guy(8)+qzzi*guy(10)
+     &                  +2.0d0*(qxyi*guy(6)+qxzi*guy(7)+qyzi*guy(9)))
+     &               + uzk*(qxxi*guz(5)+qyyi*guz(8)+qzzi*guz(10)
+     &                  +2.0d0*(qxyi*guz(6)+qxzi*guz(7)+qyzi*guz(9)))
+     &               + qxxi*(qxxk*gqxx(5)+qyyk*gqyy(5)+qzzk*gqzz(5)
+     &                  +2.0d0*(qxyk*gqxy(5)+qxzk*gqxz(5)+qyzk*gqyz(5)))
+     &               + qyyi*(qxxk*gqxx(8)+qyyk*gqyy(8)+qzzk*gqzz(8)
+     &                  +2.0d0*(qxyk*gqxy(8)+qxzk*gqxz(8)+qyzk*gqyz(8)))
+     &               + qzzi*(qxxk*gqxx(10)+qyyk*gqyy(10)+qzzk*gqzz(10)
+     &               +2.0d0*(qxyk*gqxy(10)+qxzk*gqxz(10)+qyzk*gqyz(10)))
+     &          + 2.0d0*(qxyi*(qxxk*gqxx(6)+qyyk*gqyy(6)+qzzk*gqzz(6)
+     &               +2.0d0*(qxyk*gqxy(6)+qxzk*gqxz(6)+qyzk*gqyz(6)))
+     &               + qxzi*(qxxk*gqxx(7)+qyyk*gqyy(7)+qzzk*gqzz(7)
+     &               +2.0d0*(qxyk*gqxy(7)+qxzk*gqxz(7)+qyzk*gqyz(7)))
+     &               + qyzi*(qxxk*gqxx(9)+qyyk*gqyy(9)+qzzk*gqzz(9)
+     &               +2.0d0*(qxyk*gqxy(9)+qxzk*gqxz(9)+qyzk*gqyz(9))))
+c
+c     electrostatic solvation free energy of the permenant multipoles
+c     in the GK reaction potential of the induced dipoles
+c
+                  esymi = -uxi*(dxk*gux(2)+dyk*guy(2)+dzk*guz(2))
+     &                      - uyi*(dxk*gux(3)+dyk*guy(3)+dzk*guz(3))
+     &                      - uzi*(dxk*gux(4)+dyk*guy(4)+dzk*guz(4))
+     &                      - uxk*(dxi*gux(2)+dyi*guy(2)+dzi*guz(2))
+     &                      - uyk*(dxi*gux(3)+dyi*guy(3)+dzi*guz(3))
+     &                      - uzk*(dxi*gux(4)+dyi*guy(4)+dzi*guz(4))
+                  ewii = ci*(dxk*gc(2)+dyk*gc(3)+dzk*gc(4))
+     &                     - ck*(dxi*gux(1)+dyi*guy(1)+dzi*guz(1))
+     &              - dxi*(qxxk*gux(5)+qyyk*gux(8)+qzzk*gux(10)
+     &                 +2.0d0*(qxyk*gux(6)+qxzk*gux(7)+qyzk*gux(9)))
+     &              - dyi*(qxxk*guy(5)+qyyk*guy(8)+qzzk*guy(10)
+     &                 +2.0d0*(qxyk*guy(6)+qxzk*guy(7)+qyzk*guy(9)))
+     &              - dzi*(qxxk*guz(5)+qyyk*guz(8)+qzzk*guz(10)
+     &                 +2.0d0*(qxyk*guz(6)+qxzk*guz(7)+qyzk*guz(9)))
+     &              + dxk*(qxxi*gqxx(2)+qyyi*gqyy(2)+qzzi*gqzz(2)
+     &                 +2.0d0*(qxyi*gqxy(2)+qxzi*gqxz(2)+qyzi*gqyz(2)))
+     &              + dyk*(qxxi*gqxx(3)+qyyi*gqyy(3)+qzzi*gqzz(3)
+     &                 +2.0d0*(qxyi*gqxy(3)+qxzi*gqxz(3)+qyzi*gqyz(3)))
+     &              + dzk*(qxxi*gqxx(4)+qyyi*gqyy(4)+qzzi*gqzz(4)
+     &                 +2.0d0*(qxyi*gqxy(4)+qxzi*gqxz(4)+qyzi*gqyz(4)))
+                  ewki = ci*(dxk*gux(1)+dyk*guy(1)+dzk*guz(1))
+     &                     - ck*(dxi*gc(2)+dyi*gc(3)+dzi*gc(4))
+     &              - dxi*(qxxk*gqxx(2)+qyyk*gqyy(2)+qzzk*gqzz(2)
+     &                 +2.0d0*(qxyk*gqxy(2)+qxzk*gqxz(2)+qyzk*gqyz(2)))
+     &              - dyi*(qxxk*gqxx(3)+qyyk*gqyy(3)+qzzk*gqzz(3)
+     &                 +2.0d0*(qxyk*gqxy(3)+qxzk*gqxz(3)+qyzk*gqyz(3)))
+     &              - dzi*(qxxk*gqxx(4)+qyyk*gqyy(4)+qzzk*gqzz(4)
+     &                 +2.0d0*(qxyk*gqxy(4)+qxzk*gqxz(4)+qyzk*gqyz(4)))
+     &              + dxk*(qxxi*gux(5)+qyyi*gux(8)+qzzi*gux(10)
+     &                 +2.0d0*(qxyi*gux(6)+qxzi*gux(7)+qyzi*gux(9)))
+     &              + dyk*(qxxi*guy(5)+qyyi*guy(8)+qzzi*guy(10)
+     &                 +2.0d0*(qxyi*guy(6)+qxzi*guy(7)+qyzi*guy(9)))
+     &              + dzk*(qxxi*guz(5)+qyyi*guz(8)+qzzi*guz(10)
+     &                 +2.0d0*(qxyi*guz(6)+qxzi*guz(7)+qyzi*guz(9)))
+c
+c     total permanent and induced energies for this interaction
+c
+                  e = esym + 0.5d0*(ewi+ewk)
+                  ei = 0.5d0 * (esymi + 0.5d0*(ewii+ewki))
+c
+c     scale the interaction based on its group membership
+c
+c                  if (use_group) then
+c                     e = e * fgrp
+c                     ei = ei * fgrp
+c                  end if
+c
+c     increment the total GK electrostatic solvation energy
+c
+c                  if (i .eq. k) then
+                     e = 0.5d0 * e
+                     ei = 0.5d0 * ei
+c                  end if
+                  est = est + e + ei
+
+
+
+
+
+c
+c       end self energy term!!!!!!!!!!!!!!!!!!!!!
+c
+
+
+c
+c     decide whether to compute the current interaction
+c
+         do kkk = 1, nelst(ii)
+            kk = elst(kkk,ii)
+            k = ipole(kk)
+            proceed = .true.
+            if (use_group)  call groups (proceed,fgrp,i,k,0,0,0,0)
+            if (proceed)  proceed = (usei .or. use(k))
+c
+c     compute the energy contribution for this interaction
+c
+            if (proceed) then
+               xr = x(k) - xi
+               yr = y(k) - yi
+               zr = z(k) - zi
+               xr2 = xr * xr
+               yr2 = yr * yr
+               zr2 = zr * zr
+               r2 = xr2 + yr2 + zr2
+               if (r2 .le. off2) then
+                  rbk = rborn(k)
+                  ck = rpole(1,kk)
+                  uxk = rpole(2,kk)
+                  uyk = rpole(3,kk)
+                  uzk = rpole(4,kk)
+                  qxxk = rpole(5,kk)
+                  qxyk = rpole(6,kk)
+                  qxzk = rpole(7,kk)
+                  qyyk = rpole(9,kk)
+                  qyzk = rpole(10,kk)
+                  qzzk = rpole(13,kk)
+                  dxk = uinds(1,kk)
+                  dyk = uinds(2,kk)
+                  dzk = uinds(3,kk)
+                  rb2 = rbi * rbk
+                  expterm = exp(-r2/(gkc*rb2))
+                  expc = expterm / gkc
+                  dexpc = -2.0d0 / (gkc*rbi*rbk)
+                  gf2 = 1.0d0 / (r2 + rb2*expterm)
+                  gf = sqrt(gf2)
+                  gf3 = gf2 * gf
+                  gf5 = gf3 * gf2
+                  gf7 = gf5 * gf2
+                  gf9 = gf7 * gf2
+c
+c     reaction potential auxiliary terms
+c
+                  a(0,0) = gf
+                  a(1,0) = -gf3
+                  a(2,0) = 3.0d0 * gf5
+                  a(3,0) = -15.0d0 * gf7
+                  a(4,0) = 105.0d0 * gf9
+c
+c     reaction potential gradient auxiliary terms
+c
+                  expc1 = 1.0d0 - expc
+                  a(0,1) = expc1 * a(1,0)
+                  a(1,1) = expc1 * a(2,0)
+                  a(2,1) = expc1 * a(3,0)
+                  a(3,1) = expc1 * a(4,0)
+c
+c     second reaction potential gradient auxiliary terms
+c
+                  expcdexpc = -expc * dexpc
+                  a(0,2) = expc1*a(1,1) + expcdexpc*a(1,0)
+                  a(1,2) = expc1*a(2,1) + expcdexpc*a(2,0)
+                  a(2,2) = expc1*a(3,1) + expcdexpc*a(3,0)
+c
+c     multiply the auxillary terms by their dieletric functions
+c
+                  a(0,0) = fc * a(0,0)
+                  a(0,1) = fc * a(0,1)
+                  a(0,2) = fc * a(0,2)
+                  a(1,0) = fd * a(1,0)
+                  a(1,1) = fd * a(1,1)
+                  a(1,2) = fd * a(1,2)
+                  a(2,0) = fq * a(2,0)
+                  a(2,1) = fq * a(2,1)
+                  a(2,2) = fq * a(2,2)
+c
+c     unweighted reaction potential tensor
+c
+                  gc(1) = a(0,0)
+                  gux(1) = xr * a(1,0)
+                  guy(1) = yr * a(1,0)
+                  guz(1) = zr * a(1,0)
+                  gqxx(1) = xr2 * a(2,0)
+                  gqyy(1) = yr2 * a(2,0)
+                  gqzz(1) = zr2 * a(2,0)
+                  gqxy(1) = xr * yr * a(2,0)
+                  gqxz(1) = xr * zr * a(2,0)
+                  gqyz(1) = yr * zr * a(2,0)
+c
+c     unweighted reaction potential gradient tensor
+c
+                  gc(2) = xr * a(0,1)
+                  gc(3) = yr * a(0,1)
+                  gc(4) = zr * a(0,1)
+                  gux(2) = a(1,0) + xr2*a(1,1)
+                  gux(3) = xr * yr * a(1,1)
+                  gux(4) = xr * zr * a(1,1)
+                  guy(2) = gux(3)
+                  guy(3) = a(1,0) + yr2*a(1,1)
+                  guy(4) = yr * zr * a(1,1)
+                  guz(2) = gux(4)
+                  guz(3) = guy(4)
+                  guz(4) = a(1,0) + zr2*a(1,1)
+                  gqxx(2) = xr * (2.0d0*a(2,0)+xr2*a(2,1))
+                  gqxx(3) = yr * xr2 * a(2,1)
+                  gqxx(4) = zr * xr2 * a(2,1)
+                  gqyy(2) = xr * yr2 * a(2,1)
+                  gqyy(3) = yr * (2.0d0*a(2,0)+yr2*a(2,1))
+                  gqyy(4) = zr * yr2 * a(2,1)
+                  gqzz(2) = xr * zr2 * a(2,1)
+                  gqzz(3) = yr * zr2 * a(2,1)
+                  gqzz(4) = zr * (2.0d0*a(2,0)+zr2*a(2,1))
+                  gqxy(2) = yr * (a(2,0)+xr2*a(2,1))
+                  gqxy(3) = xr * (a(2,0)+yr2*a(2,1))
+                  gqxy(4) = zr * xr * yr * a(2,1)
+                  gqxz(2) = zr * (a(2,0)+xr2*a(2,1))
+                  gqxz(3) = gqxy(4)
+                  gqxz(4) = xr * (a(2,0)+zr2*a(2,1))
+                  gqyz(2) = gqxy(4)
+                  gqyz(3) = zr * (a(2,0)+yr2*a(2,1))
+                  gqyz(4) = yr * (a(2,0)+zr2*a(2,1))
+c
+c     unweighted second reaction potential gradient tensor
+c
+                  gc(5) = a(0,1) + xr2*a(0,2)
+                  gc(6) = xr * yr * a(0,2)
+                  gc(7) = xr * zr * a(0,2)
+                  gc(8) = a(0,1) + yr2*a(0,2)
+                  gc(9) = yr * zr * a(0,2)
+                  gc(10) = a(0,1) + zr2*a(0,2)
+                  gux(5) = xr * (a(1,1)+2.0d0*a(1,1)+xr2*a(1,2))
+                  gux(6) = yr * (a(1,1)+xr2*a(1,2))
+                  gux(7) = zr * (a(1,1)+xr2*a(1,2))
+                  gux(8) = xr * (a(1,1)+yr2*a(1,2))
+                  gux(9) = zr * xr * yr * a(1,2)
+                  gux(10) = xr * (a(1,1)+zr2*a(1,2))
+                  guy(5) = yr * (a(1,1)+xr2*a(1,2))
+                  guy(6) = xr * (a(1,1)+yr2*a(1,2))
+                  guy(7) = gux(9)
+                  guy(8) = yr * (a(1,1)+2.0d0*a(1,1)+yr2*a(1,2))
+                  guy(9) = zr * (a(1,1)+yr2*a(1,2))
+                  guy(10) = yr * (a(1,1)+zr2*a(1,2))
+                  guz(5) = zr * (a(1,1)+xr2*a(1,2))
+                  guz(6) = gux(9)
+                  guz(7) = xr * (a(1,1)+zr2*a(1,2))
+                  guz(8) = zr * (a(1,1)+yr2*a(1,2))
+                  guz(9) = yr * (a(1,1)+zr2*a(1,2))
+                  guz(10) = zr * (a(1,1)+2.0d0*a(1,1)+zr2*a(1,2))
+                  gqxx(5) = 2.0d0*a(2,0) + xr2*(5.0d0*a(2,1)+xr2*a(2,2))
+                  gqxx(6) = yr * xr *(2.0d0*a(2,1)+xr2*a(2,2))
+                  gqxx(7) = zr * xr *(2.0d0*a(2,1)+xr2*a(2,2))
+                  gqxx(8) = xr2 * (a(2,1)+yr2*a(2,2))
+                  gqxx(9) = zr * yr * xr2 * a(2,2)
+                  gqxx(10) = xr2 * (a(2,1)+zr2*a(2,2))
+                  gqyy(5) = yr2 * (a(2,1)+xr2*a(2,2))
+                  gqyy(6) = xr * yr * (2.0d0*a(2,1)+yr2*a(2,2))
+                  gqyy(7) = xr * zr * yr2 * a(2,2)
+                  gqyy(8) = 2.0d0*a(2,0) + yr2*(5.0d0*a(2,1)+yr2*a(2,2))
+                  gqyy(9) = yr * zr * (2.0d0*a(2,1)+yr2*a(2,2))
+                  gqyy(10) = yr2 * (a(2,1)+zr2*a(2,2))
+                  gqzz(5) = zr2 * (a(2,1)+xr2*a(2,2))
+                  gqzz(6) = xr * yr * zr2 * a(2,2)
+                  gqzz(7) = xr * zr * (2.0d0*a(2,1)+zr2*a(2,2))
+                  gqzz(8) = zr2 * (a(2,1)+yr2*a(2,2))
+                  gqzz(9) = yr * zr * (2.0d0*a(2,1)+zr2*a(2,2))
+                  gqzz(10) = 2.0d0*a(2,0)
+     &                          + zr2*(5.0d0*a(2,1)+zr2*a(2,2))
+                  gqxy(5) = xr * yr * (3.0d0*a(2,1)+xr2*a(2,2))
+                  gqxy(6) = a(2,0) + (xr2+yr2)*a(2,1) + xr2*yr2*a(2,2)
+                  gqxy(7) = zr * yr * (a(2,1)+xr2*a(2,2))
+                  gqxy(8) = xr * yr * (3.0d0*a(2,1)+yr2*a(2,2))
+                  gqxy(9) = zr * xr * (a(2,1)+yr2*a(2,2))
+                  gqxy(10) = xr * yr * (a(2,1)+zr2*a(2,2))
+                  gqxz(5) = xr * zr * (3.0d0*a(2,1)+xr2*a(2,2))
+                  gqxz(6) = yr * zr * (a(2,1)+xr2*a(2,2))
+                  gqxz(7) = a(2,0) + (xr2+zr2)*a(2,1) + xr2*zr2*a(2,2)
+                  gqxz(8) = xr * zr * (a(2,1)+yr2*a(2,2))
+                  gqxz(9) = xr * yr * (a(2,1)+zr2*a(2,2))
+                  gqxz(10) = xr * zr * (3.0d0*a(2,1)+zr2*a(2,2))
+                  gqyz(5) = zr * yr * (a(2,1)+xr2*a(2,2))
+                  gqyz(6) = xr * zr * (a(2,1)+yr2*a(2,2))
+                  gqyz(7) = xr * yr * (a(2,1)+zr2*a(2,2))
+                  gqyz(8) = yr * zr * (3.0d0*a(2,1)+yr2*a(2,2))
+                  gqyz(9) = a(2,0) + (yr2+zr2)*a(2,1) + yr2*zr2*a(2,2)
+                  gqyz(10) = yr * zr * (3.0d0*a(2,1)+zr2*a(2,2))
+c
+c     electrostatic solvation free energy of the permanent multipoles
+c     in their own GK reaction potential
+c
+                  esym = ci*ck*gc(1)
+     &                     - uxi*(uxk*gux(2)+uyk*guy(2)+uzk*guz(2))
+     &                     - uyi*(uxk*gux(3)+uyk*guy(3)+uzk*guz(3))
+     &                     - uzi*(uxk*gux(4)+uyk*guy(4)+uzk*guz(4))
+                  ewi = ci*(uxk*gc(2)+uyk*gc(3)+uzk*gc(4))
+     &                    - ck*(uxi*gux(1)+uyi*guy(1)+uzi*guz(1))
+     &               + ci*(qxxk*gc(5)+qyyk*gc(8)+qzzk*gc(10)
+     &                  +2.0d0*(qxyk*gc(6)+qxzk*gc(7)+qyzk*gc(9)))
+     &               + ck*(qxxi*gqxx(1)+qyyi*gqyy(1)+qzzi*gqzz(1)
+     &                  +2.0d0*(qxyi*gqxy(1)+qxzi*gqxz(1)+qyzi*gqyz(1)))
+     &               - uxi*(qxxk*gux(5)+qyyk*gux(8)+qzzk*gux(10)
+     &                  +2.0d0*(qxyk*gux(6)+qxzk*gux(7)+qyzk*gux(9)))
+     &               - uyi*(qxxk*guy(5)+qyyk*guy(8)+qzzk*guy(10)
+     &                  +2.0d0*(qxyk*guy(6)+qxzk*guy(7)+qyzk*guy(9)))
+     &               - uzi*(qxxk*guz(5)+qyyk*guz(8)+qzzk*guz(10)
+     &                  +2.0d0*(qxyk*guz(6)+qxzk*guz(7)+qyzk*guz(9)))
+     &               + uxk*(qxxi*gqxx(2)+qyyi*gqyy(2)+qzzi*gqzz(2)
+     &                  +2.0d0*(qxyi*gqxy(2)+qxzi*gqxz(2)+qyzi*gqyz(2)))
+     &               + uyk*(qxxi*gqxx(3)+qyyi*gqyy(3)+qzzi*gqzz(3)
+     &                  +2.0d0*(qxyi*gqxy(3)+qxzi*gqxz(3)+qyzi*gqyz(3)))
+     &               + uzk*(qxxi*gqxx(4)+qyyi*gqyy(4)+qzzi*gqzz(4)
+     &                  +2.0d0*(qxyi*gqxy(4)+qxzi*gqxz(4)+qyzi*gqyz(4)))
+     &               + qxxi*(qxxk*gqxx(5)+qyyk*gqxx(8)+qzzk*gqxx(10)
+     &                  +2.0d0*(qxyk*gqxx(6)+qxzk*gqxx(7)+qyzk*gqxx(9)))
+     &               + qyyi*(qxxk*gqyy(5)+qyyk*gqyy(8)+qzzk*gqyy(10)
+     &                  +2.0d0*(qxyk*gqyy(6)+qxzk*gqyy(7)+qyzk*gqyy(9)))
+     &               + qzzi*(qxxk*gqzz(5)+qyyk*gqzz(8)+qzzk*gqzz(10)
+     &                  +2.0d0*(qxyk*gqzz(6)+qxzk*gqzz(7)+qyzk*gqzz(9)))
+     &          + 2.0d0 * (qxyi*(qxxk*gqxy(5)+qyyk*gqxy(8)+qzzk*gqxy(10)
+     &               +2.0d0*(qxyk*gqxy(6)+qxzk*gqxy(7)+qyzk*gqxy(9)))
+     &               + qxzi*(qxxk*gqxz(5)+qyyk*gqxz(8)+qzzk*gqxz(10)
+     &               +2.0d0*(qxyk*gqxz(6)+qxzk*gqxz(7)+qyzk*gqxz(9)))
+     &               + qyzi*(qxxk*gqyz(5)+qyyk*gqyz(8)+qzzk*gqyz(10)
+     &               +2.0d0*(qxyk*gqyz(6)+qxzk*gqyz(7)+qyzk*gqyz(9))))
+                  ewk = ci*(uxk*gux(1)+uyk*guy(1)+uzk*guz(1))
+     &                    - ck*(uxi*gc(2)+uyi*gc(3)+uzi*gc(4))
+     &               + ci*(qxxk*gqxx(1)+qyyk*gqyy(1)+qzzk*gqzz(1)
+     &                  +2.0d0*(qxyk*gqxy(1)+qxzk*gqxz(1)+qyzk*gqyz(1)))
+     &               + ck*(qxxi*gc(5)+qyyi*gc(8)+qzzi*gc(10)
+     &                  +2.0d0*(qxyi*gc(6)+qxzi*gc(7)+qyzi*gc(9)))
+     &               - uxi*(qxxk*gqxx(2)+qyyk*gqyy(2)+qzzk*gqzz(2)
+     &                  +2.0d0*(qxyk*gqxy(2)+qxzk*gqxz(2)+qyzk*gqyz(2)))
+     &               - uyi*(qxxk*gqxx(3)+qyyk*gqyy(3)+qzzk*gqzz(3)
+     &                  +2.0d0*(qxyk*gqxy(3)+qxzk*gqxz(3)+qyzk*gqyz(3)))
+     &               - uzi*(qxxk*gqxx(4)+qyyk*gqyy(4)+qzzk*gqzz(4)
+     &                  +2.0d0*(qxyk*gqxy(4)+qxzk*gqxz(4)+qyzk*gqyz(4)))
+     &               + uxk*(qxxi*gux(5)+qyyi*gux(8)+qzzi*gux(10)
+     &                  +2.0d0*(qxyi*gux(6)+qxzi*gux(7)+qyzi*gux(9)))
+     &               + uyk*(qxxi*guy(5)+qyyi*guy(8)+qzzi*guy(10)
+     &                  +2.0d0*(qxyi*guy(6)+qxzi*guy(7)+qyzi*guy(9)))
+     &               + uzk*(qxxi*guz(5)+qyyi*guz(8)+qzzi*guz(10)
+     &                  +2.0d0*(qxyi*guz(6)+qxzi*guz(7)+qyzi*guz(9)))
+     &               + qxxi*(qxxk*gqxx(5)+qyyk*gqyy(5)+qzzk*gqzz(5)
+     &                  +2.0d0*(qxyk*gqxy(5)+qxzk*gqxz(5)+qyzk*gqyz(5)))
+     &               + qyyi*(qxxk*gqxx(8)+qyyk*gqyy(8)+qzzk*gqzz(8)
+     &                  +2.0d0*(qxyk*gqxy(8)+qxzk*gqxz(8)+qyzk*gqyz(8)))
+     &               + qzzi*(qxxk*gqxx(10)+qyyk*gqyy(10)+qzzk*gqzz(10)
+     &               +2.0d0*(qxyk*gqxy(10)+qxzk*gqxz(10)+qyzk*gqyz(10)))
+     &          + 2.0d0*(qxyi*(qxxk*gqxx(6)+qyyk*gqyy(6)+qzzk*gqzz(6)
+     &               +2.0d0*(qxyk*gqxy(6)+qxzk*gqxz(6)+qyzk*gqyz(6)))
+     &               + qxzi*(qxxk*gqxx(7)+qyyk*gqyy(7)+qzzk*gqzz(7)
+     &               +2.0d0*(qxyk*gqxy(7)+qxzk*gqxz(7)+qyzk*gqyz(7)))
+     &               + qyzi*(qxxk*gqxx(9)+qyyk*gqyy(9)+qzzk*gqzz(9)
+     &               +2.0d0*(qxyk*gqxy(9)+qxzk*gqxz(9)+qyzk*gqyz(9))))
+c
+c     electrostatic solvation free energy of the permenant multipoles
+c     in the GK reaction potential of the induced dipoles
+c
+                  esymi = -uxi*(dxk*gux(2)+dyk*guy(2)+dzk*guz(2))
+     &                      - uyi*(dxk*gux(3)+dyk*guy(3)+dzk*guz(3))
+     &                      - uzi*(dxk*gux(4)+dyk*guy(4)+dzk*guz(4))
+     &                      - uxk*(dxi*gux(2)+dyi*guy(2)+dzi*guz(2))
+     &                      - uyk*(dxi*gux(3)+dyi*guy(3)+dzi*guz(3))
+     &                      - uzk*(dxi*gux(4)+dyi*guy(4)+dzi*guz(4))
+                  ewii = ci*(dxk*gc(2)+dyk*gc(3)+dzk*gc(4))
+     &                     - ck*(dxi*gux(1)+dyi*guy(1)+dzi*guz(1))
+     &              - dxi*(qxxk*gux(5)+qyyk*gux(8)+qzzk*gux(10)
+     &                 +2.0d0*(qxyk*gux(6)+qxzk*gux(7)+qyzk*gux(9)))
+     &              - dyi*(qxxk*guy(5)+qyyk*guy(8)+qzzk*guy(10)
+     &                 +2.0d0*(qxyk*guy(6)+qxzk*guy(7)+qyzk*guy(9)))
+     &              - dzi*(qxxk*guz(5)+qyyk*guz(8)+qzzk*guz(10)
+     &                 +2.0d0*(qxyk*guz(6)+qxzk*guz(7)+qyzk*guz(9)))
+     &              + dxk*(qxxi*gqxx(2)+qyyi*gqyy(2)+qzzi*gqzz(2)
+     &                 +2.0d0*(qxyi*gqxy(2)+qxzi*gqxz(2)+qyzi*gqyz(2)))
+     &              + dyk*(qxxi*gqxx(3)+qyyi*gqyy(3)+qzzi*gqzz(3)
+     &                 +2.0d0*(qxyi*gqxy(3)+qxzi*gqxz(3)+qyzi*gqyz(3)))
+     &              + dzk*(qxxi*gqxx(4)+qyyi*gqyy(4)+qzzi*gqzz(4)
+     &                 +2.0d0*(qxyi*gqxy(4)+qxzi*gqxz(4)+qyzi*gqyz(4)))
+                  ewki = ci*(dxk*gux(1)+dyk*guy(1)+dzk*guz(1))
+     &                     - ck*(dxi*gc(2)+dyi*gc(3)+dzi*gc(4))
+     &              - dxi*(qxxk*gqxx(2)+qyyk*gqyy(2)+qzzk*gqzz(2)
+     &                 +2.0d0*(qxyk*gqxy(2)+qxzk*gqxz(2)+qyzk*gqyz(2)))
+     &              - dyi*(qxxk*gqxx(3)+qyyk*gqyy(3)+qzzk*gqzz(3)
+     &                 +2.0d0*(qxyk*gqxy(3)+qxzk*gqxz(3)+qyzk*gqyz(3)))
+     &              - dzi*(qxxk*gqxx(4)+qyyk*gqyy(4)+qzzk*gqzz(4)
+     &                 +2.0d0*(qxyk*gqxy(4)+qxzk*gqxz(4)+qyzk*gqyz(4)))
+     &              + dxk*(qxxi*gux(5)+qyyi*gux(8)+qzzi*gux(10)
+     &                 +2.0d0*(qxyi*gux(6)+qxzi*gux(7)+qyzi*gux(9)))
+     &              + dyk*(qxxi*guy(5)+qyyi*guy(8)+qzzi*guy(10)
+     &                 +2.0d0*(qxyi*guy(6)+qxzi*guy(7)+qyzi*guy(9)))
+     &              + dzk*(qxxi*guz(5)+qyyi*guz(8)+qzzi*guz(10)
+     &                 +2.0d0*(qxyi*guz(6)+qxzi*guz(7)+qyzi*guz(9)))
+c
+c     total permanent and induced energies for this interaction
+c
+                  e = esym + 0.5d0*(ewi+ewk)
+                  ei = 0.5d0 * (esymi + 0.5d0*(ewii+ewki))
+c
+c     scale the interaction based on its group membership
+c
+                  if (use_group) then
+                     e = e * fgrp
+                     ei = ei * fgrp
+                  end if
+c
+c     increment the total GK electrostatic solvation energy
+c
+c                  if (i .eq. k) then
+c                     e = 0.5d0 * e
+c                     ei = 0.5d0 * ei
+c                  end if
+                  est = est + e + ei
+               end if
+            end if
+         end do
+      end do
 c
 c     add local copies to global variables for OpenMP calculation
 c
