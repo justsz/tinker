@@ -571,6 +571,7 @@ c
          total = total + area(ir)
   180    continue
       end do
+!$OMP END PARALLEL DO
 c
 c     perform deallocation of some local arrays
 c
@@ -764,6 +765,31 @@ c
 c
 c     compute the area and derivatives of current "ir" sphere
 c
+! Directive inserted by Cray Reveal.  May be incomplete.
+!$OMP  PARALLEL default(none)                                         
+!$OMP&   private (arclen,arcsum,bk,bsqk,dsql,exang,i,ii,l,t1,tb,tr,tr2,  
+!$OMP&            txk,tyk,tzk,rr,xr,rplus,tx,yr,ty,zr,tz,xysq,rminus,cc, 
+!$OMP&            io,ccsq,rrx2,gi,rrsq,therk,td,dk,axy, 
+!$OMP&            tyl,axx,txl,axz,tzl,ayx,ayy,azy,azx,azz,cosine,uyl,    
+!$OMP&            uxl,gk,uzl,rik,risqk,txb,tyr,txr,tyb,tk1,tk2,thec,     
+!$OMP&            narc,ti,tf,komit,mi,t,ni,jb,m,tt,top,ib,moved,wght,
+!$OMP&            arci,b1,bsq1,dsq1,gr,ir,j,kent,key,kout,omit,xc1,yc1,
+!$OMP&            zc1,intag1,            
+!$OMP&            arcf,ex,lt,
+!$OMP&            in,
+!$OMP&            rcn,gl,bgl,bsql,risql,wxlsq,wxl,p,v,deal,decl,dtkal,    
+!$OMP&            dtkcl,s,t2,dtlal,dtlcl,gaca,gacb,faca,facb,facc,
+!$OMP&            dax,day,daz)
+!$OMP&   reduction (+:total)
+!$OMP& shared (n,skip,x,y,z,r,delta,delta2,iout,pix2,pix4,pid2,
+!$OMP&         eps,rmove, area,weight,darea)
+!$OMP&   firstprivate (b,bg,bsq,dsq,intag,ri,risq,the,ther,ux,uy,uz,xc,  
+!$OMP&            yc,zc,ider,sign_yder)  
+c!$OMP&   shared  (area,weight,iout,n,r,skip,x,y,z,  
+c!$OMP&            delta,delta2,eps,rmove,pix2,pix4,pid2,darea)               
+c!$OMP&   schedule (guided)
+
+!$OMP DO schedule(guided)
       do ir = 1, n
          if (skip(ir))  goto 180
          xr = x(ir)
@@ -859,12 +885,14 @@ c
             if (.not. moved) then
                in = intag(k)
                t1 = arcsum*rrsq*(bsqk-rrsq+r(in)**2) / (rrx2*bsqk*bk)
+!$OMP CRITICAL 
                darea(1,ir) = darea(1,ir) - txk*t1*wght
                darea(2,ir) = darea(2,ir) - tyk*t1*wght
                darea(3,ir) = darea(3,ir) - tzk*t1*wght
                darea(1,in) = darea(1,in) + txk*t1*wght
                darea(2,in) = darea(2,in) + tyk*t1*wght
                darea(3,in) = darea(3,in) + tzk*t1*wght
+!$OMP END CRITICAL 
             end if
             goto 150
          end if
@@ -1149,12 +1177,14 @@ c
                      day = axy*faca + ayy*facb + azy*facc
                      daz = azz*facc - axz*faca
                      in = intag(l)
+!$OMP CRITICAL 
                      darea(1,ir) = darea(1,ir) + dax*wght
                      darea(2,ir) = darea(2,ir) + day*wght
                      darea(3,ir) = darea(3,ir) + daz*wght
                      darea(1,in) = darea(1,in) - dax*wght
                      darea(2,in) = darea(2,in) - day*wght
                      darea(3,in) = darea(3,in) - daz*wght
+!$OMP END CRITICAL 
                   end if
                end if
             end do
@@ -1167,12 +1197,14 @@ c
             if (.not. moved) then
                in = intag(k)
                t1 = arcsum*rrsq*(bsqk-rrsq+r(in)**2) / (rrx2*bsqk*bk)
+!$OMP CRITICAL 
                darea(1,ir) = darea(1,ir) - txk*t1*wght
                darea(2,ir) = darea(2,ir) - tyk*t1*wght
                darea(3,ir) = darea(3,ir) - tzk*t1*wght
                darea(1,in) = darea(1,in) + txk*t1*wght
                darea(2,in) = darea(2,in) + tyk*t1*wght
                darea(3,in) = darea(3,in) + tzk*t1*wght
+!$OMP END CRITICAL 
             end if
   110       continue
          end do
@@ -1247,6 +1279,8 @@ c
          total = total + area(ir)
   180    continue
       end do
+!$OMP END DO
+!$OMP END PARALLEL
 c
 c     perform deallocation of some local arrays
 c
