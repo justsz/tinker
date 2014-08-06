@@ -707,6 +707,7 @@ c
       real*8 ux(maxarc),uy(maxarc)
       real*8 uz(maxarc)
       real*8, allocatable :: r(:)
+      real*8, allocatable :: dareaRed(:,:)
       logical moved,top,komit
       logical omit(maxarc)
       logical, allocatable :: skip(:)
@@ -716,6 +717,7 @@ c     perform dynamic allocation of some local arrays
 c
       allocate (r(n))
       allocate (skip(n))
+      allocate (dareaRed(3,n))
 c
 c     zero the area and derivatives, and set the sphere radii
 c
@@ -725,6 +727,9 @@ c
          darea(1,i) = 0.0d0
          darea(2,i) = 0.0d0
          darea(3,i) = 0.0d0
+         dareaRed(1,i) = 0.0d0
+         dareaRed(2,i) = 0.0d0
+         dareaRed(3,i) = 0.0d0
          r(i) = radius(i)
          if (r(i) .ne. 0.0d0)  r(i) = r(i) + probe
       end do
@@ -784,7 +789,7 @@ c
 !$OMP& shared (n,skip,x,y,z,r,delta,delta2,iout,pix2,pix4,pid2,
 !$OMP&         eps,rmove, area,weight,darea)
 !$OMP&   firstprivate (b,bg,bsq,dsq,intag,ri,risq,the,ther,ux,uy,uz,xc,  
-!$OMP&            yc,zc,ider,sign_yder)  
+!$OMP&            yc,zc,ider,sign_yder,dareaRed)  
 c!$OMP&   shared  (area,weight,iout,n,r,skip,x,y,z,  
 c!$OMP&            delta,delta2,eps,rmove,pix2,pix4,pid2,darea)               
 c!$OMP&   schedule (guided)
@@ -885,14 +890,14 @@ c
             if (.not. moved) then
                in = intag(k)
                t1 = arcsum*rrsq*(bsqk-rrsq+r(in)**2) / (rrx2*bsqk*bk)
-!$OMP CRITICAL 
-               darea(1,ir) = darea(1,ir) - txk*t1*wght
-               darea(2,ir) = darea(2,ir) - tyk*t1*wght
-               darea(3,ir) = darea(3,ir) - tzk*t1*wght
-               darea(1,in) = darea(1,in) + txk*t1*wght
-               darea(2,in) = darea(2,in) + tyk*t1*wght
-               darea(3,in) = darea(3,in) + tzk*t1*wght
-!$OMP END CRITICAL 
+c!$OMP CRITICAL 
+               dareaRed(1,ir) = dareaRed(1,ir) - txk*t1*wght
+               dareaRed(2,ir) = dareaRed(2,ir) - tyk*t1*wght
+               dareaRed(3,ir) = dareaRed(3,ir) - tzk*t1*wght
+               dareaRed(1,in) = dareaRed(1,in) + txk*t1*wght
+               dareaRed(2,in) = dareaRed(2,in) + tyk*t1*wght
+               dareaRed(3,in) = dareaRed(3,in) + tzk*t1*wght
+c!$OMP END CRITICAL 
             end if
             goto 150
          end if
@@ -1177,14 +1182,14 @@ c
                      day = axy*faca + ayy*facb + azy*facc
                      daz = azz*facc - axz*faca
                      in = intag(l)
-!$OMP CRITICAL 
-                     darea(1,ir) = darea(1,ir) + dax*wght
-                     darea(2,ir) = darea(2,ir) + day*wght
-                     darea(3,ir) = darea(3,ir) + daz*wght
-                     darea(1,in) = darea(1,in) - dax*wght
-                     darea(2,in) = darea(2,in) - day*wght
-                     darea(3,in) = darea(3,in) - daz*wght
-!$OMP END CRITICAL 
+c!$OMP CRITICAL 
+                     dareaRed(1,ir) = dareaRed(1,ir) + dax*wght
+                     dareaRed(2,ir) = dareaRed(2,ir) + day*wght
+                     dareaRed(3,ir) = dareaRed(3,ir) + daz*wght
+                     dareaRed(1,in) = dareaRed(1,in) - dax*wght
+                     dareaRed(2,in) = dareaRed(2,in) - day*wght
+                     dareaRed(3,in) = dareaRed(3,in) - daz*wght
+c!$OMP END CRITICAL 
                   end if
                end if
             end do
@@ -1197,14 +1202,14 @@ c
             if (.not. moved) then
                in = intag(k)
                t1 = arcsum*rrsq*(bsqk-rrsq+r(in)**2) / (rrx2*bsqk*bk)
-!$OMP CRITICAL 
-               darea(1,ir) = darea(1,ir) - txk*t1*wght
-               darea(2,ir) = darea(2,ir) - tyk*t1*wght
-               darea(3,ir) = darea(3,ir) - tzk*t1*wght
-               darea(1,in) = darea(1,in) + txk*t1*wght
-               darea(2,in) = darea(2,in) + tyk*t1*wght
-               darea(3,in) = darea(3,in) + tzk*t1*wght
-!$OMP END CRITICAL 
+c!$OMP CRITICAL 
+               dareaRed(1,ir) = dareaRed(1,ir) - txk*t1*wght
+               dareaRed(2,ir) = dareaRed(2,ir) - tyk*t1*wght
+               dareaRed(3,ir) = dareaRed(3,ir) - tzk*t1*wght
+               dareaRed(1,in) = dareaRed(1,in) + txk*t1*wght
+               dareaRed(2,in) = dareaRed(2,in) + tyk*t1*wght
+               dareaRed(3,in) = dareaRed(3,in) + tzk*t1*wght
+c!$OMP END CRITICAL 
             end if
   110       continue
          end do
@@ -1280,6 +1285,10 @@ c
   180    continue
       end do
 !$OMP END DO
+
+!$OMP CRITICAL
+        darea(:3,:n) = darea(:3,:n) + dareaRed
+!$OMP END CRITICAL
 !$OMP END PARALLEL
 c
 c     perform deallocation of some local arrays
