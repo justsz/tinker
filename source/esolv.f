@@ -1060,6 +1060,11 @@ c
 c     calculate GK electrostatic solvation free energy
 c
         print *, "running egk0b!"
+!$OMP PARALLEL default(private) shared(npole,ipole,use,x,y,z,
+!$OMP& rborn,rpole,uinds,use_group,off2,gkc,fc,fd,fq,nelst,elst)
+!$OMP& shared(est)
+!$OMP DO reduction(+:est)
+!$OMP& schedule(guided)
       do ii = 1, npole
          i = ipole(ii)
          usei = use(i)
@@ -1722,6 +1727,9 @@ c                  end if
             end if
          end do
       end do
+!$OMP END DO
+!$OMP END PARALLEL
+
 c
 c     add local copies to global variables for OpenMP calculation
 c
