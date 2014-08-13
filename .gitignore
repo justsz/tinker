@@ -7,5 +7,5 @@ source/*.opari.inc
 source/*.mod.F
 implicit_examples/*.txt
 bin/*
-source/Makefile
+source/Makefilee
 source/*genmod*
