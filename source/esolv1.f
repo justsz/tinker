@@ -4795,12 +4795,12 @@ c     find the WCA dispersion energy and gradient components
 c
 !$OMP PARALLEL default(none)
 !$OMP& private(i,epsi,rmini,emixo,rmixo,rmixo7,ao,emixh,rmixh,rmixh7,
-!$OMP& ah,r,ri,xi,yi,zi,sum,k,xr,yr,zr,r2,r3,rk,sk,sk2,de,
+!$OMP& ah,r,ri,xi,yi,zi,k,xr,yr,zr,r2,r3,rk,sk,sk2,de,
 !$OMP& rmax,lik,lik2,lik3,lik4,uik,uik2,uik3,uik4,term,dl,du,iwca,
 !$OMP& uik5,uik6,uik10,uik11,uik12,uik13,lik5,lik6,lik10,lik11,lik12,
 !$OMP& lik13,idisp,irep,dedx,dedy,dedz,e)
 !$OMP& shared(n,eps,class,rad,rdisp,x,y,z,shctd,
-!$OMP& cdisp,des,edisp, dedxred,dedyred,dedzred)
+!$OMP& cdisp,des,edisp, dedxred,dedyred,dedzred, sum)
 c!$OMP& reduction(+:edisp)
       do i = 1, n
          epsi = eps(class(i))
@@ -4820,14 +4820,14 @@ c
          xi = x(i)
          yi = y(i)
          zi = z(i)
-         sum = 0.0d0
 
 !$OMP SINGLE
+         sum = 0.0d0
          dedxred = 0.0d0
          dedyred = 0.0d0
          dedzred = 0.0d0
 !$OMP END SINGLE
-!$OMP DO schedule(guided) reduction(+:dedxred,dedyred,dedzred)
+!$OMP DO schedule(dynamic,50) reduction(+:dedxred,dedyred,dedzred,sum)
          do k = 1, n
             if (i .ne. k) then
                xr = xi - x(k)

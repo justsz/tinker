@@ -45,8 +45,9 @@ c
       use socket
       use warp
       use zclose
+      use omp_lib
       implicit none
-!$    integer omp_get_num_procs
+c!$    integer omp_get_num_procs
       real*8 precise
 c
 c
@@ -55,8 +56,8 @@ c
       nproc = 1
       nthread = 1
 !$    nproc = omp_get_num_procs ()
-!$    nthread = nproc
-!$    call omp_set_num_threads (nthread)
+!$    nthread = omp_get_num_threads ()
+c!$    call omp_set_num_threads (nthread)
 !$    call omp_set_nested (.true.)
 
 c
